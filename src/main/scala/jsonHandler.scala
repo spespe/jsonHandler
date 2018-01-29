@@ -1,5 +1,5 @@
 import java.util.Calendar
-import com.typesafe.scalalogging.{LazyLogging, Logger}
+import com.typesafe.scalalogging.{LazyLogging}
 
 /**
   * Created by Pietro.Speri on 26/01/2018.
@@ -21,9 +21,9 @@ object jsonHandler extends LazyLogging {
         case "-a" :: value :: t => parse(map ++ Map('parA -> value), t)
         case "-b" :: value :: t => parse(map ++ Map('parB -> value), t)
         case "-c" :: value :: t => parse(map ++ Map('parC -> value), t)
-        case string :: opt2 :: t if withPar(opt2) => parse(map ++ Map('par -> string), l.tail)
-        case string :: Nil =>  parse(map ++ Map('infile -> string), l.tail)
-        case op :: t => None
+        case s :: opt2 :: t if withPar(opt2) => parse(map ++ Map('par -> s), l.tail)
+        case s :: Nil =>  parse(map ++ Map('infile -> s), l.tail)
+        case op :: t => parse(Map('Unknown->op),t.tail)
       }
     }
     logger.info("CHECKING INPUT ARGUMENTS")
