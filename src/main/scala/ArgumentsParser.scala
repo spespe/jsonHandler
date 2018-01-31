@@ -17,10 +17,8 @@ trait ArgumentsParser {
       case "-c" :: value :: t => argsParser(map ++ Map('parC -> value), t)
       case s :: opt2 :: _ if withPar(opt2) => argsParser(map ++ Map('par -> s), l.tail)
       case _ => {
-        println("INCORRECT COMMAND: ")
-        l.map(x=>print(x+" "))
+        println("\nINCORRECT COMMAND: " + l.reduce(_+" "+_))
         usage
-        System.exit(1)
         None
       }
     }
