@@ -3,7 +3,8 @@
   */
 trait ArgumentsParser {
 
-  def usage = println("USAGE EXAMPLE: jsonHandler (arg1)[FILE] [OPTION: -a, -b, -c]")
+  def usage = println("The arguments passed are incorrect. Please refer to the following usage example.\n" +
+    "USAGE EXAMPLE: jsonHandler (arg1)[FILE] [OPTION: -a, -b, -c]")
 
   type ParserMap = Map[Symbol, Any]
   @throws
@@ -14,12 +15,12 @@ trait ArgumentsParser {
       case "-a" :: value :: t => argsParser(map ++ Map('parA -> value), t)
       case "-b" :: value :: t => argsParser(map ++ Map('parB -> value), t)
       case "-c" :: value :: t => argsParser(map ++ Map('parC -> value), t)
-      case s :: opt2 :: t if withPar(opt2) => argsParser(map ++ Map('par -> s), l.tail)
+      case s :: opt2 :: _ if withPar(opt2) => argsParser(map ++ Map('par -> s), l.tail)
       case s :: Nil =>  argsParser(map ++ Map('infile -> s), l.tail)
-      case op :: t => {
+      case _ => {
         usage
         System.exit(1)
-        argsParser(Map('Unknown->op),t.tail)
+        None
       }
     }
   }
