@@ -8,10 +8,10 @@ trait ArgumentsParser {
 
   type ParserMap = Map[Symbol, String]
 
-  def argsParser(map : ParserMap, l: List[String]) : Option[ParserMap] = {
+  def argsParser(map : ParserMap, l: List[String]) : ParserMap = {
     def withPar(opt : String) = (opt(0)=='-')
     l match {
-      case Nil => Some(map)
+      case Nil => map
       case "-a" :: value :: t => argsParser(map ++ Map('parA -> value), t)
       case "-b" :: value :: t => argsParser(map ++ Map('parB -> value), t)
       case "-c" :: value :: t => argsParser(map ++ Map('parC -> value), t)
