@@ -6,8 +6,8 @@ trait ArgumentsParser {
   def usage = println("\nThe arguments passed are incorrect. Please refer to the following usage example.\n" +
     "USAGE EXAMPLE: jsonHandler (arg1)[FILE] [OPTION: -a, -b, -c]")
 
-  type ParserMap = Map[Symbol, Any]
-  @throws
+  type ParserMap = Map[Symbol, String]
+
   def argsParser(map : ParserMap, l: List[String]) : Option[ParserMap] = {
     def withPar(opt : String) = (opt(0)=='-')
     l match {
