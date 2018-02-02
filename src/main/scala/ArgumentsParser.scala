@@ -19,7 +19,7 @@ trait ArgumentsParser {
       case _ => {
         println("\nINCORRECT COMMAND: " + l.reduce(_+" "+_))
         usage
-        None
+        map
       }
     }
   }
