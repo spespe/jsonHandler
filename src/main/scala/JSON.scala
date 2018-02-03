@@ -1,3 +1,4 @@
+
 import scala.util.parsing.combinator.JavaTokenParsers
 /**
   * Created by Pietro.Speri on 02/02/2018.
@@ -5,7 +6,7 @@ import scala.util.parsing.combinator.JavaTokenParsers
 
 class JSON extends JavaTokenParsers {
   def value:Parser[Any] = obj | arr | stringLiteral | floatingPointNumber | "null" | "true" | "false"
-  def obj:Parser[Any] = "{"~repsep(member,",")~"}"
-  def arr:Parser[Any] = "["~repsep(value, ",")~"]"
-  def member:Parser[Any] = stringLiteral~":"~value
+  def obj:Parser[Map[String,Any]] = "{"~repsep(member,",")~"}"
+  def arr:Parser[List[Any]] = "["~repsep(value, ",")~"]"
+  def member:Parser[(String,Any)] = stringLiteral~":"~value
 }
