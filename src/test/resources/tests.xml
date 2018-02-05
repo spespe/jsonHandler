@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests>
+    <unit name="value" tag="value" type="POSITIVE">
+        <test><!-- to be inserted -->
+        </test>
+        <result ><!-- to be inserted -->
+        </result>
+    </unit>
+</tests>
