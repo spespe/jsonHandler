@@ -1,11 +1,14 @@
 import java.util.Calendar
-import com.typesafe.scalalogging.{LazyLogging}
+
+import com.typesafe.scalalogging.LazyLogging
+
+import scala.util.parsing.json.JSON
 
 /**
   * Created by Pietro.Speri on 26/01/2018.
   */
 
-object jsonHandler extends LazyLogging with ArgumentsParser {
+object jsonHandler extends JSON with LazyLogging with ArgumentsParser {
 
   def main(args:Array[String]){
     logger.info("{DATETIME}")
