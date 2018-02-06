@@ -1,14 +1,14 @@
 {
-	"address book": {
-		"name": "White Jean"
-		"address": {
-			"street": "Street 1"
-			"city":"Huntington Beach"
-			"zip":"92647"
-		},
-		"phone number":[
-			"403827664"
-			"403827665"
-		]
-	}
+"address book": {
+"name": "White Jean"
+"address": {
+"street": "Street 1"
+"city":"Huntington Beach"
+"zip":"92647"
+},
+"phone number":[
+"403827664"
+"403827665"
+]
+}
 }

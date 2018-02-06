@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tests>
-    <unit name="value" tag="value" type="POSITIVE">
-        <test><!-- to be inserted -->
+    <unit name="value" tag="double" type="POSITIVE">
+        <test>
+            "0.2"
         </test>
-        <result ><!-- to be inserted -->
+        <result >
+            0.2
         </result>
     </unit>
 </tests>
