@@ -6,9 +6,9 @@ import jsonHandler.parse
 import org.scalatest.FunSuite
 
 import scala.language._
-import scala.xml.NodeSeq
+import scala.xml.{Node, NodeSeq}
 
-class valueTest(nd:NodeSeq) extends FunSuite {
+class valueTest(s:Seq[((Node,Node),Int)]) extends FunSuite {
 
   var res,timestmp=""
 
