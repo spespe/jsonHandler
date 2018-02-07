@@ -15,18 +15,16 @@ object JSONTest extends FunSuite {
       val inputFile = Some(getClass.getResourceAsStream("/tests.xml"))
       val jsonFile = Some(getClass.getResourceAsStream("/jsonExample.json"))
       elem = XML.load(inputFile.get)
-      val value = (elem \\ "unit").filter(i => i.attribute("tag").get.text == "value").zipWithIndex
+      val value = (elem \\ "unit").filter(i => i.attribute("tag").get.text == "value")
 
-      def seqCreator(nd:NodeSeq,par:String)(input:Any,expRes:Any):Seq[((Any,Any),Int)]={
-        val test = (nd \\ "test" \\ par)
-        val result = (nd \\ "result" \\ par)
+      def seqCreator(nd:NodeSeq):Seq[((Any,Any),Int)]={
+        val test = (nd \\ "test")(0).text.trim
+        val result = (nd \\ "result")(0).text.trim
         test.zip(result).zipWithIndex
       }
 
       //run
-      (elem \\ "unit" \\ "test").foreach(println)
-      //value.filter(_.contains("value")).foreach(println)
-//      run(new valueTest(value)) //to be created
+      
     }
   }
 
