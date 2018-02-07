@@ -12,9 +12,8 @@ object JSONTest extends FunSuite {
 
   def main(args: Array[String]): Unit = {
     try {
-      val inputFile = Some(getClass.getResourceAsStream("/tests.xml"))
-      val jsonFile = Some(getClass.getResourceAsStream("/jsonExample.json"))
-      elem = XML.load(inputFile.get)
+      val input = Some(getClass.getResourceAsStream("/tests.xml"))
+      elem = XML.load(input.get)
       val value = (elem \\ "unit").filter(i => i.attribute("tag").get.text == "value")
 
       def seqCreator(nd:NodeSeq):Seq[((Any,Any),Int)]={
