@@ -18,13 +18,13 @@ object JSONTest extends FunSuite {
       val value = (elem \\ "unit").filter(i => i.attribute("tag").get.text == "value")
 
       def seqCreator(nd:NodeSeq):Seq[((Any,Any),Int)]={
-        val test = (nd \\ "test")(0).text.trim
-        val result = (nd \\ "result")(0).text.trim
+        val test = (nd \\ "test").text.trim
+        val result = (nd \\ "result").text.trim
         test.zip(result).zipWithIndex
       }
 
       //run
-      
+
     }
   }
 
