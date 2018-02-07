@@ -7,10 +7,11 @@ import scala.xml.{Node}
 
 class valueTest(seq:Seq[((Node,Node),Int)]) extends FunSuite {
   for((el,idx)<-seq){
-    test(""){
+    test("value test number: "+idx){
       val res = el._1
       val expRes = el._2
       assert(res==expRes)
     }
   }
 }
+
