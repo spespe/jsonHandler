@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tests>
     <unit name="Double type test" tag="value" type="POSITIVE">
-        <test>
-            "0.2"
-        </test>
-        <result >
-            0.2
-        </result>
+        <test>"0.2"</test>
+        <result >0.2</result>
     </unit>
     <unit name="Int type test" tag="value" type="POSITIVE">
-        <test>
-            0.1
-        </test>
-        <result >
-            0.1
-        </result>
+        <test>0.1</test>
+        <result >0.1</result>
     </unit>
 </tests>
+
