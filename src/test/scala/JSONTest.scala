@@ -1,6 +1,8 @@
 import java.io.InputStream
+
 import org.scalatest.FunSuite
-import scala.xml.XML
+
+import scala.xml.{NodeSeq, XML}
 /**
   * Created by Pietro.Speri on 05/02/2018.
   */
@@ -13,10 +15,18 @@ object JSONTest extends FunSuite {
       val inputFile = Some(getClass.getResourceAsStream("/tests.xml"))
       val jsonFile = Some(getClass.getResourceAsStream("/jsonExample.json"))
       elem = XML.load(inputFile.get)
-      val value = (elem \\ "value").filter(i => i.attribute("tag").get.text == "double")
+      val value = (elem \\ "unit").filter(i => i.attribute("tag").get.text == "value").zipWithIndex
+
+      def seqCreator(nd:NodeSeq,par:String)(input:Any,expRes:Any):Seq[((Any,Any),Int)]={
+        val test = (nd \\ "test" \\ par)
+        val result = (nd \\ "result" \\ par)
+        test.zip(result).zipWithIndex
+      }
 
       //run
-      run(new valueTest(value)) //to be created
+      (elem \\ "unit" \\ "test").foreach(println)
+      //value.filter(_.contains("value")).foreach(println)
+//      run(new valueTest(value)) //to be created
     }
   }
 
