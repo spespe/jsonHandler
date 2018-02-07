@@ -11,14 +11,14 @@ object JSONTest extends FunSuite with LazyLogging {
   var elem: scala.xml.Elem = _
 
   //Test sequence creator method
-  def seqCreator(nd:NodeSeq):Seq[((Node,Node),Int)]={
+  def seqCreator(nd:NodeSeq):Seq[(((Node,Node),Int),Node)]={
     val test = (nd \\ "test")
     val result = (nd \\ "result")
-    test.zip(result).zipWithIndex
+    val name = (nd \\ "@name")
+    test.zip(result).zipWithIndex.zip(name)
   }
 
   def main(args: Array[String]): Unit = {
-
     try {
       val input = Some(getClass.getResourceAsStream("/tests.xml"))
       elem = XML.load(input.get)
@@ -26,7 +26,7 @@ object JSONTest extends FunSuite with LazyLogging {
       logger.info("{DATETIME}")
       println(Calendar.getInstance.getTime)
       logger.debug("{LAUNCHING TESTS FOR VALUE}")
-      run(new valueTest(seqCreator(value)))
+      //run(new valueTest(seqCreator(value)))
 
     } catch {
       case ex:Exception => ex.printStackTrace; ex.getMessage
