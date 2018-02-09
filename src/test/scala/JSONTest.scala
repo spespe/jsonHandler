@@ -22,13 +22,16 @@ object JSONTest extends FunSuite with LazyLogging {
     try {
       val input = Some(getClass.getResourceAsStream("/tests.xml"))
       elem = XML.load(input.get)
-      val l = List("value","obj","arr","member")
-      val (value,obj,arr,member) = (l.foreach(x=>(elem \\ "unit").filter(i => i.attribute("tag").get.text == x)))
+
+      val value = (elem \\ "unit").filter(i => i.attribute("tag").get.text == "value")
+      val obj = (elem \\ "unit").filter(i => i.attribute("tag").get.text == "obj")
+      val member = (elem \\ "unit").filter(i => i.attribute("tag").get.text == "member")
+      val arr = (elem \\ "unit").filter(i => i.attribute("tag").get.text == "arr")
 
       logger.info("{DATETIME}")
       println(Calendar.getInstance.getTime)
       logger.debug("{LAUNCHING TESTS FOR VALUE}")
-      print(value)
+
       //run(new valueTest(seqCreator(value)))
 
     } catch {
