@@ -14,4 +14,3 @@ class valueTest(seq:Seq[(((Node,Node),Int),Node)]) extends FunSuite {
     }
   }
 }
-
