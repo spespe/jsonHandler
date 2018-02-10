@@ -30,10 +30,15 @@ object JSONTest extends FunSuite with LazyLogging {
 
       logger.info("{DATETIME}")
       println(Calendar.getInstance.getTime)
+
       logger.debug("{LAUNCHING TESTS FOR VALUE}")
-
-      //run(new valueTest(seqCreator(value)))
-
+      run(new valueTest(seqCreator(value)))
+      logger.debug("{LAUNCHING TESTS FOR OBJ}")
+      run(new valueTest(seqCreator(obj)))
+      logger.debug("{LAUNCHING TESTS FOR MEMBER}")
+      run(new valueTest(seqCreator(member)))
+      logger.debug("{LAUNCHING TESTS FOR ARR}")
+      run(new valueTest(seqCreator(arr)))
 
     } catch {
       case ex:Exception => ex.printStackTrace; ex.getMessage
