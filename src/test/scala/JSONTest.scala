@@ -3,9 +3,11 @@ import java.util.Calendar
 import org.scalatest.FunSuite
 import scala.xml.{Node, NodeSeq, XML}
 import com.typesafe.scalalogging.LazyLogging
+
 /**
   * Created by Pietro.Speri on 05/02/2018.
   */
+
 object JSONTest extends FunSuite with LazyLogging {
   var input: Option[InputStream] = None
   var elem: scala.xml.Elem = _
@@ -21,17 +23,20 @@ object JSONTest extends FunSuite with LazyLogging {
   val input = Some(getClass.getResourceAsStream("/tests.xml"))
   elem = XML.load(input.get)
 
-  def inputTestValidator(s:String):NodeSeq={
-    (elem \\ "unit").filter(i => i.attribute("tag").get.text == s)
+  def inputTestValidator(s:String):Option[NodeSeq]={
+    (elem \\ "unit").filter(i => i.attribute("tag").get.text == s) match {
+      case n:NodeSeq => Some(n)
+      case _ => println("INPUT NOT FOUND IN THE TESTS.\n"); None
+    }
   }
 
   def main(args: Array[String]): Unit = {
     try {
 
-      val value = inputTestValidator("value")
-      val obj = inputTestValidator("obj")
-      val member = inputTestValidator("member")
-      val arr = inputTestValidator("arr")
+      val value = inputTestValidator("value").get
+      val obj = inputTestValidator("obj").get
+      val member = inputTestValidator("member").get
+      val arr = inputTestValidator("arr").get
 
       logger.info("{DATETIME}")
       println(Calendar.getInstance.getTime)
