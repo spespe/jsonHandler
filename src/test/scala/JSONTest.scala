@@ -18,15 +18,20 @@ object JSONTest extends FunSuite with LazyLogging {
     test.zip(result).zipWithIndex.zip(name)
   }
 
+  val input = Some(getClass.getResourceAsStream("/tests.xml"))
+  elem = XML.load(input.get)
+
+  def inputTestValidator(s:String):NodeSeq={
+    (elem \\ "unit").filter(i => i.attribute("tag").get.text == s)
+  }
+
   def main(args: Array[String]): Unit = {
     try {
-      val input = Some(getClass.getResourceAsStream("/tests.xml"))
-      elem = XML.load(input.get)
 
-      val value = (elem \\ "unit").filter(i => i.attribute("tag").get.text == "value")
-      val obj = (elem \\ "unit").filter(i => i.attribute("tag").get.text == "obj")
-      val member = (elem \\ "unit").filter(i => i.attribute("tag").get.text == "member")
-      val arr = (elem \\ "unit").filter(i => i.attribute("tag").get.text == "arr")
+      val value = inputTestValidator("value")
+      val obj = inputTestValidator("obj")
+      val member = inputTestValidator("member")
+      val arr = inputTestValidator("arr")
 
       logger.info("{DATETIME}")
       println(Calendar.getInstance.getTime)
