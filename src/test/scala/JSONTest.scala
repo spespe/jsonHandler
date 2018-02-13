@@ -1,9 +1,7 @@
-import java.io.InputStream
 import java.util.Calendar
 import org.scalatest.FunSuite
 import scala.xml.{Node, NodeSeq, XML}
 import com.typesafe.scalalogging.LazyLogging
-import jsonHandler.usage
 
 /**
   * Created by Pietro.Speri on 05/02/2018.
@@ -45,7 +43,7 @@ object JSONTest extends FunSuite with LazyLogging {
 
       List("value","obj","member","arr").map(x=>(inputTestValidator(x).get,x)).
         foreach(x=>{
-          logger.debug("{LAUNCHING TESTS FOR VALUE}"+x._2)
+          logger.debug("{LAUNCHING TESTS FOR "+x._2+"}")
           run(new valueTest(seqCreator(x._1)))
           }
         )

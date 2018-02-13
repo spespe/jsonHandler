@@ -1,5 +1,4 @@
 import org.scalatest.FunSuite
-
 import scala.xml.Node
 
 /**
