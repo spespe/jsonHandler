@@ -30,6 +30,8 @@ object JSONTest extends FunSuite with LazyLogging {
     }
   }
 
+  def getTime=println(Calendar.getInstance.getTime)
+
   def main(args: Array[String]): Unit = {
     try {
 
@@ -39,21 +41,18 @@ object JSONTest extends FunSuite with LazyLogging {
       val arr = inputTestValidator("arr").get
 
       logger.info("{DATETIME}")
+      getTime
 
-
-      logger.debug("{LAUNCHING TESTS FOR VALUE}")
-      run(new valueTest(seqCreator(value)))
-      logger.debug("{LAUNCHING TESTS FOR OBJ}")
-      run(new valueTest(seqCreator(obj)))
-      logger.debug("{LAUNCHING TESTS FOR MEMBER}")
-      run(new valueTest(seqCreator(member)))
-      logger.debug("{LAUNCHING TESTS FOR ARR}")
-      run(new valueTest(seqCreator(arr)))
+      List("value","obj","member","arr").map(x=>(inputTestValidator(x).get,x)).
+        foreach(x=>{
+          logger.debug("{LAUNCHING TESTS FOR VALUE}"+x._2)
+          run(new valueTest(seqCreator(x._1)))
+          }
+        )
 
     } catch {
       case ex:Exception => ex.printStackTrace; ex.getMessage
     }
   }
-
 }
 

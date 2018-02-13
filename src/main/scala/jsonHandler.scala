@@ -1,4 +1,4 @@
-import java.io.FileReader
+import scala.io.Source
 import java.util.Calendar
 import com.typesafe.scalalogging.LazyLogging
 
@@ -19,6 +19,8 @@ object jsonHandler extends JSON with ArgumentsParser with LazyLogging {
       argsParser(Map(),argsList).foreach(println)
 
       //File reader
+      val file = Source.fromFile("").getLines
+      val words = file.flatMap(_.split(" "))
 
     }
 }
