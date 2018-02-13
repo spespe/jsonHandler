@@ -3,13 +3,13 @@ import java.util.Calendar
 import org.scalatest.FunSuite
 import scala.xml.{Node, NodeSeq, XML}
 import com.typesafe.scalalogging.LazyLogging
+import jsonHandler.usage
 
 /**
   * Created by Pietro.Speri on 05/02/2018.
   */
 
 object JSONTest extends FunSuite with LazyLogging {
-  var input: Option[InputStream] = None
   var elem: scala.xml.Elem = _
 
   //Test sequence creator method
@@ -39,7 +39,7 @@ object JSONTest extends FunSuite with LazyLogging {
       val arr = inputTestValidator("arr").get
 
       logger.info("{DATETIME}")
-      println(Calendar.getInstance.getTime)
+
 
       logger.debug("{LAUNCHING TESTS FOR VALUE}")
       run(new valueTest(seqCreator(value)))
