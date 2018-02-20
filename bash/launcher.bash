@@ -12,6 +12,35 @@ usage(){
 }
 
 ##Parameters
-
+while test $# -gt 0
+        do
+    case $1 in
+                -f|--jsonfile)
+                shift
+                JSON_FILE=$1
+				echo -e "\e[0;33m JSON FILE: $1 \e[0m"
+                ;;
+                -m|--member)
+                shift
+                MEMBER=$1
+				echo -e "\e[0;33m MEMBER: $1 \e[0m"
+                ;;
+				-a|--array)
+                shift
+                ARRAY=$1
+				echo -e "\e[0;33m ARRAY: $1 \e[0m"
+                ;;
+				-o|--object)
+                shift
+                OBJECT=$1
+				echo -e "\e[0;33m OBJECT: $1 \e[0m"
+                ;;
+                *)
+                echo -e "\e[0;31m ERROR. Invalid argument: $1 \e[0m"
+                exit 1
+                ;;
+        esac
+        shift
+done
 
 
