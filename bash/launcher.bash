@@ -9,7 +9,6 @@ usage(){
 	echo -e "\e[33m OPTION -a : allows to retrieve the arrays only from the JSON input file specified above \e[0m"
 	echo -e "\e[33m OPTION -o : allows to retrieve the objects only from the JSON input file specified above \e[0m"
 	echo -e "\e[32m EXAMPLE: ./launcher.sh -m /path/to/my/file/fille.json \e[0m"
-	
 }
 
 ##Parameters
