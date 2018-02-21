@@ -13,6 +13,14 @@ usage(){
 	exit 1
 }
 
+##Checking parameters
+paramsCheck(){
+	if [ -z $2 ] || [ ${2:0:1} == "-" ]; then
+		echo -e "\e[0;31m ERROR: THE PARAMETER PASSED SHOULD START WITH THE CHARACTER '-' [$1:$2]\e[0m"
+		usage
+	fi
+}
+
 ##Parameters
 while test $# -gt 0
         do
