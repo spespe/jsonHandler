@@ -1,6 +1,13 @@
 #!/bin/bash
 ##PIETRO SPERI
 
+##ARGSREQUIRED=1
+LOG_FILE=log.info
+
+if [ -z ${LOG_FILE}]; then
+	rm -f ${LOG_FILE}
+fi
+
 usage(){
 	echo -e "\e[33m USAGE: ./launcher.sh -f [JSON FILE][REQUIRED] [-][OPTIONAL PARAMETERS] \e[0m"
 	echo -e "\e[33m OPTION -f : allows to specify the file name to pass as input(JSON format file) - [REQUIRED] \e[0m"
@@ -16,7 +23,7 @@ usage(){
 ##Checking parameters
 paramsCheck(){
 	if [ -z $2 ] || [ ${2:0:1} == "-" ]; then
-		echo -e "\e[0;31m ERROR: THE PARAMETER PASSED SHOULD START WITH THE CHARACTER '-' [$1:$2]\e[0m"
+		echo -e "\e[0;31m ERROR: THE PARAMETER PASSED SHOULD START WITH THE CHARACTER '-' [$1:$2]\e[0m" | tee -A ${LOG_FILE}
 		usage
 	fi
 }
@@ -62,4 +69,10 @@ while test $# -gt 0
         esac
         shift
 done
+
+
+if [ $ARGSLENGTH -lt $ARGSREQUIRED ]; then
+	echo -e "\e[0;31m THE NUMBER OF ARGUMENT PASSED ARE WRONG \e0[m"
+	usage
+fi
 
