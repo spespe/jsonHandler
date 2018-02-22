@@ -1,7 +1,7 @@
 #!/bin/bash
 ##PIETRO SPERI
 
-##ARGSREQUIRED=1
+ARGSREQUIRED=1
 LOG_FILE=log.info
 
 if [ -z ${LOG_FILE}]; then
@@ -35,31 +35,37 @@ while test $# -gt 0
 		-f|--jsonfile)
 		shift
 		JSON_FILE=$1
+		ARGSLENGTH=$(($ARGSLENGTH + 1))
 		echo -e "\e[0;33m JSON FILE: $1 \e[0m"
 		;;
 		-m|--member)
 		shift
 		MEMBER=$1
+		ARGSLENGTH=$(($ARGSLENGTH + 1))
 		echo -e "\e[0;33m MEMBER: $1 \e[0m"
 		;;
 		-a|--array)
 		shift
 		ARRAY=$1
+		ARGSLENGTH=$(($ARGSLENGTH + 1))
 		echo -e "\e[0;33m ARRAY: $1 \e[0m"
 		;;
 		-o|--object)
 		shift
 		OBJECT=$1
+		ARGSLENGTH=$(($ARGSLENGTH + 1))
 		echo -e "\e[0;33m OBJECT: $1 \e[0m"
 		;;
 		-s|--separator)
 		shift
 		SEPARATOR=$1
+		ARGSLENGTH=$(($ARGSLENGTH + 1))
 		echo -e "\e[0;33m SEPARATOR: $1 \e[0m"
 		;;
 		-p|--parallel)
 		shift
 		PARALLEL=$1
+		ARGSLENGTH=$(($ARGSLENGTH + 1))
 		echo -e "\e[0;33m PARALLEL: $1 \e[0m"
 		;;
 		*)
