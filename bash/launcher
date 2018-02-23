@@ -35,37 +35,37 @@ while test $# -gt 0
 		-f|--jsonfile)
 		shift
 		JSON_FILE=$1
-		ARGSLENGTH=$(($ARGSLENGTH + 1))
+		ARGS+=(JSON_FILE)
 		echo -e "\e[0;33m JSON FILE: $1 \e[0m"
 		;;
 		-m|--member)
 		shift
 		MEMBER=$1
-		ARGSLENGTH=$(($ARGSLENGTH + 1))
+		ARGS+=(MEMBER)
 		echo -e "\e[0;33m MEMBER: $1 \e[0m"
 		;;
 		-a|--array)
 		shift
 		ARRAY=$1
-		ARGSLENGTH=$(($ARGSLENGTH + 1))
+		ARGS+=(ARRAY)
 		echo -e "\e[0;33m ARRAY: $1 \e[0m"
 		;;
 		-o|--object)
 		shift
 		OBJECT=$1
-		ARGSLENGTH=$(($ARGSLENGTH + 1))
+		ARGS+=(OBJECT)
 		echo -e "\e[0;33m OBJECT: $1 \e[0m"
 		;;
 		-s|--separator)
 		shift
 		SEPARATOR=$1
-		ARGSLENGTH=$(($ARGSLENGTH + 1))
+		ARGS+=(OBJECT)
 		echo -e "\e[0;33m SEPARATOR: $1 \e[0m"
 		;;
 		-p|--parallel)
 		shift
 		PARALLEL=$1
-		ARGSLENGTH=$(($ARGSLENGTH + 1))
+		ARGS+=(OBJECT)
 		echo -e "\e[0;33m PARALLEL: $1 \e[0m"
 		;;
 		*)
@@ -77,8 +77,9 @@ while test $# -gt 0
 done
 
 
-if [ $ARGSLENGTH -lt $ARGSREQUIRED ]; then
-	echo -e "\e[0;31m THE NUMBER OF ARGUMENT PASSED ARE WRONG \e0[m"
+if [ ${#ARGS[@]} -lt $ARGSREQUIRED ]; then
+	echo -e "\e[0;31m THE NUMBER OF ARGUMENTS PASSED IS WRONG \e0[m"
 	usage
 fi
+
 
