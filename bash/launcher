@@ -82,4 +82,9 @@ if [ ${#ARGS[@]} -lt $ARGSREQUIRED ]; then
 	usage
 fi
 
+if [[ ! ${ARGS[@]} =~ ${JSON_FILE} ]]; then
+	echo -e "\e[0;31m THE JSON_FILE HAS TO BE PASSED AS ARGUMENT! \e0[m"
+	usage
+fi
+
 
