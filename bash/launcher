@@ -5,6 +5,7 @@ ARGSREQUIRED=1
 MAXARGS=4
 LOG_FILE=log.info
 OPTARGS=("MEMBER","ARRAY","OBJECT")
+SEPARATOR="|"
 
 if [ -z ${LOG_FILE} ]; then
 	rm -f ${LOG_FILE}
@@ -73,11 +74,30 @@ fi
 if [[ ! ${ARGS[@]} =~ ${JSON_FILE} ]]; then
 	echo -e "\e[0;31m THE JSON_FILE HAS TO BE PASSED AS ARGUMENT! \e0[m" | tee -A ${LOG_FILE}
 	usage
-fi
-
-if [[ ${OPTARGS} =~ ${OPT} ]]; then
+else if [[ ${OPTARGS} =~ ${OPT} ]]; then
 	echo -e "\e[0;31m THE -o OPTION SPECIFIED CAN ONLY BE: MEMBER, ARRAY, OBJECT. \e[0m" | tee -A ${LOG_FILE}
 	usage
+else if [[ ! ${ARGS[@]} =~ ${OPT} ]] && [[ ! ${ARGS[@]} =~ ${SEPARATOR} ]] && [[ ! ${ARGS} =~ ${PARALLEL} ]];then
+	echo -e "\e[0;32m LAUNCHING PLAIN JSON HANDLER. \e[0m" | tee -A ${LOG_FILE}
+	##command here
+else if [[ ${ARGS[@]} =~ ${OPT} ]] && [[ ! ${ARGS[@]} =~ ${SEPARATOR} ]] && [[ ! ${ARGS} =~ ${PARALLEL} ]];then 
+	echo -e "\e[0;32m LAUNCHING JSON HANDLER WITH -o ARGUMENT ${OPT}. \e[0m" | tee -A ${LOG_FILE}
+	##command here
+else if [[ ${ARGS[@]} =~ ${OPT} ]] && [[ ${ARGS[@]} =~ ${SEPARATOR} ]] && [[ ! ${ARGS} =~ ${PARALLEL} ]];then 
+	echo -e "\e[0;32m LAUNCHING JSON HANDLER WITH -o ARGUMENT ${OPT} AND -s ARGUMENT ${SEPARATOR}. \e[0m" | tee -A ${LOG_FILE}
+	##command here
+else if [[ ${ARGS[@]} =~ ${OPT} ]] && [[ ${ARGS[@]} =~ ${SEPARATOR} ]] && [[ ${ARGS} =~ ${PARALLEL} ]];then 
+	echo -e "\e[0;32m LAUNCHING JSON HANDLER WITH -o ARGUMENT ${OPT}, -s ARGUMENT ${SEPARATOR}, -p ARGUMENT ${PARALLEL}. \e[0m" | tee -A ${LOG_FILE}
+	##command here
+else if [[ ${ARGS[@]} =~ ${OPT} ]] && [[ ! ${ARGS[@]} =~ ${SEPARATOR} ]] && [[ ${ARGS} =~ ${PARALLEL} ]];then 
+	echo -e "\e[0;32m LAUNCHING JSON HANDLER WITH -o ARGUMENT ${OPT} AND -p ARGUMENT ${PARALLEL}. \e[0m" | tee -A ${LOG_FILE}
+	##command here
+else if [[ ! ${ARGS[@]} =~ ${OPT} ]] && [[ ${ARGS[@]} =~ ${SEPARATOR} ]] && [[ ${ARGS} =~ ${PARALLEL} ]];then 
+	echo -e "\e[0;32m LAUNCHING JSON HANDLER WITH -s ARGUMENT ${SEPARATOR} AND -p ARGUMENT ${PARALLEL}. \e[0m" | tee -A ${LOG_FILE}
+	##command here
+fi
+
+
 fi
 
 
