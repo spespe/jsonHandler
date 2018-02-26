@@ -4,8 +4,9 @@
 ARGSREQUIRED=1
 MAXARGS=4
 LOG_FILE=log.info
+OPTARGS=("MEMBER","ARRAY","OBJECT")
 
-if [ -z ${LOG_FILE}]; then
+if [ -z ${LOG_FILE} ]; then
 	rm -f ${LOG_FILE}
 fi
 
@@ -65,16 +66,18 @@ done
 
 
 if [[ ${#ARGS[@]} -lt $ARGSREQUIRED ]] || [[ ${#ARGS[@]} -gt $MAXARGS ]]; then
-	echo -e "\e[0;31m THE NUMBER OF ARGUMENTS PASSED IS WRONG \e0[m"
+	echo -e "\e[0;31m THE NUMBER OF ARGUMENTS PASSED IS WRONG \e0[m" | tee -A ${LOG_FILE}
 	usage
 fi
 
 if [[ ! ${ARGS[@]} =~ ${JSON_FILE} ]]; then
-	echo -e "\e[0;31m THE JSON_FILE HAS TO BE PASSED AS ARGUMENT! \e0[m"
+	echo -e "\e[0;31m THE JSON_FILE HAS TO BE PASSED AS ARGUMENT! \e0[m" | tee -A ${LOG_FILE}
 	usage
 fi
 
-if [[ ${OPTARG} =~ ${OPT} ]]; then
-	echo -e "\e[0;31m THE OPTION SPECIFIED CAN BE MEMBER, ARRAY OR OBJECT ONLY. \e[0m"
+if [[ ${OPTARGS} =~ ${OPT} ]]; then
+	echo -e "\e[0;31m THE -o OPTION SPECIFIED CAN ONLY BE: MEMBER, ARRAY, OBJECT. \e[0m" | tee -A ${LOG_FILE}
 	usage
 fi
+
+
