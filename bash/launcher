@@ -98,6 +98,4 @@ else if [[ ! ${ARGS[@]} =~ ${OPT} ]] && [[ ${ARGS[@]} =~ ${SEPARATOR} ]] && [[ $
 fi
 
 
-fi
-
 
