@@ -98,4 +98,7 @@ else if [[ ! ${ARGS[@]} =~ ${OPT} ]] && [[ ${ARGS[@]} =~ ${SEPARATOR} ]] && [[ $
 fi
 
 
-
+timer(){
+	ELAPSED=$TIME
+	echo -e "\e[0;32m ELAPSED(HH:mm:SS): $(($ELAPSED / 3600))HH:$(($ELAPSED / 60 % 60))mm:$(($ELAPSED % 60))SS \e[0m"
+}
