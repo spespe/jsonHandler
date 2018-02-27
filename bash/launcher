@@ -21,6 +21,12 @@ usage(){
 	exit 1
 }
 
+timer(){
+	PROCESS=$1
+	ELAPSED=$TIME
+	echo -e "\e[0;32m $1 FINISHED. TIME TAKEN(HH:mm:SS): $(($ELAPSED / 3600))HH:$(($ELAPSED / 60 % 60))mm:$(($ELAPSED % 60))SS \e[0m"
+}
+
 ##Checking parameters
 paramsCheck(){
 	if [ -z $2 ] || [ ${2:0:1} == "-" ]; then
@@ -65,6 +71,7 @@ while test $# -gt 0
         shift
 done
 
+TIME=0
 
 if [[ ${#ARGS[@]} -lt $ARGSREQUIRED ]] || [[ ${#ARGS[@]} -gt $MAXARGS ]]; then
 	echo -e "\e[0;31m THE NUMBER OF ARGUMENTS PASSED IS WRONG \e0[m" | tee -A ${LOG_FILE}
@@ -97,8 +104,4 @@ else if [[ ! ${ARGS[@]} =~ ${OPT} ]] && [[ ${ARGS[@]} =~ ${SEPARATOR} ]] && [[ $
 	##command here
 fi
 
-
-timer(){
-	ELAPSED=$TIME
-	echo -e "\e[0;32m ELAPSED(HH:mm:SS): $(($ELAPSED / 3600))HH:$(($ELAPSED / 60 % 60))mm:$(($ELAPSED % 60))SS \e[0m"
-}
+timer("LAUNCHER")
