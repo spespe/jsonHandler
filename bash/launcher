@@ -86,6 +86,8 @@ else if [[ ${OPTARGS} =~ ${OPT} ]]; then
 	usage
 fi
 
-
+##Launcher
+echo -e "\e[0;32m Launching the json parser.. \e[0m"
+jsonHandler.jar ${ARGS[@]}
 
 timer("LAUNCHER")
