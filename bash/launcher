@@ -87,7 +87,10 @@ else if [[ ${OPTARGS} =~ ${OPT} ]]; then
 fi
 
 ##Launcher
-echo -e "\e[0;32m Launching the json parser.. \e[0m"
+echo -e "\e[0;32m Launching the json parser.. \e[0m" | tee -A ${LOG_FILE}
 jsonHandler.jar ${ARGS[@]}
+if[[ $? != 0 ]];then
+	echo -e "\e[31;m AN ERROR OCCURRED. \e[0m" | tee -A ${LOG_FILE}
+fi
 
 timer("LAUNCHER")
