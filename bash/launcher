@@ -25,13 +25,13 @@ usage(){
 timer(){
 	PROCESS=$0
 	ELAPSED=$TIME
-	echo -e "\e[0;32m `date +%D' '%T` - $1 FINISHED. TIME TAKEN(HH:mm:SS): $(($ELAPSED / 3600))HH:$(($ELAPSED / 60 % 60))mm:$(($ELAPSED % 60))SS \e[0m"
+	echo -e "\e[0;32m `whoami` - `date +%D' '%T` - $1 FINISHED. TIME TAKEN(HH:mm:SS): $(($ELAPSED / 3600))HH:$(($ELAPSED / 60 % 60))mm:$(($ELAPSED % 60))SS \e[0m"
 }
 
 ##Checking parameters
 paramsCheck(){
 	if [ -z $2 ] || [ ${2:0:1} == "-" ]; then
-		echo -e "\e[0;31m `date +%D' '%T` - ERROR: THE PARAMETER PASSED SHOULD START WITH THE CHARACTER '-' [$1:$2]\e[0m" | tee -A ${LOG_FILE}
+		echo -e "\e[0;31m `whoami` - `date +%D' '%T` - ERROR: THE PARAMETER PASSED SHOULD START WITH THE CHARACTER '-' [$1:$2]\e[0m" | tee -A ${LOG_FILE}
 		usage
 	fi
 }
@@ -65,7 +65,7 @@ while test $# -gt 0
 		echo -e "\e[0;33m PARALLEL: $1 \e[0m"
 		;;
 		*)
-		echo -e "\e[0;31m ERROR. Invalid argument: $1 \e[0m"
+		echo -e "\e[0;31m `whoami` - `date +%D' '%T` - ERROR. Invalid argument: $1 \e[0m"
 		exit 1
 		;;
         esac
@@ -75,23 +75,23 @@ done
 TIME=0
 
 if [[ ${#ARGS[@]} -lt $ARGSREQUIRED ]] || [[ ${#ARGS[@]} -gt $MAXARGS ]]; then
-	echo -e "\e[0;31m `date +%D' '%T` - THE NUMBER OF ARGUMENTS PASSED IS WRONG \e0[m" | tee -A ${LOG_FILE}
+	echo -e "\e[0;31m `whoami` - `date +%D' '%T` - THE NUMBER OF ARGUMENTS PASSED IS WRONG \e0[m" | tee -A ${LOG_FILE}
 	usage
 fi
 
 if [[ ! ${ARGS[@]} =~ ${JSON_FILE} ]]; then
-	echo -e "\e[0;31m `date +%D' '%T` - THE JSON_FILE HAS TO BE PASSED AS ARGUMENT! \e0[m" | tee -A ${LOG_FILE}
+	echo -e "\e[0;31m `whoami` - `date +%D' '%T` - THE JSON_FILE HAS TO BE PASSED AS ARGUMENT! \e0[m" | tee -A ${LOG_FILE}
 	usage
 else if [[ ${OPTARGS} =~ ${OPT} ]]; then
-	echo -e "\e[0;31m `date +%D' '%T` - THE -o OPTION SPECIFIED CAN ONLY BE: MEMBER, ARRAY, OBJECT. \e[0m" | tee -A ${LOG_FILE}
+	echo -e "\e[0;31m `whoami` - `date +%D' '%T` - THE -o OPTION SPECIFIED CAN ONLY BE: MEMBER, ARRAY, OBJECT. \e[0m" | tee -A ${LOG_FILE}
 	usage
 fi
 
 ##Launcher
-echo -e "\e[0;32m `date +%D' '%T` - Launching the json parser.. \e[0m" | tee -A ${LOG_FILE}
+echo -e "\e[0;32m `whoami` - `date +%D' '%T` - Launching the json parser.. \e[0m" | tee -A ${LOG_FILE}
 jsonHandler.jar ${ARGS[@]}
 if[[ $? != 0 ]];then
-	echo -e "\e[31;m `date +%D' '%T` - AN ERROR OCCURRED. \e[0m" | tee -A ${LOG_FILE}
+	echo -e "\e[31;m `whoami` - `date +%D' '%T` - AN ERROR OCCURRED. \e[0m" | tee -A ${LOG_FILE}
 fi
 
 timer("LAUNCHER")
