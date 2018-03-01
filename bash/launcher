@@ -2,7 +2,7 @@
 ##PIETRO SPERI
 
 ARGSREQUIRED=1
-MAXARGS=4
+MAXARGS=5
 LOG_FILE=log.info
 OPTARGS=("-o MEMBER","-o ARRAY","-o OBJECT")
 SEPARATOR="|"
@@ -18,6 +18,7 @@ usage(){
 	echo -e "\e[33m OPTION -o : allows to specify the option to use for the parser. It can be MEMBER, ARRAY or OBJECT only - [OPTIONAL] \e[0m"
 	echo -e "\e[33m OPTION -s : allows to customize the separator character (if required) to use for the output file - [OPTIONAL] \e[0m"
 	echo -e "\e[33m OPTION -p : allows to launch the program in a parallel way over a list of json files passed as input - [OPTIONAL] \e[0m"
+	echo -e "\e[33m OPTION -t : allows to launch all the tests on the code - [OPTIONAL] \e[0m"
 	echo -e "\e[32m EXAMPLE: ./launcher.sh -m /path/to/your/file/bestFile.json [REQUIRED] -s '|' [OPTIONAL PARAMETER] \e[0m"
 	exit 1
 }
@@ -43,25 +44,31 @@ while test $# -gt 0
 		-f|--jsonfile)
 		shift
 		JSON_FILE="-f $1"
-		ARGS+=(JSON_FILE)
+		ARGS+=($JSON_FILE)
 		echo -e "\e[0;33m JSON FILE: $1 \e[0m"
 		;;
 		-o|--opt)
 		shift
 		OPT="-o $1"
-		ARGS+=(OPT)
+		ARGS+=($OPT)
 		echo -e "\e[0;33m OPT: $1 \e[0m"
 		;;
 		-s|--separator)
 		shift
 		SEPARATOR="-s $1"
-		ARGS+=(SEPARATOR)
+		ARGS+=($SEPARATOR)
+		echo -e "\e[0;33m SEPARATOR: $1 \e[0m"
+		;;
+		-t|--test)
+		shift
+		TEST="-s $1"
+		ARGS+=($TEST)
 		echo -e "\e[0;33m SEPARATOR: $1 \e[0m"
 		;;
 		-p|--parallel)
 		shift
 		PARALLEL="-p $1"
-		ARGS+=(PARALLEL)
+		ARGS+=($PARALLEL)
 		echo -e "\e[0;33m PARALLEL: $1 \e[0m"
 		;;
 		*)
