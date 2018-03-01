@@ -7,6 +7,7 @@ LOG_FILE=log.info
 OPTARGS=("-o MEMBER","-o ARRAY","-o OBJECT")
 SEPARATOR="|"
 
+
 if [ -z ${LOG_FILE} ]; then
 	rm -f ${LOG_FILE}
 fi
@@ -24,13 +25,13 @@ usage(){
 timer(){
 	PROCESS=$0
 	ELAPSED=$TIME
-	echo -e "\e[0;32m $1 FINISHED. TIME TAKEN(HH:mm:SS): $(($ELAPSED / 3600))HH:$(($ELAPSED / 60 % 60))mm:$(($ELAPSED % 60))SS \e[0m"
+	echo -e "\e[0;32m `date +%D' '%T` - $1 FINISHED. TIME TAKEN(HH:mm:SS): $(($ELAPSED / 3600))HH:$(($ELAPSED / 60 % 60))mm:$(($ELAPSED % 60))SS \e[0m"
 }
 
 ##Checking parameters
 paramsCheck(){
 	if [ -z $2 ] || [ ${2:0:1} == "-" ]; then
-		echo -e "\e[0;31m ERROR: THE PARAMETER PASSED SHOULD START WITH THE CHARACTER '-' [$1:$2]\e[0m" | tee -A ${LOG_FILE}
+		echo -e "\e[0;31m `date +%D' '%T` - ERROR: THE PARAMETER PASSED SHOULD START WITH THE CHARACTER '-' [$1:$2]\e[0m" | tee -A ${LOG_FILE}
 		usage
 	fi
 }
@@ -74,23 +75,23 @@ done
 TIME=0
 
 if [[ ${#ARGS[@]} -lt $ARGSREQUIRED ]] || [[ ${#ARGS[@]} -gt $MAXARGS ]]; then
-	echo -e "\e[0;31m THE NUMBER OF ARGUMENTS PASSED IS WRONG \e0[m" | tee -A ${LOG_FILE}
+	echo -e "\e[0;31m `date +%D' '%T` - THE NUMBER OF ARGUMENTS PASSED IS WRONG \e0[m" | tee -A ${LOG_FILE}
 	usage
 fi
 
 if [[ ! ${ARGS[@]} =~ ${JSON_FILE} ]]; then
-	echo -e "\e[0;31m THE JSON_FILE HAS TO BE PASSED AS ARGUMENT! \e0[m" | tee -A ${LOG_FILE}
+	echo -e "\e[0;31m `date +%D' '%T` - THE JSON_FILE HAS TO BE PASSED AS ARGUMENT! \e0[m" | tee -A ${LOG_FILE}
 	usage
 else if [[ ${OPTARGS} =~ ${OPT} ]]; then
-	echo -e "\e[0;31m THE -o OPTION SPECIFIED CAN ONLY BE: MEMBER, ARRAY, OBJECT. \e[0m" | tee -A ${LOG_FILE}
+	echo -e "\e[0;31m `date +%D' '%T` - THE -o OPTION SPECIFIED CAN ONLY BE: MEMBER, ARRAY, OBJECT. \e[0m" | tee -A ${LOG_FILE}
 	usage
 fi
 
 ##Launcher
-echo -e "\e[0;32m Launching the json parser.. \e[0m" | tee -A ${LOG_FILE}
+echo -e "\e[0;32m `date +%D' '%T` - Launching the json parser.. \e[0m" | tee -A ${LOG_FILE}
 jsonHandler.jar ${ARGS[@]}
 if[[ $? != 0 ]];then
-	echo -e "\e[31;m AN ERROR OCCURRED. \e[0m" | tee -A ${LOG_FILE}
+	echo -e "\e[31;m `date +%D' '%T` - AN ERROR OCCURRED. \e[0m" | tee -A ${LOG_FILE}
 fi
 
 timer("LAUNCHER")
