@@ -3,13 +3,13 @@
 
 ARGSREQUIRED=1
 MAXARGS=5
-LOG_FILE=log.info
+LOG_FILE="launcher_log`date +%D`.info"
 OPTARGS=("-o MEMBER","-o ARRAY","-o OBJECT")
 SEPARATOR="|"
 
 
-if [ -z ${LOG_FILE} ]; then
-	rm -f ${LOG_FILE}
+if [[ `find . -tipe f -name "*launcher_log*" | wc -l` -gt 5 ]];then
+	find . -type f -maxdepth 1 -type f -mtime +30 -delete
 fi
 
 usage(){
