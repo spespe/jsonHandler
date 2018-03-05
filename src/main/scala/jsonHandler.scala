@@ -14,11 +14,19 @@ object jsonHandler extends JSON with ArgumentsParser with LazyLogging {
 
       logger.info("{CHECKING INPUT ARGUMENTS}")
       val argsList = argsParser(Map(),args.toList)
-      if(!argsList.contains('InputFile)){usage;System.err.println("THE INPUT JSON FILE IS REQUIRED!")}
+      if(!argsList.contains('InputFile)){usage;System.err.println("THE INPUT JSON FILE IS REQUIRED!");System.exit(1)}
+      argsList('InputFile)
       argsList.foreach(println)
 
       //File reader
-      //val reader = StreamReader(new InputStreamReader(new FileInputStream("")))
+      val reader = StreamReader(new InputStreamReader(new FileInputStream(argsList('InputFile))))
+
+      argsList.foreach(x=> {
+          case x:jsonHandler.ParserMap if(x.contains('TestLauncher)) => //Launching Tests
+          case x:jsonHandler.ParserMap if(x.contains('ObjectParser)) => parse(x('ObjectParser),"") // Launching for obj
+          case _ => System.err.println("THE PARAMETER PASSED IN INVALID");usage;System.exit(1)
+          }
+      )
       //"C:\\Users\\pietro.speri\\IdeaProjects\\jsonHandler\\src\\test\\resources\\jsonExample.json"
       //Case to be added to separate the options
 
