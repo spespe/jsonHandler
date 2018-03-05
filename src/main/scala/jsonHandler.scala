@@ -14,6 +14,7 @@ object jsonHandler extends JSON with ArgumentsParser with LazyLogging {
 
       logger.info("{CHECKING INPUT ARGUMENTS}")
       val argsList = argsParser(Map(),args.toList)
+      if(!argsList.contains('InputFile)){usage;System.err.println("THE INPUT JSON FILE IS REQUIRED!")}
       argsList.foreach(println)
 
       //File reader
