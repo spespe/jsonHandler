@@ -6,8 +6,9 @@ MAXARGS=5
 LOG_FILE="launcher_log`date +%D`.log"
 OPTARGS=("-o MEMBER","-o ARRAY","-o OBJECT")
 SEPARATOR="|"
+FIND=`find . -tipe f -name "*launcher_log*" | wc -l`
 
-if [[ `find . -tipe f -name "*launcher_log*" | wc -l` -gt 5 ]];then
+if [[ ${FIND} -gt 5 ]];then
 	find . -type f -name "*launcher_log*" -maxdepth 1 -mtime +30 -delete
 fi
 
@@ -58,17 +59,17 @@ while test $# -gt 0
 		ARGS+=($SEPARATOR)
 		echo -e "\e[0;33m SEPARATOR: $1 \e[0m"
 		;;
+		-p|--parallel)
+		shift
+		PARALLEL="-p $1"
+		ARGS+=($PARALLEL)
+		echo -e "\e[0;33m PARALLEL: $1 \e[0m"
 		-t|--test)
 		shift
 		TEST="-s $1"
 		ARGS+=($TEST)
 		echo -e "\e[0;33m SEPARATOR: $1 \e[0m"
 		;;
-		-p|--parallel)
-		shift
-		PARALLEL="-p $1"
-		ARGS+=($PARALLEL)
-		echo -e "\e[0;33m PARALLEL: $1 \e[0m"
 		;;
 		*)
 		echo -e "\e[0;31m `whoami` - `date +%D' '%T` - ERROR. Invalid argument: $1 \e[0m"
