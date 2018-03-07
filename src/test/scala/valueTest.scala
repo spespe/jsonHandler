@@ -4,11 +4,10 @@
 import org.scalatest.FunSuite
 import scala.language._
 import scala.xml.{Node}
-import scala.util.parsing.combinator._
 
-class valueTest(seq:Seq[(((Node,Node),Int),Node)]) extends FunSuite {
+class valueTest(seq:Seq[(((Node,Node),Int),Node)]) extends FunSuite{
   for(((el,idx),name)<-seq){
-    test("VALUE TEST NUMBER: "+idx+" NAME:"+name){
+    //test("VALUE TEST NUMBER: "+idx+" NAME:"+name){
       //val res = parse(value, el._1) match {
       //  case Success(matched _) => matched
       //  case Failure(failMsg, _) => println("FAILURE: "+msg)
@@ -16,6 +15,6 @@ class valueTest(seq:Seq[(((Node,Node),Int),Node)]) extends FunSuite {
       //}
       //val expRes = el._2
       //assert(res==expRes)
-    }
+  //  }
   }
 }
