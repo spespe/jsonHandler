@@ -8,6 +8,7 @@ libraryDependencies ++=  Seq(
   "com.typesafe.scala-logging" %% "scala-logging" % "3.1.0",
   //"ch.qos.logback" % "logback-classic" % "1.1.2",
   "org.scala-lang" % "scala-parser-combinators" % "2.11.0-M4",
-  "org.scalatest" %% "scalatest" % "3.2.0-SNAP10" % Test,
-  "org.scala-lang.modules" % "scala-xml_2.11" % "1.0.2"
+  //"org.scalatest" %% "scalatest" % "3.2.0-SNAP10" % Test,
+  "org.scala-lang.modules" %% "scala-xml" % "1.1.0"
+  //"org.scalatest" %% "scalatest" % "3.2.0-SNAP7" % Test
 )

@@ -3,6 +3,7 @@ import java.util.Calendar
 import com.typesafe.scalalogging.LazyLogging
 import scala.util.parsing.input.StreamReader
 import scala.xml.{Node, NodeSeq, XML}
+org.scalatest.FunSuite
 
 /**
   * Created by Pietro.Speri on 26/01/2018.
