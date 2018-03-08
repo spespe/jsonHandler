@@ -21,11 +21,6 @@ object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging 
     def member:Parser[(String,Any)] = stringLiteral~":"~value ^^ {case name~":"~value => (name,value)}
   }
 
-  def valueTest(seq:Seq[(((Node,Node),Int),Node)])={
-
-  }
-
-
       logger.info("{DATETIME}")
       getTime
 
@@ -37,6 +32,8 @@ object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging 
 
       //File reader
       val reader = StreamReader(new InputStreamReader(new FileInputStream(argsList('InputFile))))
+
+      List("value", "obj", "member", "arr").map(x => (inputTestValidator(x).get, x)).foreach(println)
 
       argsList.foreach(_ => {
           case x:jsonHandler.ParserMap if(x.contains('TestLauncher)) => //Launching Tests
@@ -53,7 +50,8 @@ object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging 
                   List("value", "obj", "member", "arr").map(x => (inputTestValidator(x).get, x)).
                     foreach( x => {
                         logger.debug("{LAUNCHING TESTS FOR " + x._2 + "}")
-                        run(new valueTest(seqCreator(x._1)))//In the future a shell script will generate the jar and will launch the tests on it
+                      //In the future a shell script will generate the jar and will launch the tests on it
+                      //run(new valueTest(seqCreator(x._1)))
                     }
                     )
               } catch {
@@ -66,5 +64,3 @@ object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging 
           }
       )
     }
-}
-

@@ -4,6 +4,7 @@ import scala.xml.{Node, NodeSeq, XML}
 /**
   * Created by Pietro.Speri on 07/03/2018.
   */
+
 trait utilT {
 
   def getTime=println(Calendar.getInstance.getTime)
