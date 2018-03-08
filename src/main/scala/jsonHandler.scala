@@ -2,14 +2,25 @@ import java.io.{FileInputStream, InputStreamReader}
 import java.util.Calendar
 import com.typesafe.scalalogging.LazyLogging
 import scala.util.parsing.input.StreamReader
-import scala.xml.{Node, NodeSeq, XML}
-org.scalatest.FunSuite
+import org.scalatest.FunSuite
+import scala.util.parsing.combinator.JavaTokenParsers
 
 /**
   * Created by Pietro.Speri on 26/01/2018.
   */
 
-object jsonHandler extends JSON with ArgumentsParser with FunSuite with LazyLogging {
+object jsonHandler extends FunSuite with utilTest with ArgumentsParser with LazyLogging {
+
+  class JSON extends JavaTokenParsers {
+    def value:Parser[Any] = (obj | arr | stringLiteral | floatingPointNumber ^^ (_.toDouble) |
+      "null" ^^ {x => null} |
+      "true" ^^ {x => true} |
+      "false" ^^ {x => false})
+    def obj:Parser[Map[String,Any]] = "{"~>repsep(member,",")<~"}" ^^ (Map() ++ _)
+    def arr:Parser[List[Any]] = "["~>repsep(value, ",")<~"]"
+    def member:Parser[(String,Any)] = stringLiteral~":"~value ^^ {case name~":"~value => (name,value)}
+  }
+
   def main(args:Array[String]){
       logger.info("{DATETIME}")
       println(Calendar.getInstance.getTime)
@@ -19,29 +30,6 @@ object jsonHandler extends JSON with ArgumentsParser with FunSuite with LazyLogg
       if(!argsList.contains('InputFile)){usage;System.err.println("THE INPUT JSON FILE IS REQUIRED!");System.exit(1)}
       argsList('InputFile)
       argsList.foreach(println)
-
-      var elem: scala.xml.Elem = _
-
-      //Test sequence creator method
-      def seqCreator(nd:NodeSeq):Seq[(((Node,Node),Int),Node)]={
-          val test = (nd \\ "test")
-          val result = (nd \\ "result")
-          val name = (nd \\ "@name")
-          test.zip(result).zipWithIndex.zip(name)
-      }
-
-      val input = Some(getClass.getResourceAsStream("/tests.xml"))
-      elem = XML.load(input.get)
-
-      def inputTestValidator(s:String):Option[NodeSeq]={
-          (elem \\ "unit").filter(i => i.attribute("tag").get.text == s) match {
-              case n:NodeSeq => Some(n)
-              case _ => println("INPUT NOT FOUND IN THE TESTS.\n"); None
-          }
-      }
-
-      def getTime=println(Calendar.getInstance.getTime)
-
 
       //File reader
       val reader = StreamReader(new InputStreamReader(new FileInputStream(argsList('InputFile))))
@@ -68,7 +56,7 @@ object jsonHandler extends JSON with ArgumentsParser with FunSuite with LazyLogg
                   case ex: Exception => ex.printStackTrace; ex.getMessage
               }
           case x:jsonHandler.ParserMap if(x.contains('ObjectParser)) => {
-              parse(x('ObjectParser),"")
+              //parse(x('ObjectParser),"")
           } // Launching for obj
           case _ => System.err.println("THE PARAMETER PASSED IS INVALID");usage;System.exit(1)
           }
