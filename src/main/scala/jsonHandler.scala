@@ -1,15 +1,15 @@
 import java.io.{FileInputStream, InputStreamReader}
-import java.util.Calendar
 import com.typesafe.scalalogging.LazyLogging
 import scala.util.parsing.input.StreamReader
-import org.scalatest.FunSuite
+import org.scalatest.run
 import scala.util.parsing.combinator.JavaTokenParsers
+import scala.xml.Node
 
 /**
   * Created by Pietro.Speri on 26/01/2018.
   */
 
-object jsonHandler extends FunSuite with utilT with ArgumentsParser with LazyLogging {
+object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging {
 
   class JSON extends JavaTokenParsers {
     def value:Parser[Any] = (obj | arr | stringLiteral | floatingPointNumber ^^ (_.toDouble) |
@@ -21,7 +21,10 @@ object jsonHandler extends FunSuite with utilT with ArgumentsParser with LazyLog
     def member:Parser[(String,Any)] = stringLiteral~":"~value ^^ {case name~":"~value => (name,value)}
   }
 
-  def main(args:Array[String]){
+  def valueTest(seq:Seq[(((Node,Node),Int),Node)])={
+
+  }
+
 
       logger.info("{DATETIME}")
       getTime
@@ -50,7 +53,7 @@ object jsonHandler extends FunSuite with utilT with ArgumentsParser with LazyLog
                   List("value", "obj", "member", "arr").map(x => (inputTestValidator(x).get, x)).
                     foreach( x => {
                         logger.debug("{LAUNCHING TESTS FOR " + x._2 + "}")
-                        run(new valueTest(seqCreator(x._1)))
+                        run(new valueTest(seqCreator(x._1)))//In the future a shell script will generate the jar and will launch the tests on it
                     }
                     )
               } catch {
