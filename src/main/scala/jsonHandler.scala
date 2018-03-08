@@ -47,7 +47,8 @@ object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging 
                   getTime
 
                   List("value", "obj", "member", "arr").map(x => (inputTestValidator(x).get, x)).
-                    foreach( x._2 => {
+                    foreach( x =>
+                      x._2 match {
                       //In the future a shell script will generate the jar and will launch the tests on it
                       case "value" => logger.debug("{LAUNCHING TESTS FOR " + x._2 + "}");run(new valueTest(seqCreator(x._1)))
                       case "obj" => logger.debug("{LAUNCHING TESTS FOR " + x._2 + "}");run(new objTest(seqCreator(x._1)))
