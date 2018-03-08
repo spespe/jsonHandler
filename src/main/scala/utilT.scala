@@ -1,7 +1,4 @@
 import java.util.Calendar
-
-import jsonHandler.getClass
-
 import scala.xml.{Node, NodeSeq, XML}
 
 /**
@@ -13,20 +10,24 @@ trait utilT {
 
   var elem: scala.xml.Elem = _
   val input = Some(getClass.getResourceAsStream("/tests.xml"))
-  elem = XML.load(input.get)
-
-  //Test sequence creator method
-  def seqCreator(nd:NodeSeq):Seq[(((Node,Node),Int),Node)]={
-    val test = (nd \\ "test")
-    val result = (nd \\ "result")
-    val name = (nd \\ "@name")
-    test.zip(result).zipWithIndex.zip(name)
+  try {
+    elem = XML.load(input.get)
+  } catch {
+    case _:Throwable => System.err("[NOT ABLE TO LOAD THE XML FILE]"); System.exit(1)
   }
-  def inputTestValidator(s:String):Option[NodeSeq]={
-    (elem \\ "unit").filter(i => i.attribute("tag").get.text == s) match {
-      case n:NodeSeq => Some(n)
-      case _ => println("INPUT NOT FOUND IN THE TESTS.\n"); None
+
+    //Test sequence creator method
+    def seqCreator(nd:NodeSeq):Seq[(((Node,Node),Int),Node)]={
+      val test = (nd \\ "test")
+      val result = (nd \\ "result")
+      val name = (nd \\ "@name")
+      test.zip(result).zipWithIndex.zip(name)
+    }
+    def inputTestValidator(s:String):Option[NodeSeq]={
+      (elem \\ "unit").filter(i => i.attribute("tag").get.text == s) match {
+        case n:NodeSeq => Some(n)
+        case _ => println("INPUT NOT FOUND IN THE TESTS.\n"); None
+      }
     }
   }
 
-}
