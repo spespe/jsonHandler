@@ -22,8 +22,9 @@ object jsonHandler extends FunSuite with utilTest with ArgumentsParser with Lazy
   }
 
   def main(args:Array[String]){
+
       logger.info("{DATETIME}")
-      println(Calendar.getInstance.getTime)
+      getTime
 
       logger.info("{CHECKING INPUT ARGUMENTS}")
       val argsList = argsParser(Map(),args.toList)
@@ -61,30 +62,6 @@ object jsonHandler extends FunSuite with utilTest with ArgumentsParser with Lazy
           case _ => System.err.println("THE PARAMETER PASSED IS INVALID");usage;System.exit(1)
           }
       )
-
-      //"C:\\Users\\pietro.speri\\IdeaProjects\\jsonHandler\\src\\test\\resources\\jsonExample.json"
-      //Case to be added to separate the options
-
-      //parse(value,"0.9") match {
-      //    case Success(succMatch, _) => println("SUCCESS: "+succMatch)
-      //    case Failure(failMsg, _) => println("FAILED: "+failMsg)
-      //    case Error(errMsg, _) => println("ERROR: "+errMsg)
-      //}
-      //parse(obj,"") match {
-      //    case Success(succMatch, _) => println("SUCCESS: "+succMatch)
-      //    case Failure(failMsg, _) => println("FAILED: "+failMsg)
-      //    case Error(errMsg, _) => println("ERROR: "+errMsg)
-      //}
-      //parse(arr,"") match {
-      //    case Success(succMatch, _) => println("SUCCESS: "+succMatch)
-      //    case Failure(failMsg, _) => println("FAILED: "+failMsg)
-      //    case Error(errMsg, _) => println("ERROR: "+errMsg)
-      //}
-      //parse(member,"") match {
-      //    case Success(succMatch, _) => println("SUCCESS: "+succMatch)
-      //    case Failure(failMsg, _) => println("FAILED: "+failMsg)
-      //    case Error(errMsg, _) => println("ERROR: "+errMsg)
-      //}
     }
 }
 

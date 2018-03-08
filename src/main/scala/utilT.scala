@@ -7,7 +7,9 @@ import scala.xml.{Node, NodeSeq, XML}
 /**
   * Created by Pietro.Speri on 07/03/2018.
   */
-trait utilTest {
+trait utilT {
+
+  def getTime=println(Calendar.getInstance.getTime)
 
   var elem: scala.xml.Elem = _
   val input = Some(getClass.getResourceAsStream("/tests.xml"))
@@ -26,8 +28,5 @@ trait utilTest {
       case _ => println("INPUT NOT FOUND IN THE TESTS.\n"); None
     }
   }
-
-  def getTime=println(Calendar.getInstance.getTime)
-
 
 }
