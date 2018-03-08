@@ -3,7 +3,6 @@ import com.typesafe.scalalogging.LazyLogging
 import scala.util.parsing.input.StreamReader
 import org.scalatest.run
 import scala.util.parsing.combinator.JavaTokenParsers
-import scala.xml.Node
 
 /**
   * Created by Pietro.Speri on 26/01/2018.
@@ -48,10 +47,12 @@ object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging 
                   getTime
 
                   List("value", "obj", "member", "arr").map(x => (inputTestValidator(x).get, x)).
-                    foreach( x => {
-                        logger.debug("{LAUNCHING TESTS FOR " + x._2 + "}")
+                    foreach( x._2 => {
                       //In the future a shell script will generate the jar and will launch the tests on it
-                      //run(new valueTest(seqCreator(x._1)))
+                      case "value" => logger.debug("{LAUNCHING TESTS FOR " + x._2 + "}");run(new valueTest(seqCreator(x._1)))
+                      case "obj" => logger.debug("{LAUNCHING TESTS FOR " + x._2 + "}");run(new objTest(seqCreator(x._1)))
+                      case "member" => logger.debug("{LAUNCHING TESTS FOR " + x._2 + "}");run(new memberTest(seqCreator(x._1)))
+                      case "arr" => logger.debug("{LAUNCHING TESTS FOR " + x._2 + "}");run(new arrTest(seqCreator(x._1)))
                     }
                     )
               } catch {
