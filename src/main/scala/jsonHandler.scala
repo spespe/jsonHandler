@@ -9,7 +9,7 @@ import scala.util.parsing.combinator.JavaTokenParsers
   * Created by Pietro.Speri on 26/01/2018.
   */
 
-object jsonHandler extends FunSuite with utilTest with ArgumentsParser with LazyLogging {
+object jsonHandler extends FunSuite with utilT with ArgumentsParser with LazyLogging {
 
   class JSON extends JavaTokenParsers {
     def value:Parser[Any] = (obj | arr | stringLiteral | floatingPointNumber ^^ (_.toDouble) |
