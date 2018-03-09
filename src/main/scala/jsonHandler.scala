@@ -34,35 +34,45 @@ object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging 
 
       List("value", "obj", "member", "arr").map(x => (inputTestValidator(x).get, x)).foreach(println)
 
-      argsList.foreach(_ => {
-          case x:jsonHandler.ParserMap if(x.contains('TestLauncher)) => //Launching Tests
-              try {
-                  val argsList = argsParser(Map(),args.toList)
-                  val value = inputTestValidator("value").get
-                  val obj = inputTestValidator("obj").get
-                  val member = inputTestValidator("member").get
-                  val arr = inputTestValidator("arr").get
+      argsList.foreach(x=>
+        x match {
+          case x:jsonHandler.ParserMap if (x.contains('TestLauncher)) => //Launching Tests
+            try {
+              val argsList = argsParser(Map(), args.toList)
+              val value = inputTestValidator("value").get
+              val obj = inputTestValidator("obj").get
+              val member = inputTestValidator("member").get
+              val arr = inputTestValidator("arr").get
 
-                  logger.info("{DATETIME}")
-                  getTime
+              logger.info("{DATETIME}")
+              getTime
 
-                  List("value", "obj", "member", "arr").map(x => (inputTestValidator(x).get, x)).
-                    foreach( x =>
-                      x._2 match {
-                      //In the future a shell script will generate the jar and will launch the tests on it
-                      case "value" => logger.debug("{LAUNCHING TESTS FOR " + x._2 + "}");run(new valueTest(seqCreator(x._1)))
-                      case "obj" => logger.debug("{LAUNCHING TESTS FOR " + x._2 + "}");run(new objTest(seqCreator(x._1)))
-                      case "member" => logger.debug("{LAUNCHING TESTS FOR " + x._2 + "}");run(new memberTest(seqCreator(x._1)))
-                      case "arr" => logger.debug("{LAUNCHING TESTS FOR " + x._2 + "}");run(new arrTest(seqCreator(x._1)))
-                    }
-                    )
-              } catch {
-                  case ex: Exception => ex.printStackTrace; ex.getMessage
-              }
-          case x:jsonHandler.ParserMap if(x.contains('ObjectParser)) => {
-              //parse(x('ObjectParser),"")
+              List("value", "obj", "member", "arr").map(x => (inputTestValidator(x).get, x)).
+                foreach(x =>
+                  x._2 match {
+                    //In the future a shell script will generate the jar and will launch the tests on it
+                    case "value" => logger.debug("{LAUNCHING TESTS FOR " + x._2 + "}"); run(new valueTest(seqCreator(x._1)))
+                    case "obj" => logger.debug("{LAUNCHING TESTS FOR " + x._2 + "}"); run(new objTest(seqCreator(x._1)))
+                    case "member" => logger.debug("{LAUNCHING TESTS FOR " + x._2 + "}"); run(new memberTest(seqCreator(x._1)))
+                    case "arr" => logger.debug("{LAUNCHING TESTS FOR " + x._2 + "}"); run(new arrTest(seqCreator(x._1)))
+                  }
+                )
+            } catch {
+              case ex: Exception => ex.printStackTrace; ex.getMessage
+            }
+          case x: jsonHandler.ParserMap if (x.contains('ObjectParser)) => {
+            //parse(x('ObjectParser),"")
           } // Launching for obj
-          case _ => System.err.println("THE PARAMETER PASSED IS INVALID");usage;System.exit(1)
+          case x: jsonHandler.ParserMap if (x.contains('Separator)) => {
+            //parse(x('Separator),"")
           }
+          case x: jsonHandler.ParserMap if (x.contains('Parallel)) => {
+            //parse(x('Parallel),"")
+          }
+          case x: jsonHandler.ParserMap if (x.contains('TestLauncher)) => {
+            //parse(x('TestLauncher),"")
+          }
+          case _ => System.err.println("THE PARAMETER PASSED IS INVALID"); usage; System.exit(1)
+        }
       )
     }
