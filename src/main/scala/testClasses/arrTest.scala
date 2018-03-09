@@ -1,6 +1,7 @@
-import org.scalatest.FunSuite
+package testClasses
 
-import scala.xml.Node
+import org.scalatest.FunSuite
+import scala.xml.{Node}
 
 /**
   * Created by Pietro.Speri on 07/02/2018.
