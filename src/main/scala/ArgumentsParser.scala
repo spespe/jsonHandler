@@ -4,7 +4,8 @@
 trait ArgumentsParser {
 
   def usage = println("\nThe arguments passed are incorrect. Please refer to the following usage example.\n" +
-    "USAGE EXAMPLE: jsonHandler /path/to/your/file/file.json[FILE][REQUIRED] [OPTION: -f, -o, -s, -p, -t]")
+    "USAGE EXAMPLE: jsonHandler -f /path/to/your/file/file.json[FILE][REQUIRED] -o member[OBJECT][OPTIONAL] \n" +
+    "-s '<>'[SEPARATOR][OPTIONAL] -p y[PARALLEL][OPTIONAL] -t y [TESTLAUNCHER][OPTIONAL] -- [OPTIONS: -f, -o, -s, -p, -t]")
 
   type ParserMap = Map[Symbol, String]
 

@@ -11,23 +11,26 @@ import scala.util.parsing.combinator.JavaTokenParsers
 
 object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging {
 
-    class JSON extends JavaTokenParsers {
-      def value: Parser[Any] = (obj | arr | stringLiteral | floatingPointNumber ^^ (_.toDouble) |
-        "null" ^^ { x => null } |
-        "true" ^^ { x => true } |
-        "false" ^^ { x => false })
+  class JSON extends JavaTokenParsers {
+    def value: Parser[Any] = (obj | arr | stringLiteral | floatingPointNumber ^^ (_.toDouble) |
+      "null" ^^ { x => null } |
+      "true" ^^ { x => true } |
+      "false" ^^ { x => false })
 
-      def obj: Parser[Map[String, Any]] = "{" ~> repsep(member, ",") <~ "}" ^^ (Map() ++ _)
+    def obj: Parser[Map[String, Any]] = "{" ~> repsep(member, ",") <~ "}" ^^ (Map() ++ _)
 
-      def arr: Parser[List[Any]] = "[" ~> repsep(value, ",") <~ "]"
+    def arr: Parser[List[Any]] = "[" ~> repsep(value, ",") <~ "]"
 
-      def member: Parser[(String, Any)] = stringLiteral ~ ":" ~ value ^^ { case name ~ ":" ~ value => (name, value) }
-    }
+    def member: Parser[(String, Any)] = stringLiteral ~ ":" ~ value ^^ { case name ~ ":" ~ value => (name, value) }
+  }
 
-    logger.info("{DATETIME}")
-    getTime
+  logger.info("{DATETIME}")
+  getTime
 
-    logger.info("{CHECKING INPUT ARGUMENTS}")
+//  List("value", "obj", "member", "arr").map(x => (inputTestValidator(x).get, x)).foreach(println)
+
+
+  logger.info("{CHECKING INPUT ARGUMENTS}")
     val argsList = argsParser(Map(), args.toList)
     if (!argsList.contains('InputFile)) {
       usage;
@@ -45,12 +48,8 @@ object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging 
     logger.info("{DATETIME}")
     getTime
 
-    val inp = Some(getClass.getResourceAsStream("/tests.xml"))
-    inp.get.read()
     //File reader
-    val reader = StreamReader(new InputStreamReader(new FileInputStream(argsList('InputFile))))
-
-    //List("value", "obj", "member", "arr").map(x => (inputTestValidator(x).get, x)).foreach(println)
+    //val reader = StreamReader(new InputStreamReader(new FileInputStream(argsList('InputFile))))
 
     argsList.foreach(x =>
       x match {
