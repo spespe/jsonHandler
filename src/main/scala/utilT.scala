@@ -14,7 +14,9 @@ trait utilT {
   try {
     elem = XML.load(input.get)
   } catch {
-    case _:Throwable => System.err.println("[NOT ABLE TO LOAD THE XML FILE]"); System.exit(1)
+    case ex:Throwable => System.err.println("[NOT ABLE TO LOAD THE XML FILE]")
+      ex.printStackTrace()
+      System.exit(1)
   }
 
     //Test sequence creator method

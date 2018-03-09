@@ -20,34 +20,33 @@ object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging 
     def member:Parser[(String,Any)] = stringLiteral~":"~value ^^ {case name~":"~value => (name,value)}
   }
 
-      logger.info("{DATETIME}")
-      getTime
+  logger.info("{DATETIME}")
+  getTime
 
-      logger.info("{CHECKING INPUT ARGUMENTS}")
-      val argsList = argsParser(Map(),args.toList)
-      if(!argsList.contains('InputFile)){usage;System.err.println("THE INPUT JSON FILE IS REQUIRED!");System.exit(1)}
-      argsList('InputFile)
-      argsList.foreach(println)
+  logger.info("{CHECKING INPUT ARGUMENTS}")
+  val argsList = argsParser(Map(),args.toList)
+  if(!argsList.contains('InputFile)){usage;System.err.println("THE INPUT JSON FILE IS REQUIRED!");System.exit(1)}
 
-      //File reader
-      val reader = StreamReader(new InputStreamReader(new FileInputStream(argsList('InputFile))))
+  //Elems in inputTestValidator
+  val elementList=List("value", "obj", "member", "arr")
+  val value = inputTestValidator("value").get
+  val obj = inputTestValidator("obj").get
+  val member = inputTestValidator("member").get
+  val arr = inputTestValidator("arr").get
 
-      List("value", "obj", "member", "arr").map(x => (inputTestValidator(x).get, x)).foreach(println)
+  logger.info("{DATETIME}")
+  getTime
+
+  //File reader
+  val reader = StreamReader(new InputStreamReader(new FileInputStream(argsList('InputFile))))
+
+      //List("value", "obj", "member", "arr").map(x => (inputTestValidator(x).get, x)).foreach(println)
 
       argsList.foreach(x=>
         x match {
           case x:jsonHandler.ParserMap if (x.contains('TestLauncher)) => //Launching Tests
             try {
-              val argsList = argsParser(Map(), args.toList)
-              val value = inputTestValidator("value").get
-              val obj = inputTestValidator("obj").get
-              val member = inputTestValidator("member").get
-              val arr = inputTestValidator("arr").get
-
-              logger.info("{DATETIME}")
-              getTime
-
-              List("value", "obj", "member", "arr").map(x => (inputTestValidator(x).get, x)).
+              elementList.map(x => (inputTestValidator(x).get, x)).
                 foreach(x =>
                   x._2 match {
                     //In the future a shell script will generate the jar and will launch the tests on it
