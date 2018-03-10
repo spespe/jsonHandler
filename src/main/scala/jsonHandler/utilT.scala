@@ -23,7 +23,7 @@ trait utilT {
 
           //Test sequence creator method
           def seqCreator(nd:NodeSeq):Seq[(((Node,Node),Int),Node)]={
-            val test = (nd \\ "testClasses")
+            val test = (nd \\ "unit")
             val result = (nd \\ "result")
             val name = (nd \\ "@name")
             test.zip(result).zipWithIndex.zip(name)
