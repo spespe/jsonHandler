@@ -2,7 +2,6 @@ package testClasses
 
 import jsonHandler.JSONParser
 import org.scalatest.FunSuite
-
 import scala.xml.Node
 
 /**
@@ -11,7 +10,7 @@ import scala.xml.Node
 class objTest (seq:Seq[(((Node,Node),Int),Node)]) extends FunSuite with JSONParser {
   for(((el,idx),name)<-seq){
     test("OBJECT TEST NUMBER: "+idx+" NAME:"+name){
-      val res = parse(obj, el._1.asInstanceOf[CharSequence]) match {
+      val res = parse(obj, el._1.mkString) match {
         case Success(matched, _) => matched
         case Failure(failMsg, _) => println("FAILURE: "+failMsg)
         case Error(errMsg, _) => println("ERROR: "+errMsg)

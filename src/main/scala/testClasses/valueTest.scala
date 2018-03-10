@@ -11,7 +11,7 @@ import scala.xml.Node
 class valueTest(seq:Seq[(((Node,Node),Int),Node)]) extends FunSuite with JSONParser {
   for(((el,idx),name)<-seq){
     test("VALUE TEST NUMBER: "+idx+" NAME:"+name){
-      val res = parse(value, el._1.asInstanceOf[CharSequence]) match {
+      val res = parse(value, el._1.mkString) match {
         case Success(matched, _) => println(matched)
         case Failure(failMsg, _) => println("FAILURE: "+failMsg)
         case Error(errMsg, _) => println("ERROR: "+errMsg)

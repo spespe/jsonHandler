@@ -1,10 +1,13 @@
 package jsonHandler
 
+import java.io.{FileInputStream, InputStreamReader}
+
 import com.typesafe.scalalogging.LazyLogging
 import org.scalatest.run
 import testClasses.{arrTest, memberTest, objTest, valueTest}
 
 import scala.util.parsing.combinator.JavaTokenParsers
+import scala.util.parsing.input.StreamReader
 
 /**
   * Created by Pietro.Speri on 26/01/2018.
@@ -26,6 +29,7 @@ object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging 
     logger.info("{DATETIME}")
     getTime
 
+  //  val reader = StreamReader(new InputStreamReader(new FileInputStream(argsList('InputFile))))
     argsList match {
       case x: jsonHandler.ParserMap if (x.contains('TestLauncher)) => //Launching Tests
         try {
