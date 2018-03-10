@@ -1,7 +1,7 @@
-import java.io.FileInputStream
+package jsonHandler
+
 import java.util.Calendar
 
-import scala.io.Source
 import scala.xml.{Node, NodeSeq, XML}
 
 /**
