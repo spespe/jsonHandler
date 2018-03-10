@@ -1,26 +1,21 @@
 package jsonHandler
 
-import java.io.{FileInputStream, InputStreamReader}
-
 import com.typesafe.scalalogging.LazyLogging
 import org.scalatest.run
 import testClasses.{arrTest, memberTest, objTest, valueTest}
-
-import scala.util.parsing.combinator.JavaTokenParsers
-import scala.util.parsing.input.StreamReader
 
 /**
   * Created by Pietro.Speri on 26/01/2018.
   */
 
-object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging {
-
+object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging with JSONParser {
 
     logger.info("{DATETIME}")
     getTime
 
-    logger.info("{CHECKING INPUT ARGUMENTS}")
+    logger.info("{CHECKING INPUT ARGUMENTS} : ")
     val argsList = argsParser(Map(), args.toList)
+    logger.info(argsList.toList.mkString(","))
 
     //Elems in inputTestValidator
     val elementList = List("value", "obj", "member", "arr")
@@ -47,20 +42,21 @@ object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging 
           case ex: Exception => ex.printStackTrace; ex.getMessage
         }
       case x: jsonHandler.ParserMap if (x.contains('ObjectParser)) => {
-        //parse(x('ObjectParser),"")
+        logger.info("{LAUNCHING JSON PARSER ON " + x('InputFile) + "USING " + x('ObjectParser) + "}")
+        parse(x('ObjectParser),x('InputFile))
       } // Launching for obj
       case x: jsonHandler.ParserMap if (x.contains('Separator)) => {
-        //parse(x('Separator),"")
+        logger.info("{LAUNCHING JSON PARSER ON " + x('InputFile) + "USING " + x('ObjectParser) + "}")
+        parse(x('Separator),x('InputFile))
       }
       case x: jsonHandler.ParserMap if (x.contains('Parallel)) => {
+        //the message will be replace with a new method
+        logger.info("{LAUNCHING JSON PARSER ON " + x('InputFile) + "USING " + x('ObjectParser) + "}")
         //parse(x('Parallel),"")
       }
-      case x: jsonHandler.ParserMap if (x.contains('TestLauncher)) => {
-        //parse(x('TestLauncher),"")
-      }
       case x: jsonHandler.ParserMap if (!x.contains('InputFile)) => {
-        usage;
-        System.err.println("THE INPUT JSON FILE IS REQUIRED!");
+        usage
+        System.err.println("THE INPUT JSON FILE IS REQUIRED!")
         System.exit(1)
       }
     }
