@@ -1,13 +1,12 @@
 package testClasses
 
+import jsonHandler.JSONParser
+import org.scalatest.FunSuite
+import scala.xml.Node
+
 /**
   * Created by Pietro.Speri on 05/02/2018.
   */
-
-import jsonHandler.jsonHandler.JSONParser
-import org.scalatest.FunSuite
-
-import scala.xml.Node
 
 class valueTest(seq:Seq[(((Node,Node),Int),Node)]) extends FunSuite with JSONParser {
   for(((el,idx),name)<-seq){
