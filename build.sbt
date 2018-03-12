@@ -12,3 +12,8 @@ libraryDependencies ++=  Seq(
   "org.scala-lang.modules" %% "scala-xml" % "1.0.6",
   "org.scalatest" %% "scalatest" % "3.2.0-SNAP7" % Test
 )
+
+resolvers ++= Seq(
+  "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
+  "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases"
+)

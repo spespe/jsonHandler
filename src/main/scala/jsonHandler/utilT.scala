@@ -22,12 +22,13 @@ trait utilT {
         }
 
           //Test sequence creator method
-          def seqCreator(nd:NodeSeq):Seq[(((Node,Node),Int),Node)]={
-            val test = (nd \\ "unit")
-            val result = (nd \\ "result")
-            val name = (nd \\ "@name")
+          def seqCreator(nd:NodeSeq):IndexedSeq[(((Char,Char),Int),Char)]={
+            val test:String = (nd \\ "unit" \\ "test").text
+            val result:String = (nd \\ "unit" \\ "result").text
+            val name:String = (nd \\ "@name").text
             test.zip(result).zipWithIndex.zip(name)
           }
+
           def inputTestValidator(s:String):Option[NodeSeq]={
             (elem \\ "unit").filter(i => i.attribute("tag").get.text == s) match {
               case n:NodeSeq => Some(n)
