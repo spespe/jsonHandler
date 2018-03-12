@@ -2,12 +2,13 @@ package testClasses
 
 import jsonHandler.JSONParser
 import org.scalatest.FunSuite
-import scala.xml.Node
+
+import scala.xml.{NodeSeq}
 
 /**
   * Created by Pietro.Speri on 07/02/2018.
   */
-class memberTest (seq:Seq[(((Node,Node),Int),Node)]) extends FunSuite with JSONParser{
+class memberTest (seq:Seq[(((NodeSeq,NodeSeq),Int),NodeSeq)]) extends FunSuite with JSONParser{
   for(((el,idx),name)<-seq){
     test("MEMBER TEST NUMBER: "+idx+" NAME:"+name){
       val res = parse(member, el._1.mkString) match {

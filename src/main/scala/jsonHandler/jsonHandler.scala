@@ -29,7 +29,7 @@ object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging 
       case x: jsonHandler.ParserMap if (x.contains('TestLauncher)) => //Launching Tests
         try {
 
-          elementList.map(x => (inputTestValidator(x).get, x)).
+          elementList.map(x => (inputTestValidator(x), x)).
             foreach(x =>
               x._2 match {
                 case "value" => logger.info("{LAUNCHING TESTS FOR " + x._2 + "}"); run(new valueTest(seqCreator(x._1)))
