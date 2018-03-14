@@ -9,7 +9,8 @@ libraryDependencies ++=  Seq(
   "org.scala-lang" % "scala-parser-combinators" % "2.11.0-M4",
   "org.scalatest" %% "scalatest-funsuite" % "3.0.0-SNAP13",
   "org.scala-lang.modules" %% "scala-xml" % "1.0.6",
-  "org.scalatest" %% "scalatest" % "3.2.0-SNAP7" % Test
+  "org.scalatest" %% "scalatest" % "3.2.0-SNAP7" % Test,
+  "ch.qos.logback" % "logback-classic" % "1.1.2"
 )
 
 resolvers ++= Seq(

@@ -1,14 +1,15 @@
 package jsonHandler
 
 import java.util.Calendar
-import scala.io.Source
-import scala.xml.{Node, NodeSeq, XML}
+import org.scalatest.FunSuite
+import scala.collection.mutable.ListBuffer
+import scala.xml.{NodeSeq, XML}
 
 /**
   * Created by Pietro.Speri on 07/03/2018.
   * */
 
-trait utilT {
+trait utilT extends FunSuite{
 
   def getTime=println(Calendar.getInstance.getTime)
   @volatile var elem: scala.xml.Elem = _
@@ -27,12 +28,10 @@ trait utilT {
             val test:NodeSeq = (nd \\ "unit" \\ "test")
             val result:NodeSeq = (nd \\ "unit" \\ "result")
             val name:NodeSeq = (nd \\ "@name")
-//            xml.XML.load(test).zip(xml.XML.load(result)).zipWithIndex.zip(xml.XML.load(name))
             test.zip(result).zipWithIndex.zip(name)
           }
 
-          def inputTestValidator(s:String):NodeSeq={
-            (elem \\ "@name").zipWithIndex
+          def inputTestValidator(elements:NodeSeq,s:String)={
             (elem \\ "unit").filter(i => i.attribute("tag").get.text == s) match {
               case n:NodeSeq => n
               case _ => throw new MatchError("INPUT NOT FOUND IN THE TESTS.\n")
