@@ -2,13 +2,12 @@ package testClasses
 
 import jsonHandler.JSONParser
 import org.scalatest.FunSuite
-
 import scala.xml.{NodeSeq}
 
 /**
   * Created by Pietro.Speri on 07/02/2018.
   */
-class objTest (nd:NodeSeq) extends FunSuite with JSONParser {
+class ObjTest (nd:NodeSeq) extends FunSuite with JSONParser {
 
   def testRes(test:String,expectedResult:String):(String,String)={
     val result = parse(obj,test) match {

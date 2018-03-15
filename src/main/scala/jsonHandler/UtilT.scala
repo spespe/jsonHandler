@@ -8,7 +8,7 @@ import scala.xml.{NodeSeq, XML}
   * Created by Pietro.Speri on 07/03/2018.
   * */
 
-trait utilT extends FunSuite with ArgumentsParser{
+trait UtilT extends FunSuite with ArgumentsParser{
 
   def getTime=println(Calendar.getInstance.getTime)
 

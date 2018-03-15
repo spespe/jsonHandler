@@ -1,15 +1,14 @@
 package testClasses
 
-import jsonHandler.{JSONParser, utilT}
+import jsonHandler.{JSONParser, UtilT}
 import org.scalatest.FunSuite
-
 import scala.xml.NodeSeq
 
 /**
   * Created by Pietro.Speri on 05/02/2018.
   */
 
-class valueTest(nd:NodeSeq) extends FunSuite with JSONParser with utilT{
+class ValueTest(nd:NodeSeq) extends FunSuite with JSONParser with UtilT{
 
   def testRes(test:String,expectedResult:String):(String,String)={
     val result = parse(value,test) match {
