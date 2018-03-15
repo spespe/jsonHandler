@@ -8,7 +8,7 @@ import testClasses.{arrTest, memberTest, objTest, valueTest}
   * Created by Pietro.Speri on 26/01/2018.
   */
 
-object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging with JSONParser {
+object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging with JSONParser with utilT{
 
     logger.info("{DATETIME}")
     getTime
@@ -28,14 +28,13 @@ object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging 
     argsList match {
       case x: jsonHandler.ParserMap if (x.contains('TestLauncher)) => //Launching Tests
         try {
-
-          elementList.map(x => (inputTestValidator(x), x)).
-            foreach(x =>
-              x._2 match {
-                case "value" => logger.info("{LAUNCHING TESTS FOR " + x._2 + "}"); run(new valueTest(seqCreator(x._1)))
-                case "obj" => logger.info("{LAUNCHING TESTS FOR " + x._2 + "}"); run(new objTest(seqCreator(x._1)))
-                case "member" => logger.info("{LAUNCHING TESTS FOR " + x._2 + "}"); run(new memberTest(seqCreator(x._1)))
-                case "arr" => logger.info("{LAUNCHING TESTS FOR " + x._2 + "}"); run(new arrTest(seqCreator(x._1)))
+          elementList.map(s => (inputTestValidator(x), s)).
+            foreach(y =>
+              y._2 match {
+                case "value" => logger.info("{LAUNCHING TESTS FOR " + y._2 + "}"); run(new valueTest())
+                case "obj" => logger.info("{LAUNCHING TESTS FOR " + y._2 + "}"); run(new objTest(seqCreator(y._1)))
+                case "member" => logger.info("{LAUNCHING TESTS FOR " + y._2 + "}"); run(new memberTest(seqCreator(y._1)))
+                case "arr" => logger.info("{LAUNCHING TESTS FOR " + y._2 + "}"); run(new arrTest(seqCreator(y._1)))
               }
             )
         } catch {

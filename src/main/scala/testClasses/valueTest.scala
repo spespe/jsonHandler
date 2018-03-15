@@ -1,14 +1,14 @@
 package testClasses
 
-import jsonHandler.JSONParser
+import jsonHandler.{JSONParser, utilT}
 import org.scalatest.FunSuite
-import scala.xml.{NodeSeq}
 
 /**
   * Created by Pietro.Speri on 05/02/2018.
   */
 
-class valueTest(nd:NodeSeq) extends FunSuite with JSONParser {
+class valueTest extends FunSuite with JSONParser with utilT{
+  var nd = (elem \\ "unit").filter(i=>i.attribute("tag").get.text=="value")
   def testRes(test:String,expectedResult:String):(String,String)={
     val result = parse(value,test) match {
       case Success(matched, _) => matched
@@ -37,17 +37,17 @@ class valueTest(nd:NodeSeq) extends FunSuite with JSONParser {
 
 
 
-  for(((el,idx),name)<-seq){
-    println(el._1)
-    test("VALUE TEST NUMBER: "+idx+" NAME:"+name){
-      val res = parse(value, el._1.mkString) match {
-        case Success(matched, _) => println(matched)
-        case Failure(failMsg, _) => println("FAILURE: "+failMsg)
-        case Error(errMsg, _) => println("ERROR: "+errMsg)
-      }
-      val expRes = el._2
-      assert(res==expRes)
-    }
-  }
+  //for(((el,idx),name)<-seq){
+  //  println(el._1)
+  //  test("VALUE TEST NUMBER: "+idx+" NAME:"+name){
+  //    val res = parse(value, el._1.mkString) match {
+  //      case Success(matched, _) => println(matched)
+  //      case Failure(failMsg, _) => println("FAILURE: "+failMsg)
+  //      case Error(errMsg, _) => println("ERROR: "+errMsg)
+  //    }
+  //    val expRes = el._2
+  //    assert(res==expRes)
+  //  }
+  //}
 }
 
