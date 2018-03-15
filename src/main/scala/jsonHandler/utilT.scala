@@ -11,9 +11,11 @@ import scala.xml.{NodeSeq, XML}
 trait utilT extends FunSuite with ArgumentsParser{
 
   def getTime=println(Calendar.getInstance.getTime)
-  @volatile var elem: scala.xml.Elem = _
-//  val input = getClass.getResourceAsStream("/tests.xml")
-//  val input= "C:\\Users\\pietro.speri\\IdeaProjects\\jsonHandler\\src\\main\\scala\\resources\\tests.xml"
+
+  @volatile var elem:scala.xml.Elem = _
+  //  val input = getClass.getResourceAsStream("/tests.xml")
+  //  val input= "C:\\Users\\pietro.speri\\IdeaProjects\\jsonHandler\\src\\main\\scala\\resources\\tests.xml"
+
   try {
       elem = XML.load("C:\\Users\\pietro.speri\\IdeaProjects\\jsonHandler\\src\\main\\scala\\resources\\tests.xml")
         } catch {
@@ -30,8 +32,8 @@ trait utilT extends FunSuite with ArgumentsParser{
             test.zip(result).zipWithIndex.zip(name)
           }
 
-          def inputTestValidator(elements:ParserMap,s:String)={
-            (elements \\ "unit").filter(i => i.attribute("tag").get.text == s) match {
+          def inputTestValidator(ns:NodeSeq,s:String)={
+            ns.filter(i => i.attribute("tag").get.text == s) match {
               case n:NodeSeq => n
               case _ => throw new MatchError("INPUT NOT FOUND IN THE TESTS.\n")
             }

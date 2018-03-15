@@ -19,6 +19,7 @@ object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging 
 
     //Elems in inputTestValidator
     val elementList = List("value", "obj", "member", "arr")
+    val ns = (elem \\ "unit")
 
     //Datetime
     logger.info("{DATETIME}")
@@ -28,13 +29,13 @@ object jsonHandler extends App with utilT with ArgumentsParser with LazyLogging 
     argsList match {
       case x: jsonHandler.ParserMap if (x.contains('TestLauncher)) => //Launching Tests
         try {
-          elementList.map(s => (inputTestValidator(x), s)).
+          elementList.map(s => (inputTestValidator(ns, s),s)).
             foreach(y =>
               y._2 match {
-                case "value" => logger.info("{LAUNCHING TESTS FOR " + y._2 + "}"); run(new valueTest())
-                case "obj" => logger.info("{LAUNCHING TESTS FOR " + y._2 + "}"); run(new objTest(seqCreator(y._1)))
-                case "member" => logger.info("{LAUNCHING TESTS FOR " + y._2 + "}"); run(new memberTest(seqCreator(y._1)))
-                case "arr" => logger.info("{LAUNCHING TESTS FOR " + y._2 + "}"); run(new arrTest(seqCreator(y._1)))
+                case "value" => logger.info("{LAUNCHING TESTS FOR " + y._2 + "}"); run(new valueTest(y._1))
+                case "obj" => logger.info("{LAUNCHING TESTS FOR " + y._2 + "}"); run(new objTest(y._1))
+                case "member" => logger.info("{LAUNCHING TESTS FOR " + y._2 + "}"); run(new memberTest(y._1))
+                case "arr" => logger.info("{LAUNCHING TESTS FOR " + y._2 + "}"); run(new arrTest(y._1))
               }
             )
         } catch {
