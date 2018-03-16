@@ -9,20 +9,15 @@ import testClasses.{ArrTest, MemberTest, ObjTest, ValueTest}
 
 object JSONHandler extends App with LazyLogging with JSONParser with UtilT {
 
-  logger.info("{DATETIME}")
-  getTime
+  //Datetime
+  logger.info("{DATETIME: "+getTime+"}")
 
-  logger.info("{CHECKING INPUT ARGUMENTS} : ")
   val argsList = argsParser(Map(), args.toList)
-  logger.info(argsList.toList.mkString(","))
+  logger.info("{ARGUMENTS: "+argsList.toList.mkString(",")+"}")
 
   //Elems in inputTestValidator
   val elementList = List("value", "obj", "member", "arr")
   val ns = (elem \\ "unit")
-
-  //Datetime
-  logger.info("{DATETIME}")
-  getTime
 
   //  val reader = StreamReader(new InputStreamReader(new FileInputStream(argsList('InputFile))))
   argsList match {
@@ -41,6 +36,8 @@ object JSONHandler extends App with LazyLogging with JSONParser with UtilT {
         } catch {
           case ex: Exception => ex.printStackTrace; ex.getMessage
         }
+      } else {
+        logger.debug("{TESTS ARE NOT GOING TO BE LAUNCHED. PARAMETER PASSED: "+x.get('TestLauncher).get+"}")
       }
     case x: JSONHandler.ParserMap if (x.contains('ObjectParser)) => {
       logger.info("{LAUNCHING JSON PARSER ON " + x('InputFile) + "USING " + x('ObjectParser) + "}")

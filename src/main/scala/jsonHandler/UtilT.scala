@@ -11,7 +11,7 @@ trait UtilT extends ArgumentsParser {
 
   @volatile var elem: scala.xml.Elem = _
 
-  def getTime = println(Calendar.getInstance.getTime)
+  def getTime = Calendar.getInstance.getTime
   //  val input = getClass.getResourceAsStream("/tests.xml")
   //  val input= "C:\\Users\\pietro.speri\\IdeaProjects\\jsonHandler\\src\\main\\scala\\resources\\tests.xml"
 
