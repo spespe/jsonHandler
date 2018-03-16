@@ -19,10 +19,10 @@ object JSONHandler extends App with LazyLogging with JSONParser with UtilT {
   val elementList = List("value", "obj", "member", "arr")
   val ns = (elem \\ "unit")
 
-  //  val reader = StreamReader(new InputStreamReader(new FileInputStream(argsList('InputFile))))
   argsList match {
     case x: JSONHandler.ParserMap if (x.contains('TestLauncher)) => //Launching Tests
-      if(x.get('TestLauncher)==Some("y")) {
+      if(argValidator(x)("TestLauncher")("y")) {
+        logger.debug("{LAUNCHING TESTS. PARAMETER PASSED: "+x.get('TestLauncher).get+"}")
         try {
           elementList.map(s => (inputTestValidator(ns, s), s)).
             foreach(y =>

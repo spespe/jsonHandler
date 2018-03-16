@@ -1,6 +1,9 @@
 package jsonHandler
 
 import java.util.Calendar
+
+import jsonHandler.JSONHandler.ParserMap
+
 import scala.xml.{NodeSeq, XML}
 
 /**
@@ -37,4 +40,7 @@ trait UtilT extends ArgumentsParser {
       case _ => throw new MatchError("INPUT NOT FOUND IN THE TESTS.\n")
     }
   }
+
+  def argValidator(p:ParserMap)(s:String)(s2:String):Boolean=if(p.get(Symbol(s))==Some(s2))true else false
+
 }
