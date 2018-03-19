@@ -7,7 +7,7 @@ import testClasses.{ArrTest, MemberTest, ObjTest, ValueTest}
   * Created by Pietro.Speri on 26/01/2018.
   */
 
-object JSONHandler extends App with LazyLogging with JSONParser with UtilT {
+object JSONHandler extends App with LazyLogging with UtilT {
 
   //Datetime
   logger.info("{DATETIME: "+getTime+"}")
