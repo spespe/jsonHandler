@@ -39,7 +39,7 @@ trait UtilT extends FunSuite with ArgumentsParser with JSONParser {
     }
   }
 
-  def argValidator(p:ParserMap)(s:String)(s2:String):Boolean=if(p.get(Symbol(s))==Some(s2))true else false
+  def argValidator(p:ParserMap)(s:String)(s2:String):Boolean=if(p.get(Symbol(s))==Some(s2)) true else false
 
   def testRes(test: String, expectedResult: String): (String, String) = {
     val result = parse(obj, test) match {
@@ -51,14 +51,10 @@ trait UtilT extends FunSuite with ArgumentsParser with JSONParser {
   }
 
   def resultValidator(nd:NodeSeq)= {
-    for {
-      (elem, index) <- (nd \\ "@name").zipWithIndex
-    } {
+    for {(elem, index) <- (nd \\ "@name").zipWithIndex} {
       test(elem.text) {
         val (result, expected) = testRes((nd \\ "test") (index).text, (nd \\ "result") (index).text)
-        try {
-          assert(result == expected)
-        }
+        try {assert(result == expected)}
         catch {
           case _: Exception => {
             System.err.println(result + "IT IS NOT EQUAL TO " + expected)
