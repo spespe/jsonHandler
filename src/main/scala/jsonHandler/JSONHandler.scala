@@ -7,7 +7,7 @@ import testClasses.{ArrTest, MemberTest, ObjTest, ValueTest}
   * Created by Pietro.Speri on 26/01/2018.
   */
 
-object JSONHandler extends UtilT with LazyLogging  {
+object JSONHandler extends UtilT with LazyLogging {
 
   def main(args:Array[String]){
   //Datetime

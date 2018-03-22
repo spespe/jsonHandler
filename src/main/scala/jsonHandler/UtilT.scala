@@ -47,7 +47,7 @@ trait UtilT extends FunSuite with ArgumentsParser with JSONParser {
       case Failure(failMsg, _) => System.err.println("TEST: "+test+" FAILURE: " + failMsg)
       case Error(errMsg, _) => System.err.println("ERROR: " + errMsg)
     }
-    (result.toString.trim, expectedResult.stripMargin.trim)
+    (result.toString.stripMargin.trim, expectedResult.stripMargin.trim)
   }
 
   def resultValidator(nd:NodeSeq)= {

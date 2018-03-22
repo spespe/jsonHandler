@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tests>
+    <unit name="Null test" tag="value" type="POSITIVE">
+        <test>null</test>
+        <result >null</result>
+    </unit>
     <unit name="String type test" tag="value" type="POSITIVE">
-        <test>"0.2"</test>
+        <test>{0.2}</test>
         <result >0.2</result>
     </unit>
     <unit name="Int type test" tag="value" type="POSITIVE">
-        <test>1</test>
+        <test>{1}</test>
         <result >1</result>
     </unit>
     <unit name="Double type test" tag="value" type="POSITIVE">
-        <test>0.163945</test>
+        <test>{0.163945}</test>
         <result >0.163945</result>
     </unit>
-    <unit name="Double type test" tag="obj" type="POSITIVE">
-        <test>address: 740 center ave Huntington beach</test>
-        <result >address: 740 center ave Huntington beach</result>
+    <unit name="Empty object test" tag="obj" type="POSITIVE">
+        <test>{:}</test>
+        <result ></result>
     </unit>
-    <unit name="Double type test" tag="arr" type="POSITIVE">
-        <test>address: 740 center ave Huntington beach</test>
-        <result >address: 740 center ave Huntington beach</result>
+    <unit name="Empty arr test" tag="arr" type="POSITIVE">
+        <test>{::}</test>
+        <result ></result>
     </unit>
-    <unit name="Double type test" tag="member" type="POSITIVE">
-        <test>address: 740 center ave Huntington beach</test>
-        <result >address: 740 center ave Huntington beach</result>
+    <unit name="Empty member test" tag="member" type="POSITIVE">
+        <test>{address: }</test>
+        <result >()</result>
     </unit>
 </tests>
 
