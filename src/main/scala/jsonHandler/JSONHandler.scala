@@ -1,7 +1,5 @@
 package jsonHandler
 
-import com.typesafe.scalalogging.LazyLogging
-
 /**
   * Created by Pietro.Speri on 26/01/2018.
   */
@@ -24,8 +22,7 @@ object JSONHandler extends UtilT {
       if(argValidator(x)("TestLauncher")("y")) {
         logger.debug("{LAUNCHING TESTS. PARAMETER PASSED: "+x.get('TestLauncher).get+"}")
         try {
-          elementList.map(s => (inputTestValidator(ns, s), s)).
-            foreach(y => launchTest(y._1,y._2))
+          elementList.map(s => (inputTestValidator(ns, s), s)).foreach(y => launchTest(y._1,y._2))
         } catch {
           case ex: Exception => ex.printStackTrace; ex.getMessage
         }

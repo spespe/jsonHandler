@@ -1,10 +1,9 @@
 package jsonHandler
 
 import java.util.Calendar
-
 import com.typesafe.scalalogging.LazyLogging
 import org.scalatest.FunSuite
-
+import testClasses.{ArrTest, MemberTest, ObjTest, ValueTest}
 import scala.xml.{NodeSeq, XML}
 
 /**
@@ -68,7 +67,14 @@ trait UtilT extends FunSuite with ArgumentsParser with JSONParser with LazyLoggi
     }
   }
 
-  def launchTest(nd:NodeSeq,s:String)= {logger.info("{LAUNCHING TESTS FOR " + s + "}"); resultValidator(nd)}
-
+  def launchTest(nd:NodeSeq,s:String)= {
+    logger.info("{LAUNCHING TESTS FOR " + s + "}")
+    s match {
+      case "value" => org.scalatest.run(new ValueTest(nd))
+      case "obj" => org.scalatest.run(new ObjTest(nd))
+      case "member" => org.scalatest.run(new MemberTest(nd))
+      case "arr" => org.scalatest.run(new ArrTest(nd))
+    }
+    }
 
 }
