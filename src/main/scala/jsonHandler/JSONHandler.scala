@@ -1,13 +1,12 @@
 package jsonHandler
 
 import com.typesafe.scalalogging.LazyLogging
-import testClasses.{ArrTest, MemberTest, ObjTest, ValueTest}
 
 /**
   * Created by Pietro.Speri on 26/01/2018.
   */
 
-object JSONHandler extends UtilT with LazyLogging {
+object JSONHandler extends UtilT {
 
   def main(args:Array[String]){
   //Datetime
@@ -26,14 +25,7 @@ object JSONHandler extends UtilT with LazyLogging {
         logger.debug("{LAUNCHING TESTS. PARAMETER PASSED: "+x.get('TestLauncher).get+"}")
         try {
           elementList.map(s => (inputTestValidator(ns, s), s)).
-            foreach(y =>
-              y._2 match {
-                case "value" => logger.info("{LAUNCHING TESTS FOR " + y._2 + "}"); org.scalatest.run(new ValueTest(y._1))
-                case "obj" => logger.info("{LAUNCHING TESTS FOR " + y._2 + "}"); org.scalatest.run(new ObjTest(y._1))
-                case "member" => logger.info("{LAUNCHING TESTS FOR " + y._2 + "}"); org.scalatest.run(new MemberTest(y._1))
-                case "arr" => logger.info("{LAUNCHING TESTS FOR " + y._2 + "}"); org.scalatest.run(new ArrTest(y._1))
-              }
-            )
+            foreach(y => launchTest(y._1,y._2))
         } catch {
           case ex: Exception => ex.printStackTrace; ex.getMessage
         }

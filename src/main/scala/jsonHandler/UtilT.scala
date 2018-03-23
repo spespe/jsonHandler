@@ -1,14 +1,17 @@
 package jsonHandler
 
 import java.util.Calendar
+
+import com.typesafe.scalalogging.LazyLogging
 import org.scalatest.FunSuite
+
 import scala.xml.{NodeSeq, XML}
 
 /**
   * Created by Pietro.Speri on 07/03/2018.
   **/
 
-trait UtilT extends FunSuite with ArgumentsParser with JSONParser {
+trait UtilT extends FunSuite with ArgumentsParser with JSONParser with LazyLogging {
 
   @volatile var elem: scala.xml.Elem = _
 
@@ -64,5 +67,8 @@ trait UtilT extends FunSuite with ArgumentsParser with JSONParser {
       }
     }
   }
+
+  def launchTest(nd:NodeSeq,s:String)= {logger.info("{LAUNCHING TESTS FOR " + s + "}"); resultValidator(nd)}
+
 
 }
