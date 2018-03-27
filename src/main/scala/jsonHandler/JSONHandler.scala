@@ -18,20 +18,20 @@ object JSONHandler extends UtilT {
     val ns = (elem \\ "unit")
 
     if(argsList.contains('Separator)){sep = getArgument(argsList,'Separator)}
-    logger.info("{LAUNCHING JSON PARSER ON USING " + sep + " AS SEPARATOR}")
+    logger.info("{LAUNCHING JSON PARSER USING " + sep + " AS SEPARATOR}")
 
     testParamCheck(ns,argsList)
 
     argsList match {
       case x: JSONHandler.ParserMap if !x.contains('InputFile) => {
         usage
-        System.err.println("THE INPUT JSON FILE IS REQUIRED!")
+        System.err.println("INPUT JSON FILE REQUIRED!")
         System.exit(1)
       }
       case x: JSONHandler.ParserMap if x.contains('ObjectParser) => {
           logger.info("{LAUNCHING JSON PARSER ON " + getArgument(x,'InputFile) + "USING " + getArgument(x,'ObjectParser) + "}")
         parse(getArgument(x,'ObjectParser), getArgument(x,'InputFile))
-        //log(getArgument(x,'ObjectParser))(getArgument(x,'ObjectParser))
+        log(getArgument(x,'ObjectParser))(getArgument(x,'ObjectParser))
       }
     }
   }
