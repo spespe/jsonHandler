@@ -30,5 +30,9 @@ trait ArgumentsParser {
     }
   }
 
+  def getArgument(p:ParserMap,s:Symbol):String={
+    p.get(s).get
+  }
+
 }
 

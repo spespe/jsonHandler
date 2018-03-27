@@ -19,30 +19,30 @@ object JSONHandler extends UtilT {
     val ns = (elem \\ "unit")
 
     if(argsList.contains('Separator)){
-      logger.info("{LAUNCHING JSON PARSER ON USING " + argsList.get('Separator).get + " AS SEPARATOR}")
-      sep = argsList.get('Separator).get
+      sep = getArgument(argsList,'Separator)
+      logger.info("{LAUNCHING JSON PARSER ON USING " + sep + " AS SEPARATOR}")
     }
 
     argsList match {
-      case x: JSONHandler.ParserMap if (!x.contains('InputFile)) => {
+      case x: JSONHandler.ParserMap if !x.contains('InputFile) => {
         usage
         System.err.println("THE INPUT JSON FILE IS REQUIRED!")
         System.exit(1)
       }
-      case x: JSONHandler.ParserMap if (x.contains('TestLauncher)) => //Launching Tests
+      case x: JSONHandler.ParserMap if x.contains('TestLauncher) => //Launching Tests
         if(argValidator(x)("TestLauncher")("y")) {
-          logger.debug("{LAUNCHING TESTS. PARAMETER PASSED: "+x.get('TestLauncher).get+"}")
+          logger.debug("{LAUNCHING TESTS. PARAMETER PASSED: "+ getArgument(x,'TestLauncher) +"}")
         try {
           elementList.map(s => (inputTestValidator(ns, s), s)).foreach(y => launchTest(y._1,y._2))
         } catch {
           case ex: Exception => ex.printStackTrace; ex.getMessage
         }
       } else {
-          logger.debug("{TESTS SKIPPED. PARAMETER PASSED: "+x.get('TestLauncher).get+"}")
+          logger.debug("{TESTS SKIPPED. PARAMETER PASSED: "+getArgument(x,'TestLauncher)+"}")
       }
-    case x: JSONHandler.ParserMap if (x.contains('ObjectParser)) => {
-        logger.info("{LAUNCHING JSON PARSER ON " + x('InputFile) + "USING " + x('ObjectParser) + "}")
-      parse(x('ObjectParser), x('InputFile))
+    case x: JSONHandler.ParserMap if x.contains('ObjectParser) => {
+        logger.info("{LAUNCHING JSON PARSER ON " + getArgument(x,'InputFile) + "USING " + getArgument(x,'ObjectParser) + "}")
+      parse(getArgument(x,'ObjectParser), getArgument(x,'InputFile))
     } // Launching for obj
     //case x: JSONHandler.ParserMap if (x.contains('Parallel)) => {
     //    //the message will be replace with a new method
