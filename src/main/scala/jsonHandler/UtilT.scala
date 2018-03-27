@@ -1,6 +1,7 @@
 package jsonHandler
 
 import java.util.Calendar
+
 import com.typesafe.scalalogging.LazyLogging
 import org.scalatest.FunSuite
 import testClasses.{ArrTest, MemberTest, ObjTest, ValueTest}
@@ -13,6 +14,7 @@ import scala.xml.{NodeSeq, XML}
 trait UtilT extends FunSuite with ArgumentsParser with JSONParser with LazyLogging {
 
   @volatile var elem: scala.xml.Elem = _
+  val elementList = List("value", "obj", "member", "arr")
 
   def getTime = Calendar.getInstance.getTime
   //  val input = getClass.getResourceAsStream("/tests.xml")
@@ -41,7 +43,7 @@ trait UtilT extends FunSuite with ArgumentsParser with JSONParser with LazyLoggi
     }
   }
 
-  def argValidator(p:ParserMap)(s:Symbol)(s2:String):Boolean=if(Some(p.get(s)).toString.toLowerCase==s2) true else false
+  def argValidator(p:ParserMap)(s:Symbol)(s2:String):Boolean=if(p.get(s)==Some(s2)) true else false
 
   def testRes(test: String, expectedResult: String): (String, String) = {
     val result = parse(obj, test) match {
@@ -76,5 +78,20 @@ trait UtilT extends FunSuite with ArgumentsParser with JSONParser with LazyLoggi
       case "arr" => org.scalatest.run(new ArrTest(nd))
     }
     }
+
+
+  def testParamCheck(ns:NodeSeq, p:ParserMap)={
+    if(argValidator(p)('TestLauncher)("y")) {
+      logger.debug("{LAUNCHING TESTS. TESTS PARAMETER PASSED: "+ getArgument(p,'TestLauncher) +"}")
+      try {
+        elementList.map(s => (inputTestValidator(ns, s), s)).foreach(y => launchTest(y._1,y._2))
+      } catch {
+        case ex: Exception => ex.printStackTrace; ex.getMessage
+      }
+    } else {
+      logger.debug("{TESTS SKIPPED. TESTS PARAMETER PASSED: "+getArgument(p,'TestLauncher)+"}")
+    }
+  }
+
 
 }
