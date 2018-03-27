@@ -3,6 +3,7 @@ package jsonHandler
 /**
   * Created by Pietro.Speri on 31/01/2018.
   */
+
 trait ArgumentsParser {
 
   type ParserMap = Map[Symbol, String]
@@ -13,7 +14,6 @@ trait ArgumentsParser {
 
   def argsParser(map: ParserMap, l: List[String]): ParserMap = {
     def withPar(opt: String) = (opt(0) == '-')
-
     l match {
       case Nil => map
       case "-f" :: value :: t => argsParser(map ++ Map('InputFile -> value), t)
@@ -30,9 +30,7 @@ trait ArgumentsParser {
     }
   }
 
-  def getArgument(p:ParserMap,s:Symbol):String={
-    p.get(s).get
-  }
+  def getArgument(p:ParserMap,s:Symbol):String=p.get(s).get
 
 }
 
