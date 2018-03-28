@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tests>
     <unit name="Null test" tag="value" type="POSITIVE">
-        <test>null</test>
-        <result >null</result>
+        <test>"null"</test>
+        <result >"null"</result>
     </unit>
-    <unit name="String type test" tag="value" type="POSITIVE">
-        <test>{0.2}</test>
-        <result >0.2</result>
+    <unit name="True test" tag="value" type="POSITIVE">
+        <test>"true"</test>
+        <result >"true"</result>
     </unit>
-    <unit name="Int type test" tag="value" type="POSITIVE">
-        <test>{1}</test>
-        <result >1</result>
+    <unit name="False test" tag="value" type="POSITIVE">
+        <test>"false"</test>
+        <result >"false"</result>
     </unit>
-    <unit name="Double type test" tag="value" type="POSITIVE">
-        <test>{0.163945}</test>
-        <result >0.163945</result>
+    <unit name="StringLiteral type test" tag="value" type="POSITIVE">
+        <test>"This is a stringLiteral"</test>
+        <result >"This is a stringLiteral"</result>
+    </unit>
+    <unit name="floatingPointNumber test 1" tag="value" type="POSITIVE">
+        <test>1.3000</test>
+        <result >1.3</result>
+    </unit>
+    <unit name="floatingPointNumber test 2" tag="value" type="POSITIVE">
+        <test>1.325</test>
+        <result >1.325</result>
+    </unit>
+    <unit name="floatingPointNumber test 3" tag="value" type="POSITIVE">
+        <test>1</test>
+        <result >1.0</result>
     </unit>
     <unit name="Empty object test" tag="obj" type="POSITIVE">
         <test>{:}</test>

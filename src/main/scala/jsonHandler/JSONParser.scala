@@ -7,7 +7,8 @@ import scala.util.parsing.combinator.JavaTokenParsers
   */
 
 trait JSONParser extends JavaTokenParsers {
-  def value: Parser[Any] = obj | arr | stringLiteral | floatingPointNumber ^^ (_.toDouble) | "null" ^^ { x => null } | "true" ^^ { x => true } | "false" ^^ { x => false }
+  def value: Parser[Any] = obj | arr | stringLiteral | floatingPointNumber ^^ (_.toDouble) |
+    "null" ^^  { _ => null }  | "true" ^^ { _ => true} | "false" ^^ { _ => false }
 
   def obj: Parser[Map[String, Any]] = "{" ~> repsep(member, ",") <~ "}" ^^ (Map() ++ _)
 
