@@ -9,6 +9,6 @@ import scala.xml.NodeSeq
   */
 class ArrTest(nd: NodeSeq) extends FunSuite with JSONParser with UtilT {
 
-  resultValidator(nd)
+  resultValidator(nd,arr)
 
 }

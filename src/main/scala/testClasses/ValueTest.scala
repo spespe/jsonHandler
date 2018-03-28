@@ -10,7 +10,7 @@ import scala.xml.NodeSeq
 
 class ValueTest(nd: NodeSeq) extends FunSuite with JSONParser with UtilT {
 
-  resultValidator(nd)
+  resultValidator(nd,value)
 
 }
 
