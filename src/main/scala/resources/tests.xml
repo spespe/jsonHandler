@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tests>
+    <!-- VALUE TESTS -->
     <unit name="Null test" tag="value" type="POSITIVE">
         <test>"null"</test>
         <result >"null"</result>
@@ -28,10 +29,12 @@
         <test>1</test>
         <result >1.0</result>
     </unit>
+    <!-- OBJECT TESTS -->
     <unit name="Empty object test" tag="obj" type="POSITIVE">
-        <test>{:}</test>
-        <result ></result>
+        <test>{}</test>
+        <result>Map()</result>
     </unit>
+    <!-- ARR TESTS -->
     <unit name="arr test" tag="arr" type="POSITIVE">
         <test>["403827664","403827665"]</test>
         <result>List("403827664", "403827665")</result>
@@ -71,9 +74,10 @@
         <test>["false", false]</test>
         <result>List("false", false)</result>
     </unit>
+    <!-- MEMBER TESTS -->
     <unit name="Empty member test" tag="member" type="POSITIVE">
-        <test>{address: }</test>
-        <result >()</result>
+        <test>"":""</test>
+        <result >("","")</result>
     </unit>
 </tests>
 

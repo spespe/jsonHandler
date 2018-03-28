@@ -6,9 +6,9 @@ package jsonHandler
 
 trait ArgumentsParser {
 
-  type ParserMap = Map[Symbol, String]
+  protected type ParserMap = Map[Symbol, String]
 
-  def usage = println("\nThe arguments passed are incorrect. Please refer to the following usage example.\n" +
+  protected def usage = println("\nThe arguments passed are incorrect. Please refer to the following usage example.\n" +
     "USAGE EXAMPLE: jsonHandler -f /path/to/your/file/file.json[FILE][REQUIRED] -o member[OBJECT][OPTIONAL] \n" +
     "-s '<>'[SEPARATOR][OPTIONAL] -p y[PARALLEL][OPTIONAL] -t y [TESTLAUNCHER][OPTIONAL] -- [OPTIONS: -f, -o, -s, -p, -t]")
 
