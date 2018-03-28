@@ -46,7 +46,7 @@ trait UtilT extends FunSuite with ArgumentsParser with JSONParser with LazyLoggi
   def argValidator(p:ParserMap)(s:Symbol)(s2:String):Boolean=if(p.get(s)==Some(s2)) true else false
 
   def testRes(test: String, expectedResult: String): (String, String) = {
-    val result = parse(obj, test) match {
+    val result = parseAll(arr, test) match {
       case Success(matched, _) => matched
       case Failure(failMsg, _) => System.err.println("TEST: "+test+" FAILURE: " + failMsg)
       case Error(errMsg, _) => System.err.println("ERROR: " + errMsg)

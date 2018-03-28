@@ -20,9 +20,44 @@
         <test>{:}</test>
         <result ></result>
     </unit>
-    <unit name="Empty arr test" tag="arr" type="POSITIVE">
-        <test>{::}</test>
-        <result ></result>
+    <unit name="arr test" tag="arr" type="POSITIVE">
+        <test>["403827664","403827665"]</test>
+        <result>List("403827664", "403827665")</result>
+    </unit>
+    <unit name="arr test newline" tag="arr" type="POSITIVE">
+        <test>[
+            "403827664",
+            "403827665"
+            ]</test>
+        <result>List("403827664", "403827665")</result>
+    </unit>
+    <unit name="empty arr test" tag="arr" type="POSITIVE">
+        <test>["",""]</test>
+        <result>List("", "")</result>
+    </unit>
+    <unit name="empty arr test 2" tag="arr" type="POSITIVE">
+        <test>[]</test>
+        <result>List()</result>
+    </unit>
+    <unit name="empty arr with integer test" tag="arr" type="POSITIVE">
+        <test>["",1]</test>
+        <result>List("", 1.0)</result>
+    </unit>
+    <unit name="arr with floating point number test" tag="arr" type="POSITIVE">
+        <test>["",1.2000]</test>
+        <result>List("", 1.2)</result>
+    </unit>
+    <unit name="arr with null test" tag="arr" type="POSITIVE">
+        <test>["null",null]</test>
+        <result>List("null", null)</result>
+    </unit>
+    <unit name="arr with true test" tag="arr" type="POSITIVE">
+        <test>["true",true]</test>
+        <result>List("true", true)</result>
+    </unit>
+    <unit name="arr with false test" tag="arr" type="POSITIVE">
+        <test>["false", false]</test>
+        <result>List("false", false)</result>
     </unit>
     <unit name="Empty member test" tag="member" type="POSITIVE">
         <test>{address: }</test>

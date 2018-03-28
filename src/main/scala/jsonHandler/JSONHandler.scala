@@ -21,8 +21,10 @@ object JSONHandler extends UtilT {
       sep = getArgument(argsList, 'Separator)
     }
     logger.info("{LAUNCHING JSON PARSER USING " + sep + " AS SEPARATOR}")
+    parseAll(value,"value null")
 
     testParamCheck(ns, argsList)
+
 
     if (!argsList.contains('InputFile)) {
       usage
@@ -32,7 +34,7 @@ object JSONHandler extends UtilT {
 
     if (argsList.contains('ObjectParser)){
       logger.info("{LAUNCHING JSON PARSER ON " + getArgument(argsList, 'InputFile) + "USING " + getArgument(argsList, 'ObjectParser) + "}")
-      parse(getArgument(argsList, 'ObjectParser), getArgument(argsList, 'InputFile))
+      parseAll(getArgument(argsList, 'ObjectParser), getArgument(argsList, 'InputFile))
       log(getArgument(argsList, 'ObjectParser))(getArgument(argsList, 'ObjectParser))
     }
   }
