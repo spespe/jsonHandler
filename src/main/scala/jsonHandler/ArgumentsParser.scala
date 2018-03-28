@@ -12,7 +12,7 @@ trait ArgumentsParser {
     "USAGE EXAMPLE: jsonHandler -f /path/to/your/file/file.json[FILE][REQUIRED] -o member[OBJECT][OPTIONAL] \n" +
     "-s '<>'[SEPARATOR][OPTIONAL] -p y[PARALLEL][OPTIONAL] -t y [TESTLAUNCHER][OPTIONAL] -- [OPTIONS: -f, -o, -s, -p, -t]")
 
-  def argsParser(map: ParserMap, l: List[String]): ParserMap = {
+  protected def argsParser(map: ParserMap, l: List[String]): ParserMap = {
     def withPar(opt: String) = (opt(0) == '-')
     l match {
       case Nil => map
@@ -30,7 +30,7 @@ trait ArgumentsParser {
     }
   }
 
-  def getArgument(p:ParserMap,s:Symbol):String=p.get(s).get
+  protected def getArgument(p:ParserMap,s:Symbol):String=p.get(s).get
 
 }
 
