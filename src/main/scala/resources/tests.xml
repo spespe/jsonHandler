@@ -99,5 +99,41 @@
         <test>"":""</test>
         <result >("","")</result>
     </unit>
+    <unit name="Null member test" tag="member" type="POSITIVE">
+        <test>"":null</test>
+        <result >("",null)</result>
+    </unit>
+    <unit name="Null member test 2" tag="member" type="POSITIVE">
+        <test>"null":null</test>
+        <result >("null",null)</result>
+    </unit>
+    <unit name="Floating number member test 2" tag="member" type="POSITIVE">
+        <test>"1.000":1.0000</test>
+        <result >("1.000",1.0)</result>
+    </unit>
+    <unit name="Arr member test" tag="member" type="POSITIVE">
+        <test>"Testing Arr":["First","Second"]</test>
+        <result >("Testing Arr",List("First", "Second"))</result>
+    </unit>
+    <unit name="Arr member test 2" tag="member" type="POSITIVE">
+        <test>"Testing Arr":[["First","Second"],["Second","Third"]]</test>
+        <result >("Testing Arr",List(List("First", "Second"), List("Second", "Third")))</result>
+    </unit>
+    <unit name="Obj member test" tag="member" type="POSITIVE">
+        <test>"Testing Arr":{"Number":"2","First":"Second","Third":"Fourth"}</test>
+        <result >("Testing Arr",Map("Number" -> "2", "First" -> "Second", "Third" -> "Fourth"))</result>
+    </unit>
+    <unit name="True member test" tag="member" type="POSITIVE">
+        <test>"Testing Arr":true</test>
+        <result >("Testing Arr",true)</result>
+    </unit>
+    <unit name="False member test" tag="member" type="POSITIVE">
+        <test>"Testing Arr":false</test>
+        <result >("Testing Arr",false)</result>
+    </unit>
+    <unit name="String literal member test" tag="member" type="POSITIVE">
+        <test>"true":{"Number":"2","First":"Second","Third":"Fourth"}</test>
+        <result >("true",Map("Number" -> "2", "First" -> "Second", "Third" -> "Fourth"))</result>
+    </unit>
 </tests>
 
