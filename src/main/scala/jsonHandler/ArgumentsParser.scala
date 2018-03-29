@@ -13,7 +13,6 @@ trait ArgumentsParser {
     "-s '<>'[SEPARATOR][OPTIONAL] -p y[PARALLEL][OPTIONAL] -t y [TESTLAUNCHER][OPTIONAL] -- [OPTIONS: -f, -o, -s, -p, -t]")
 
   protected def argsParser(map: ParserMap, l: List[String]): ParserMap = {
-    def withPar(opt: String) = (opt(0) == '-')
     l match {
       case Nil => map
       case "-f" :: value :: t => argsParser(map ++ Map('InputFile -> value), t)
@@ -21,9 +20,8 @@ trait ArgumentsParser {
       case "-s" :: value :: t => argsParser(map ++ Map('Separator -> value), t)
       case "-p" :: value :: t => argsParser(map ++ Map('Parallel -> value), t)
       case "-t" :: value :: t => argsParser(map ++ Map('TestLauncher -> value), t)
-      case s :: opt2 :: _ if withPar(opt2) => argsParser(map ++ Map('par -> s), l.tail)
       case _ => {
-        println("\nINCORRECT COMMAND: " + l.reduce(_ + " " + _))
+        System.err.println("\nINCORRECT COMMAND: " + l.reduce(_ + " " + _))
         usage
         map
       }

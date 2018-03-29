@@ -10,11 +10,12 @@ object JSONHandler extends UtilT {
     logger.info("{DATETIME: " + getTime + "}")
 
     var sep = "|"
+
+    if(args.size==0)usage
     val argsList = argsParser(Map(), args.toList)
     logger.info("{ARGUMENTS: " + argsList.toList.mkString(",") + "}")
 
     //Elems in inputTestValidator
-
     val ns = (elem \\ "unit")
 
     if (argsList.contains('Separator)) {
@@ -24,7 +25,6 @@ object JSONHandler extends UtilT {
     parseAll(value,"value null")
 
     testParamCheck(ns, argsList)
-
 
     if (!argsList.contains('InputFile)) {
       usage
@@ -39,5 +39,4 @@ object JSONHandler extends UtilT {
     }
   }
 }
-
 

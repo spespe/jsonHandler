@@ -1,7 +1,6 @@
 package jsonHandler
 
 import java.util.Calendar
-
 import com.typesafe.scalalogging.LazyLogging
 import org.scalatest.FunSuite
 import testClasses.{ArrTest, MemberTest, ObjTest, ValueTest}
@@ -93,6 +92,4 @@ trait UtilT extends FunSuite with ArgumentsParser with JSONParser with LazyLoggi
       logger.debug("{TESTS SKIPPED. TESTS PARAMETER PASSED: "+getArgument(p,'TestLauncher)+"}")
     }
   }
-
-
 }
