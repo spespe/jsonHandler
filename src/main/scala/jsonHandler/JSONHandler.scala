@@ -1,6 +1,9 @@
 package jsonHandler
 
-import scala.util.parsing.input.Reader
+import java.io.{FileInputStream, InputStreamReader}
+
+import scala.io.Source
+import scala.util.parsing.input.{Reader, StreamReader}
 
 /**
   * Created by Pietro.Speri on 26/01/2018.
@@ -11,12 +14,14 @@ object JSONHandler extends UtilT {
     //Datetime
     logger.info("{DATETIME: " + getTime + "}")
 
-    var sep = "|"
-
     if(args.size==0)usage
     val argsList = argsParser(Map(), args.toList)
     logger.info("{ARGUMENTS: " + argsList.toList.mkString(",") + "}")
 
+    var sep = "|"
+    var ObjParser:Parser[Any] = null
+    val reader:Reader[Char] = StreamReader(new InputStreamReader(new FileInputStream(getArgument(argsList, 'InputFile))))
+    
     //Elems in inputTestValidator
     val ns = (elem \\ "unit")
 
@@ -36,7 +41,13 @@ object JSONHandler extends UtilT {
 
     if (argsList.contains('ObjectParser)){
       logger.info("{LAUNCHING JSON PARSER ON " + getArgument(argsList, 'InputFile) + "USING " + getArgument(argsList, 'ObjectParser) + "}")
-      parseAll(getArgument(argsList, 'ObjectParser).asInstanceOf[Parser[Any]]/**casting as Parser[Any] for now**/, getArgument(argsList, 'InputFile)) match {
+      getArgument(argsList, 'ObjectParser) match {
+        case "arr" => ObjParser = arr
+        case "obj" => ObjParser = obj
+        case "value" => ObjParser = value
+        case "member" => ObjParser = member
+      }
+      parseAll(ObjParser, reader) match {
           //match case stat
           case Success(matched, _) => println(matched)
           case Failure(failMsg, _) => System.err.println("FAILURE: " + failMsg)
