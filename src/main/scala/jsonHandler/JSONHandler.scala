@@ -45,18 +45,10 @@ object JSONHandler extends UtilT with App {
         case "value" => ObjParser = value
         case "member" => ObjParser = member
       }
-      parseAll(ObjParser, reader) match {
-          case Success(matched, _) => println(matched) //Adding writer
-          case Failure(failMsg, _) => System.err.println("FAILURE: " + failMsg)
-          case Error(errMsg, _) => System.err.println("ERROR: " + errMsg)
-        }
+      parserLaunch(ObjParser, reader)
     } else {
       logger.info("{LAUNCHING JSON PARSER ON " + getArgument(argsList, 'InputFile) + "USING NORMAL FILE PARSING }")
-      parseAll(value, reader) match {
-        case Success(matched, _) => println(matched) //Adding writer
-        case Failure(failMsg, _) => System.err.println("FAILURE: " + failMsg)
-        case Error(errMsg, _) => System.err.println("ERROR: " + errMsg)
-      }
+      parserLaunch(value, reader)
     }
 }
 

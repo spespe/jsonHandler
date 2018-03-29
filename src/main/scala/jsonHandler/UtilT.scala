@@ -1,9 +1,13 @@
 package jsonHandler
 
 import java.util.Calendar
+
 import com.typesafe.scalalogging.LazyLogging
+import jsonHandler.JSONHandler.{reader, value}
 import org.scalatest.FunSuite
 import testClasses.{ArrTest, MemberTest, ObjTest, ValueTest}
+
+import scala.util.parsing.input.Reader
 import scala.xml.{NodeSeq, XML}
 
 /**
@@ -92,4 +96,13 @@ trait UtilT extends FunSuite with ArgumentsParser with JSONParser with LazyLoggi
       logger.debug("{TESTS SKIPPED. TESTS PARAMETER PASSED: "+getArgument(p,'TestLauncher)+"}")
     }
   }
+
+  protected def parserLaunch(parser:Parser[Any],reader:Reader[Char])= {
+    parseAll(parser, reader) match {
+      case Success(matched, _) => println(matched) //Adding writer
+      case Failure(failMsg, _) => System.err.println("FAILURE: " + failMsg)
+      case Error(errMsg, _) => System.err.println("ERROR: " + errMsg)
+    }
+  }
+  
 }
