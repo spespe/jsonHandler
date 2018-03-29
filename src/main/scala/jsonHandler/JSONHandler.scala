@@ -1,27 +1,25 @@
 package jsonHandler
 
 import java.io.{FileInputStream, InputStreamReader}
-
-import scala.io.Source
 import scala.util.parsing.input.{Reader, StreamReader}
 
 /**
   * Created by Pietro.Speri on 26/01/2018.
   */
 
-object JSONHandler extends UtilT {
-  def main(args: Array[String]) {
+object JSONHandler extends UtilT with App {
     //Datetime
     logger.info("{DATETIME: " + getTime + "}")
 
     if(args.size==0)usage
-    val argsList = argsParser(Map(), args.toList)
+    private val argsList = argsParser(Map(), args.toList)
     logger.info("{ARGUMENTS: " + argsList.toList.mkString(",") + "}")
 
-    var sep = "|"
-    var ObjParser:Parser[Any] = null
-    val reader:Reader[Char] = StreamReader(new InputStreamReader(new FileInputStream(getArgument(argsList, 'InputFile))))
-    
+    private var sep = "|"
+    private var ObjParser:Parser[Any] = null
+    logger.info("{CREATING STREAMREADER FROM INPUT FILE: "+getArgument(argsList, 'InputFile)+" }")
+    private val reader:Reader[Char] = StreamReader(new InputStreamReader(new FileInputStream(getArgument(argsList, 'InputFile))))
+
     //Elems in inputTestValidator
     val ns = (elem \\ "unit")
 
@@ -48,17 +46,17 @@ object JSONHandler extends UtilT {
         case "member" => ObjParser = member
       }
       parseAll(ObjParser, reader) match {
-          //match case stat
-          case Success(matched, _) => println(matched)
+          case Success(matched, _) => println(matched) //Adding writer
           case Failure(failMsg, _) => System.err.println("FAILURE: " + failMsg)
           case Error(errMsg, _) => System.err.println("ERROR: " + errMsg)
         }
-      log(getArgument(argsList, 'ObjectParser))(getArgument(argsList, 'ObjectParser))
     } else {
       logger.info("{LAUNCHING JSON PARSER ON " + getArgument(argsList, 'InputFile) + "USING NORMAL FILE PARSING }")
-      //parseAll(getArgument(argsList, 'ObjectParser), getArgument(argsList, 'InputFile))
-      //log(getArgument(argsList, 'ObjectParser))(getArgument(argsList, 'ObjectParser))
+      parseAll(value, reader) match {
+        case Success(matched, _) => println(matched) //Adding writer
+        case Failure(failMsg, _) => System.err.println("FAILURE: " + failMsg)
+        case Error(errMsg, _) => System.err.println("ERROR: " + errMsg)
+      }
     }
-  }
 }
 
