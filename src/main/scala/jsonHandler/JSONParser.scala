@@ -17,4 +17,3 @@ trait JSONParser extends JavaTokenParsers {
   protected def member: Parser[(String, Any)] = stringLiteral ~ ":" ~ value ^^ { case name ~ ":" ~ value => (name, value) }
 }
 
-

@@ -1,5 +1,7 @@
 package jsonHandler
 
+import scala.util.parsing.input.Reader
+
 /**
   * Created by Pietro.Speri on 26/01/2018.
   */
@@ -34,8 +36,17 @@ object JSONHandler extends UtilT {
 
     if (argsList.contains('ObjectParser)){
       logger.info("{LAUNCHING JSON PARSER ON " + getArgument(argsList, 'InputFile) + "USING " + getArgument(argsList, 'ObjectParser) + "}")
-      parseAll(getArgument(argsList, 'ObjectParser), getArgument(argsList, 'InputFile))
+      parseAll(getArgument(argsList, 'ObjectParser).asInstanceOf[Parser[Any]]/**casting as Parser[Any] for now**/, getArgument(argsList, 'InputFile)) match {
+          //match case stat
+          case Success(matched, _) => println(matched)
+          case Failure(failMsg, _) => System.err.println("FAILURE: " + failMsg)
+          case Error(errMsg, _) => System.err.println("ERROR: " + errMsg)
+        }
       log(getArgument(argsList, 'ObjectParser))(getArgument(argsList, 'ObjectParser))
+    } else {
+      logger.info("{LAUNCHING JSON PARSER ON " + getArgument(argsList, 'InputFile) + "USING NORMAL FILE PARSING }")
+      //parseAll(getArgument(argsList, 'ObjectParser), getArgument(argsList, 'InputFile))
+      //log(getArgument(argsList, 'ObjectParser))(getArgument(argsList, 'ObjectParser))
     }
   }
 }
