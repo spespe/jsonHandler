@@ -34,6 +34,26 @@
         <test>{}</test>
         <result>Map()</result>
     </unit>
+    <unit name="Empty object test 2" tag="obj" type="POSITIVE">
+        <test>{"":"","2":2}</test>
+        <result>Map("" -> "", "2" -> 2.0)</result>
+    </unit>
+    <unit name="Null object test" tag="obj" type="POSITIVE">
+        <test>{"":null,"":null}</test>
+        <result>Map("" -> null)</result>
+    </unit>
+    <unit name="True/False object test" tag="obj" type="POSITIVE">
+        <test>{"":true,"":false}</test>
+        <result>Map("" -> false)</result>
+    </unit>
+    <unit name="More arguments object test" tag="obj" type="POSITIVE">
+        <test>{"":true,"":false,"":null,"":true}</test>
+        <result>Map("" -> true)</result>
+    </unit>
+    <unit name="More arguments object test 2" tag="obj" type="POSITIVE">
+        <test>{"":true,"":false,"":null,"":true,"1":null,"F":false,"test":2}</test>
+        <result>Map("" -> true, "1" -> null, "F" -> false, "test" -> 2.0)</result>
+    </unit>
     <!-- ARR TESTS -->
     <unit name="arr test" tag="arr" type="POSITIVE">
         <test>["403827664","403827665"]</test>
