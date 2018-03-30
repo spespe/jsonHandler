@@ -48,7 +48,7 @@ object JSONHandler extends UtilT with App {
       parserLaunch(ObjParser, reader)
     } else {
       logger.info("{LAUNCHING JSON PARSER ON " + getArgument(argsList, 'InputFile) + "USING NORMAL FILE PARSING }")
-      parserLaunch(value, reader)
+      parserLaunch(multiple, reader)
     }
 }
 

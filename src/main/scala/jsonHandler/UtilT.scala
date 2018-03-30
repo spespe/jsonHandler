@@ -1,12 +1,9 @@
 package jsonHandler
 
 import java.util.Calendar
-
 import com.typesafe.scalalogging.LazyLogging
-import jsonHandler.JSONHandler.{reader, value}
 import org.scalatest.FunSuite
 import testClasses.{ArrTest, MemberTest, ObjTest, ValueTest}
-
 import scala.util.parsing.input.Reader
 import scala.xml.{NodeSeq, XML}
 
@@ -57,7 +54,6 @@ trait UtilT extends FunSuite with ArgumentsParser with JSONParser with LazyLoggi
     (result.toString.stripMargin.trim, expectedResult.stripMargin.trim)
   }
 
-
   protected def resultValidator(nd:NodeSeq,p:Parser[Any])= {
     for {(elem, index) <- (nd \\ "@name").zipWithIndex} {
       test(elem.text) {
@@ -81,8 +77,7 @@ trait UtilT extends FunSuite with ArgumentsParser with JSONParser with LazyLoggi
       case "member" => org.scalatest.run(new MemberTest(nd))
       case "arr" => org.scalatest.run(new ArrTest(nd))
     }
-    }
-
+  }
 
   protected def testParamCheck(ns:NodeSeq, p:ParserMap)={
     if(argValidator(p)('TestLauncher)("y")) {
@@ -97,12 +92,15 @@ trait UtilT extends FunSuite with ArgumentsParser with JSONParser with LazyLoggi
     }
   }
 
-  protected def parserLaunch(parser:Parser[Any],reader:Reader[Char])= {
+  protected def parserLaunch(parser: Parser[Any], reader: Reader[Char]) = {
     parseAll(parser, reader) match {
-      case Success(matched, _) => println(matched) //Adding writer
-      case Failure(failMsg, _) => System.err.println("FAILURE: " + failMsg)
-      case Error(errMsg, _) => System.err.println("ERROR: " + errMsg)
+      case Success(matched, _) => matched.asInstanceOf[List[Map[_,_]]]
+        .flatMap{
+          case m:Map[Any,Any] => m.keys//Implementing tail recursive method to extract values and keys
+        }.foreach(println)//Adding writer
+      case Failure(failMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. FAILURE: " + failMsg)
+      case Error(errMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. ERROR: " + errMsg)
     }
   }
-  
+
 }
