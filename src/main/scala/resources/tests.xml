@@ -135,5 +135,40 @@
         <test>"true":{"Number":"2","First":"Second","Third":"Fourth"}</test>
         <result >("true",Map("Number" -> "2", "First" -> "Second", "Third" -> "Fourth"))</result>
     </unit>
+    <!-- MEMBER TESTS -->
+    <unit name="multiple json test" tag="multiple" type="POSITIVE">
+        <test>{
+            "address book": {
+            "name": "White Jean",
+            "address": {
+            "street": "Street 1",
+            "city":"Huntington Beach",
+            "zip":"92647"
+            },
+            "phone number":[
+            "403827664",
+            "403827665"
+            ]
+            }
+            }
+
+            {
+            "address book": {
+            "name": "Speri Pietro",
+            "address": {
+            "street": "Street 2",
+            "city":"Huntington Beach",
+            "zip":"92647"
+            },
+            "phone number":[
+            "403827666",
+            "403827667"
+            ]
+            }
+            }
+
+        </test>
+        <result >List(Map("address book" -> Map("name" -> "White Jean", "address" -> Map("street" -> "Street 1", "city" -> "Huntington Beach", "zip" -> "92647"), "phone number" -> List("403827664", "403827665"))), Map("address book" -> Map("name" -> "Speri Pietro", "address" -> Map("street" -> "Street 2", "city" -> "Huntington Beach", "zip" -> "92647"), "phone number" -> List("403827666", "403827667"))))</result>
+    </unit>
 </tests>
 
