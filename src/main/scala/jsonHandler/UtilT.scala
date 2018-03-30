@@ -1,7 +1,6 @@
 package jsonHandler
 
 import java.util.Calendar
-
 import com.typesafe.scalalogging.LazyLogging
 import org.scalatest.FunSuite
 import testClasses._
@@ -15,7 +14,7 @@ import scala.xml.{NodeSeq, XML}
 trait UtilT extends FunSuite with ArgumentsParser with JSONParser with LazyLogging {
 
   @volatile protected var elem: scala.xml.Elem = _
-  private val elementList = List("value", "obj", "member", "arr", "multiple")
+  private val elementList = List("value", "obj", "member", "arr", "multiple", "argParser")
 
   protected def getTime = Calendar.getInstance.getTime
   //  val input = getClass.getResourceAsStream("/tests.xml")
@@ -78,6 +77,7 @@ trait UtilT extends FunSuite with ArgumentsParser with JSONParser with LazyLoggi
       case "member" => org.scalatest.run(new MemberTest(nd))
       case "arr" => org.scalatest.run(new ArrTest(nd))
       case "multiple" => org.scalatest.run(new MultTest(nd))
+      case "argParser" => org.scalatest.run(new ArgParserTest(nd))
     }
   }
 

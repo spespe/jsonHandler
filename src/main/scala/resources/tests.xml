@@ -170,5 +170,10 @@
         </test>
         <result >List(Map("address book" -> Map("name" -> "White Jean", "address" -> Map("street" -> "Street 1", "city" -> "Huntington Beach", "zip" -> "92647"), "phone number" -> List("403827664", "403827665"))), Map("address book" -> Map("name" -> "Speri Pietro", "address" -> Map("street" -> "Street 2", "city" -> "Huntington Beach", "zip" -> "92647"), "phone number" -> List("403827666", "403827667"))))</result>
     </unit>
+    <!-- ARGPARSER TESTS -->
+    <unit name="argParser test" tag="argParser" type="POSITIVE">
+        <test>-f C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json, -t y, -s $</test>
+        <result ></result>
+    </unit>
 </tests>
 

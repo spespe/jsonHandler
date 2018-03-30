@@ -27,7 +27,6 @@ object JSONHandler extends UtilT with App {
       sep = getArgument(argsList, 'Separator)
     }
     logger.info("{LAUNCHING JSON PARSER USING " + sep + " AS SEPARATOR}")
-    parseAll(value,"value null")
 
     testParamCheck(ns, argsList)
 
