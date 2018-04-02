@@ -1,9 +1,13 @@
 package jsonHandler
 
 import java.util.Calendar
+
 import com.typesafe.scalalogging.LazyLogging
 import org.scalatest.FunSuite
 import testClasses._
+
+import scala.collection.immutable
+import scala.collection.immutable.Map
 import scala.util.parsing.input.Reader
 import scala.xml.{NodeSeq, XML}
 
@@ -97,12 +101,16 @@ trait UtilT extends FunSuite with ArgumentsParser with JSONParser with LazyLoggi
   protected def parserLaunch(parser: Parser[Any], reader: Reader[Char]) = {
     parseAll(parser, reader) match {
       case Success(matched, _) => matched.asInstanceOf[List[Map[_,_]]]
-        .flatMap{
-          case m:Map[Any,Any] => m.keys//Implementing tail recursive method to extract values and keys
+        .map{
+          case m:Map[Any,Any] => mappingKeyValues(m)//Implementing tail recursive method to extract values and keys
         }.foreach(println)//Adding writer
       case Failure(failMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. FAILURE: " + failMsg)
       case Error(errMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. ERROR: " + errMsg)
     }
   }
 
+  def mappingKeyValues(m:Map[Any,Any]):Any= m match {
+    case m:Map[_,Map[_,_]] => mappingKeyValues(m)
+    case m:Map[_,_]=> m.get(_)
+  }
 }

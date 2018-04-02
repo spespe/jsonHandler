@@ -2,8 +2,6 @@ package testClasses
 
 import jsonHandler.{JSONParser, UtilT}
 import org.scalatest.FunSuite
-
-import scala.util.Try
 import scala.xml.NodeSeq
 
 /**
