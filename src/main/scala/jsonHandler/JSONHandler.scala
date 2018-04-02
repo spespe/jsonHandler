@@ -8,46 +8,46 @@ import scala.util.parsing.input.{Reader, StreamReader}
   */
 
 object JSONHandler extends UtilT with App {
-    //Datetime
-    logger.info("{DATETIME: " + getTime + "}")
+  //Datetime
+  logger.info("{DATETIME: " + getTime + "}")
 
-    if(args.size==0)usage
-    private val argsList = argsParser(Map(), args.toList)
-    logger.info("{ARGUMENTS: " + argsList.toList.mkString(",") + "}")
+  if(args.size==0)usage
+  private val argsList = argsParser(Map(), args.toList)
+  logger.info("{ARGUMENTS: " + argsList.toList.mkString(",") + "}")
 
-    private var sep = "|"
-    private var ObjParser:Parser[Any] = null
-    logger.info("{CREATING STREAMREADER FROM INPUT FILE: "+getArgument(argsList, 'InputFile)+" }")
-    private val reader:Reader[Char] = StreamReader(new InputStreamReader(new FileInputStream(getArgument(argsList, 'InputFile))))
+  private var sep = "|"
+  private var ObjParser:Parser[Any] = null
+  logger.info("{CREATING STREAMREADER FROM INPUT FILE: "+getArgument(argsList, 'InputFile)+" }")
+  private val reader:Reader[Char] = StreamReader(new InputStreamReader(new FileInputStream(getArgument(argsList, 'InputFile))))
 
-    //Elems in inputTestValidator
-    val ns = (elem \\ "unit")
+  //Elems in inputTestValidator
+  val ns = (elem \\ "unit")
 
-    if (argsList.contains('Separator)) {
-      sep = getArgument(argsList, 'Separator)
+  if (argsList.contains('Separator)) {
+    sep = getArgument(argsList, 'Separator)
+  }
+  logger.info("{LAUNCHING JSON PARSER USING " + sep + " AS SEPARATOR}")
+
+  testParamCheck(ns, argsList)
+
+  if (!argsList.contains('InputFile)) {
+    usage
+    System.err.println("INPUT JSON FILE REQUIRED!")
+    System.exit(1)
+  }
+
+  if (argsList.contains('ObjectParser)){
+    logger.info("{LAUNCHING JSON PARSER ON " + getArgument(argsList, 'InputFile) + "USING " + getArgument(argsList, 'ObjectParser) + "}")
+    getArgument(argsList, 'ObjectParser) match {
+      case "arr" => ObjParser = arr
+      case "obj" => ObjParser = obj
+      case "value" => ObjParser = value
+      case "member" => ObjParser = member
     }
-    logger.info("{LAUNCHING JSON PARSER USING " + sep + " AS SEPARATOR}")
-
-    testParamCheck(ns, argsList)
-
-    if (!argsList.contains('InputFile)) {
-      usage
-      System.err.println("INPUT JSON FILE REQUIRED!")
-      System.exit(1)
-    }
-
-    if (argsList.contains('ObjectParser)){
-      logger.info("{LAUNCHING JSON PARSER ON " + getArgument(argsList, 'InputFile) + "USING " + getArgument(argsList, 'ObjectParser) + "}")
-      getArgument(argsList, 'ObjectParser) match {
-        case "arr" => ObjParser = arr
-        case "obj" => ObjParser = obj
-        case "value" => ObjParser = value
-        case "member" => ObjParser = member
-      }
-      parserLaunch(ObjParser, reader)
-    } else {
-      logger.info("{LAUNCHING JSON PARSER ON " + getArgument(argsList, 'InputFile) + "USING NORMAL FILE PARSING }")
-      parserLaunch(multiple, reader)
-    }
+    parserLaunch(ObjParser, reader)
+  } else {
+    logger.info("{LAUNCHING JSON PARSER ON " + getArgument(argsList, 'InputFile) + "USING NORMAL FILE PARSING }")
+    parserLaunch(multiple, reader)
+  }
 }
 

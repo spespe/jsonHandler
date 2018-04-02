@@ -43,7 +43,7 @@ trait UtilT extends FunSuite with ArgumentsParser with JSONParser with LazyLoggi
     }
   }
 
-  private def argValidator(p:ParserMap)(s:Symbol)(s2:String):Boolean=if(p.get(s)==Some(s2)) true else false
+  private def argValidator(p:ParserMap)(s:Symbol)(s2:String):Boolean=if(p.get(s).contains(s2)) true else false
 
   private def testRes(test: String, expectedResult: String, mode:Parser[Any]): (String, String) = {
     val result = parseAll(mode, test) match {
