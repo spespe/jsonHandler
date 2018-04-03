@@ -7,7 +7,7 @@ import scala.xml.NodeSeq
 /**
   * Created by Pietro.Speri on 07/02/2018.
   */
-class ObjTest(nd: NodeSeq) extends FunSuite with JSONParser with UtilT {
+sealed class ObjTest(nd: NodeSeq) extends FunSuite with JSONParser with UtilT {
 
   resultValidator(nd,obj)
 

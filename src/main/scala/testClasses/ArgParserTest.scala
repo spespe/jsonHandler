@@ -8,7 +8,7 @@ import scala.xml.NodeSeq
   * Created by Pietro.Speri on 07/02/2018.
   */
 
-class ArgParserTest(nd: NodeSeq) extends FunSuite with JSONParser with UtilT {
+sealed class ArgParserTest(nd: NodeSeq) extends FunSuite with JSONParser with UtilT {
 
   for {(elem, index) <- (nd \\ "@name").zipWithIndex} {
     test(elem.text) {

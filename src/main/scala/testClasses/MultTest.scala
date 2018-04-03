@@ -7,7 +7,7 @@ import scala.xml.NodeSeq
 /**
   * Created by Pietro.Speri on 07/02/2018.
   */
-class MultTest(nd: NodeSeq) extends FunSuite with JSONParser with UtilT {
+sealed class MultTest(nd: NodeSeq) extends FunSuite with JSONParser with UtilT {
 
   resultValidator(nd,multiple)
 
