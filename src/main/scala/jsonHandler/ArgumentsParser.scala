@@ -23,7 +23,6 @@ trait ArgumentsParser {
       case "-t" :: value :: t => argsParser(map ++ Map('TestLauncher -> value), t)
       case s:List[String] => {
         usage
-        map
         throw new IllegalArgumentException("The argument passed (" +s(0)+ ") has not been recognized")
       }
     }
