@@ -7,7 +7,7 @@ import scala.util.parsing.input.{Reader, StreamReader}
   * Created by Pietro.Speri on 26/01/2018.
   */
 
-object JSONHandler extends UtilT with App {
+object JSONHandler extends Util with App {
   //Datetime
   logger.info("{DATETIME: " + getTime + "}")
 
@@ -49,5 +49,8 @@ object JSONHandler extends UtilT with App {
     logger.info("{LAUNCHING JSON PARSER ON " + getArgument(argsList, 'InputFile) + " USING NORMAL FILE PARSING }")
     parserLaunch(multiple, reader)
   }
+
+
+
 }
 

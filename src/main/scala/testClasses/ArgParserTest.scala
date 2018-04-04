@@ -1,6 +1,6 @@
 package testClasses
 
-import jsonHandler.{JSONParser, UtilT}
+import jsonHandler.{JSONParser, Util}
 import org.scalatest.FunSuite
 import scala.xml.NodeSeq
 
@@ -8,7 +8,7 @@ import scala.xml.NodeSeq
   * Created by Pietro.Speri on 07/02/2018.
   */
 
-sealed class ArgParserTest(nd: NodeSeq) extends FunSuite with JSONParser with UtilT {
+sealed class ArgParserTest(nd: NodeSeq) extends FunSuite with JSONParser with Util {
 
   for {(elem, index) <- (nd \\ "@name").zipWithIndex} {
     test(elem.text) {
