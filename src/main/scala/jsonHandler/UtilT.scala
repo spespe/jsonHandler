@@ -139,6 +139,6 @@ trait UtilT extends FunSuite with ArgumentsParser with JSONParser with LazyLoggi
         findKeysTrav(tr.tail, key, headAcc)
       }
     }
-
+    findKeysImp(c, key, List.empty[_])
   }
 }
