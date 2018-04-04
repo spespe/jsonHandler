@@ -97,18 +97,16 @@ trait UtilT extends FunSuite with ArgumentsParser with JSONParser with LazyLoggi
 
   protected def parserLaunch(parser: Parser[Any], reader: Reader[Char]) = {
     parseAll(parser, reader) match {
-      case Success(matched, _) => matched.asInstanceOf[List[Map[String,Any]]].foreach(x=>println(mappingKeyValues(x)))
+      case Success(matched, _) => matched.asInstanceOf[List[Map[String,Any]]].map(x=>println(mappingKeyValues(x)))
       case Failure(failMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. FAILURE: " + failMsg)
       case Error(errMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. ERROR: " + errMsg)
     }
   }
 
   def mappingKeyValues(m:Map[String,Any]):Any = m match {
-    case m2:Map[String,Map[String,Any]] => mappingKeyValues(m2.values.asInstanceOf[Map[String,Any]])
-    case m2:Map[_,List[Any]] => m2.values
-    case m2:Map[_,String] => m2.values
+    case m2:Map[String,Map[String,Any]] => mappingKeyValues(m2.flatMap{case(k,v) if(v.isInstanceOf[Map[_,_]]) => Map(k -> v.asInstanceOf[Map[String,Any]])})
+    case m2:Map[String,List[Any]] => //m2.values
+    case m2:Map[String,String] => //m2.values
   }
 
 }
-
-
