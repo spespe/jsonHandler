@@ -12,7 +12,7 @@ object JSONHandler extends UtilT with App {
   logger.info("{DATETIME: " + getTime + "}")
 
   if(args.size==0)usage
-  private val argsList = argsParser(Map(), args.toList)
+  val argsList = argsParser(Map(), args.toList)
   logger.info("{ARGUMENTS: " + argsList.toList.mkString(",") + "}")
 
   private var sep = "|"
