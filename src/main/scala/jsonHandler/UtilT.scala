@@ -1,9 +1,12 @@
 package jsonHandler
 
 import java.util.Calendar
+
 import com.typesafe.scalalogging.LazyLogging
 import org.scalatest.FunSuite
 import testClasses._
+
+import scala.annotation.tailrec
 import scala.collection.immutable.Map
 import scala.util.parsing.input.Reader
 import scala.xml.{NodeSeq, XML}
@@ -97,16 +100,32 @@ trait UtilT extends FunSuite with ArgumentsParser with JSONParser with LazyLoggi
 
   protected def parserLaunch(parser: Parser[Any], reader: Reader[Char]) = {
     parseAll(parser, reader) match {
-      case Success(matched, _) => matched.asInstanceOf[List[Map[String,Any]]].map(x=>println(mappingKeyValues(x)))
+      case Success(matched, _) => mappingKeyValues(matched.asInstanceOf[List[Map[String,Any]]])
       case Failure(failMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. FAILURE: " + failMsg)
       case Error(errMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. ERROR: " + errMsg)
     }
   }
 
-  def mappingKeyValues(m:Map[String,Any]):Any = m match {
-    case m2:Map[String,Map[String,Any]] => mappingKeyValues(m2.flatMap{case(k,v) if(v.isInstanceOf[Map[_,_]]) => Map(k -> v.asInstanceOf[Map[String,Any]])})
-    case m2:Map[String,List[Any]] => //m2.values
-    case m2:Map[String,String] => //m2.values
+  def mappingKeyValues(m:List[Map[String,Any]]):Any = m match {
+    case List() =>
+    case x::xs => x+"\nSEPARATOR JSONS\n"+mappingKeyValues(xs)
   }
 
+  def findKeys[T](c: _, key: T): List[_] = {
+    @tailrec
+    def findKeysImp(c: _, key: T, acc: List[_]):List[_] = {
+      c match {
+        case m: Map[T, _] => {
+          val valueOption = m.get(key)
+          if (valueOption.isDefined)
+            valueOption.get :: acc
+          else
+            findKeysImp(m.values, key, acc)
+        }
+        case Some(v) => findKeysImp(v, key, acc)
+        case _ => acc
+      }
+    }
+
+  }
 }
