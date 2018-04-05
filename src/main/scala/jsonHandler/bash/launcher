@@ -2,9 +2,8 @@
 ##PIETRO SPERI
 
 ARGSREQUIRED=1
-MAXARGS=5
+MAXARGS=4
 LOG_FILE="launcher_log`date +%D`.log"
-OPTARGS=("-o MEMBER","-o ARRAY","-o OBJECT")
 SEPARATOR="|"
 FIND=`find . -tipe f -name "*launcher_log*" | wc -l`
 
@@ -15,10 +14,9 @@ fi
 usage(){
 	echo -e "\e[33m USAGE: ./launcher.sh -f [JSON FILE][REQUIRED] [-][OPTIONAL PARAMETERS] \e[0m"
 	echo -e "\e[33m OPTION -f : allows to specify the file name to pass as input(JSON format file) - [REQUIRED] \e[0m"
-	echo -e "\e[33m OPTION -o : allows to specify the option to use for the parser. It can be MEMBER, ARRAY or OBJECT only - [OPTIONAL] \e[0m"
+	echo -e "\e[33m OPTION -o : allows to specify the key to use for the parser. It returns the value(s) associated with that key - [OPTIONAL] \e[0m"
 	echo -e "\e[33m OPTION -s : allows to customize the separator character (if required) to use for the output file ('|' by default) - [OPTIONAL] \e[0m"
-	echo -e "\e[33m OPTION -p : allows to launch the program in a parallel way over a list of json files passed as input - [OPTIONAL] \e[0m"
-	echo -e "\e[33m OPTION -t : allows to launch all the tests on the code - [OPTIONAL] \e[0m"
+	echo -e "\e[33m OPTION -d : allows to launch the program on a directory containing json files - [OPTIONAL] \e[0m"
 	echo -e "\e[32m EXAMPLE: ./launcher.sh -m /path/to/your/file/bestFile.json [REQUIRED] -s '|' [OPTIONAL PARAMETER] \e[0m"
 	exit 1
 }
@@ -47,11 +45,11 @@ while test $# -gt 0
 		ARGS+=($JSON_FILE)
 		echo -e "\e[0;33m JSON FILE: $1 \e[0m"
 		;;
-		-o|--opt)
+		-k|--key)
 		shift
-		OPT="-o $1"
-		ARGS+=($OPT)
-		echo -e "\e[0;33m OPT: $1 \e[0m"
+		KEY="-k $1"
+		ARGS+=($KEY)
+		echo -e "\e[0;33m KEY: $1 \e[0m"
 		;;
 		-s|--separator)
 		shift
@@ -59,17 +57,11 @@ while test $# -gt 0
 		ARGS+=($SEPARATOR)
 		echo -e "\e[0;33m SEPARATOR: $1 \e[0m"
 		;;
-		-p|--parallel)
+		-d|--directory)
 		shift
-		PARALLEL="-p $1"
-		ARGS+=($PARALLEL)
-		echo -e "\e[0;33m PARALLEL: $1 \e[0m"
-		-t|--test)
-		shift
-		TEST="-s $1"
-		ARGS+=($TEST)
-		echo -e "\e[0;33m SEPARATOR: $1 \e[0m"
-		;;
+		DIR="-d $1"
+		ARGS+=($DIR)
+		echo -e "\e[0;33m DIRECTORY: $1 \e[0m"
 		;;
 		*)
 		echo -e "\e[0;31m `whoami` - `date +%D' '%T` - ERROR. Invalid argument: $1 \e[0m"
@@ -88,9 +80,6 @@ fi
 
 if [[ ! ${ARGS[@]} =~ ${JSON_FILE} ]]; then
 	echo -e "\e[0;31m `whoami` - `date +%D' '%T` - THE JSON_FILE HAS TO BE PASSED AS ARGUMENT! \e0[m" | tee -A ${LOG_FILE}
-	usage
-else if [[ ${OPTARGS} =~ ${OPT} ]]; then
-	echo -e "\e[0;31m `whoami` - `date +%D' '%T` - THE -o OPTION SPECIFIED CAN ONLY BE: MEMBER, ARRAY, OBJECT. \e[0m" | tee -A ${LOG_FILE}
 	usage
 fi
 
