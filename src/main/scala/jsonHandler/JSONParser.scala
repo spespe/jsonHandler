@@ -10,10 +10,11 @@ import scala.util.parsing.input.Reader
   */
 
 trait JSONParser extends JavaTokenParsers {
+
   protected def multiple: Parser[Any] = rep(value)
 
   protected def value: Parser[Any] = obj | arr | stringLiteral | floatingPointNumber ^^ (_.toDouble) |
-    "null" ^^  { _ => null }  | "true" ^^ { _ => true} | "false" ^^ { _ => false }
+  "null" ^^  { _ => null }  | "true" ^^ { _ => true} | "false" ^^ { _ => false }
 
   protected def obj: Parser[Map[String, Any]] = "{" ~> repsep(member, ",") <~ "}" ^^ (Map() ++ _)
 
@@ -21,19 +22,18 @@ trait JSONParser extends JavaTokenParsers {
 
   protected def member: Parser[(String, Any)] = stringLiteral ~ ":" ~ value ^^ { case name ~ ":" ~ value => (name, value) }
 
-
   protected def parserLaunch(parser: Parser[Any], reader: Reader[Char]) = {
     parseAll(parser, reader) match {
-      case Success(matched, _) => findKeys(matched.asInstanceOf[Map[_,Any]],"")
-      case Failure(failMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. FAILURE: " + failMsg)
-      case Error(errMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. ERROR: " + errMsg)
+      case Success(matched:List[Map[Any,Any]], _) => findKeys(matched,"title")
+      case NoSuccess(noSuccMsg, _) => System.err.println("NO SUCCESS MESSAGE: " + noSuccMsg);
+      case Failure(failMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. FAILURE: " + failMsg);
+      case Error(errMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. ERROR: " + errMsg);
     }
   }
 
-  //To find all the values for a defined key
-  def findKeys[T](c: Map[_,Any], key: T): List[Any] = {
+  def findKeys(c: Any, key: Any): List[Any] = {
     @tailrec
-    def findKeysTrav(tr: Traversable[_], key: T, acc: List[_]): List[_] = {
+    def findKeysTrav(tr: Traversable[Any], key: Any, acc: List[Any] ): List[Any] = {
       if (tr.isEmpty) acc
       else {
         val headAcc = findKeysImp(tr.head, key, acc)
@@ -42,17 +42,17 @@ trait JSONParser extends JavaTokenParsers {
     }
 
     @tailrec
-    def findKeysImp(c: Any, key: T, acc: List[Any]):List[_] = {
+    def findKeysImp(c: Any, key: Any, acc: List[Any]):List[Any] = {
       c match {
-        case m: Map[T, Any] => {
+        case m: Map[Any, Any] => {
           val valueOpt = m.get(key)
           if (valueOpt.isDefined)
             valueOpt.get :: acc
           else
             findKeysImp(m.values, key, acc)
         }
-        case Some(v) => findKeysImp(v, key, acc)
-        case tr: Traversable[_] => findKeysTrav(tr, key, acc)
+        case Some(s) => findKeysImp(s, key, acc)
+        case tr: Traversable[Any] => findKeysTrav(tr, key, acc)
         case _ => acc
       }
     }
@@ -60,4 +60,6 @@ trait JSONParser extends JavaTokenParsers {
     findKeysImp(c, key, List.empty[Any])
   }
 }
+
+
 
