@@ -9,14 +9,14 @@ import scala.xml.NodeSeq
   */
 class KeyTest(nd: NodeSeq) extends FunSuite with JSONParser with Util {
 
-  def testKeys[T](m:Map[_,_],expectedResult:T)(t:T)= {
+  def testKeys(m:Map[_,_],expectedResult:Any)(t:Any)= {
     val value = findKeys(m,t)
     (value, expectedResult)
   }
 
   val testMap = Map("address book" -> Map("name" -> "Speri Pietro", "address" -> Map("street" -> "Street 2", "city" -> "Huntington Beach", "zip" -> "92647"), "phone number" -> List("403827666", "403827667")))
-  val l = List((testMap,"Street",List(Map("name" -> "Speri Pietro", "address" -> Map("street" -> "Street 2", "city" -> "Huntington Beach", "zip" -> "92647"), "phone number" -> List("403827666", "403827667")))),
-    (testMap,"address book",List(Map("name" -> "Speri Pietro", "address" -> Map("street" -> "Street 2", "city" -> "Huntington Beach", "zip" -> "92647"), "phone number" -> List("403827666", "403827667")))))
+  val l = List((testMap,"address book",List(Map("name" -> "Speri Pietro", "address" -> Map("street" -> "Street 2", "city" -> "Huntington Beach", "zip" -> "92647"), "phone number" -> List("403827666", "403827667")))),
+    (testMap,"name",List("Speri Pietro")))
 
   for(el<-l){
     test(el+" TEST"){
@@ -24,6 +24,5 @@ class KeyTest(nd: NodeSeq) extends FunSuite with JSONParser with Util {
       try {assert(result == expected)}
     }
   }
-
 
 }
