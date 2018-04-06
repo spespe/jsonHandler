@@ -22,9 +22,15 @@ trait JSONParser extends JavaTokenParsers {
 
   protected def member: Parser[(String, Any)] = stringLiteral ~ ":" ~ value ^^ { case name ~ ":" ~ value => (name, value) }
 
+  //Double conversion
+  protected def elementMap: Parser[Any] = element|list|map
+  protected def map:Parser[Map[Any,Any]] = "Map(" ~> repsep(element, "->") <~ "," ^^ { Map() ++ _}
+  protected def list: Parser[List[Any]] = "List(" ~> repsep(element,",") <~ ")" ^^ (_.toString.split(",").toList)
+  protected def element:Parser[Any] = "\""~" "|stringLiteral|floatingPointNumber~"\""
+
   protected def parserLaunch(parser: Parser[Any], reader: Reader[Char]) = {
     parseAll(parser, reader) match {
-      case Success(matched:List[Map[Any,Any]], _) => matched.foreach(println)
+      case Success(matched:Traversable[_], _) => matched.foreach(println)//val m:List[Map[String,Any]]= matched.map(x=>x.asInstanceOf[Map[Any,Any]])(collection.breakOut)
       case NoSuccess(noSuccMsg, _) => System.err.println("NO SUCCESS MESSAGE: " + noSuccMsg);
       case Failure(failMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. FAILURE: " + failMsg);
       case Error(errMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. ERROR: " + errMsg);
