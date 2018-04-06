@@ -24,7 +24,7 @@ trait JSONParser extends JavaTokenParsers {
 
   protected def parserLaunch(parser: Parser[Any], reader: Reader[Char]) = {
     parseAll(parser, reader) match {
-      case Success(matched:List[Map[Any,Any]], _) => findKeys(matched,"title")
+      case Success(matched:List[Map[Any,Any]], _) => matched.foreach(println)
       case NoSuccess(noSuccMsg, _) => System.err.println("NO SUCCESS MESSAGE: " + noSuccMsg);
       case Failure(failMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. FAILURE: " + failMsg);
       case Error(errMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. ERROR: " + errMsg);

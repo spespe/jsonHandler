@@ -13,7 +13,7 @@ import scala.xml.{NodeSeq, XML}
 trait Util extends FunSuite with ArgumentsParser with JSONParser with LazyLogging {
 
   @volatile protected var elem: scala.xml.Elem = _
-  private val elementList = List("value", "obj", "member", "arr", "multiple", "argParser")
+  private val elementList = List("value", "obj", "member", "arr", "multiple", "argParser","key")
 
   protected def getTime = Calendar.getInstance.getTime
   //  val input = getClass.getResourceAsStream("/tests.xml")
@@ -77,6 +77,7 @@ trait Util extends FunSuite with ArgumentsParser with JSONParser with LazyLoggin
       case "arr" => org.scalatest.run(new ArrTest(nd))
       case "multiple" => org.scalatest.run(new MultTest(nd))
       case "argParser" => org.scalatest.run(new ArgParserTest(nd))
+      case "key" => org.scalatest.run(new KeyTest(nd))
     }
   }
 
