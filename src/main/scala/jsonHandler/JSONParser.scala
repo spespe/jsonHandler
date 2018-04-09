@@ -12,20 +12,15 @@ import scala.util.parsing.input.Reader
 trait JSONParser extends JavaTokenParsers {
 
   protected def multiple: Parser[Any] = rep(value)
-
   protected def value: Parser[Any] = obj | arr | stringLiteral | floatingPointNumber ^^ (_.toDouble) |
   "null" ^^  { _ => null }  | "true" ^^ { _ => true} | "false" ^^ { _ => false }
-
   protected def obj: Parser[Map[String, Any]] = "{" ~> repsep(member, ",") <~ "}" ^^ (Map() ++ _)
-
   protected def arr: Parser[List[Any]] = "[" ~> repsep(value, ",") <~ "]"
-
   protected def member: Parser[(String, Any)] = stringLiteral ~ ":" ~ value ^^ { case name ~ ":" ~ value => (name, value) }
 
   //Double conversion
-  protected def elementMap: Parser[Any] = element|list|map
-  protected def map:Parser[Map[Any,Any]] = "Map(" ~> repsep(element, "->") <~ "," ^^ { Map() ++ _}
-  protected def list: Parser[List[Any]] = "List(" ~> repsep(element,",") <~ ")" ^^ (_.toString.split(",").toList)
+  protected def map:Parser[Any] = "Map(" ~> repsep(element|list|map, "->") <~ ")"
+  protected def list: Parser[Any] = "List(" ~> repsep(element,",") <~ ")"
   protected def element:Parser[Any] = "\""~" "|stringLiteral|floatingPointNumber~"\""
 
   protected def parserLaunch(parser: Parser[Any], reader: Reader[Char]) = {
