@@ -19,16 +19,20 @@ trait JSONParser extends JavaTokenParsers {
   protected def member: Parser[(String, Any)] = stringLiteral ~ ":" ~ value ^^ { case name ~ ":" ~ value => (name, value) }
 
   //Double conversion
-  protected def map:Parser[Any] = "Map(" ~> repsep(element|list|map, "->") <~ ")"
+  protected def mapp:Parser[Any] = "Map(" ~ rep(mappEl|mappList|mappMap) ~ ")"
+  protected def mappMap:Parser[Any] = element ~ "->" ~ "Map(" ~ repsep(element|list|mappMap, "->") ~ ")" ~ comma
+  protected def mappList:Parser[Any] = element ~ "->" ~ list ~ comma
+  protected def mappEl:Parser[Any] = element ~ "->" ~ element ~ comma
+  protected def comma:Parser[Any] = ",".?
   protected def list: Parser[Any] = "List(" ~> repsep(element,",") <~ ")"
   protected def element:Parser[Any] = "\""~" "|stringLiteral|floatingPointNumber~"\""
 
   protected def parserLaunch(parser: Parser[Any], reader: Reader[Char]) = {
     parseAll(parser, reader) match {
-      case Success(matched:Traversable[_], _) => matched.foreach(println)//val m:List[Map[String,Any]]= matched.map(x=>x.asInstanceOf[Map[Any,Any]])(collection.breakOut)
-      case NoSuccess(noSuccMsg, _) => System.err.println("NO SUCCESS MESSAGE: " + noSuccMsg);
-      case Failure(failMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. FAILURE: " + failMsg);
-      case Error(errMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. ERROR: " + errMsg);
+      case Success(matched:Traversable[_], _) => matched //val m:List[Map[String,Any]]= matched.map(x=>x.asInstanceOf[Map[Any,Any]])(collection.breakOut)
+      case NoSuccess(noSuccMsg, _) => System.err.println("NO SUCCESS MESSAGE: " + noSuccMsg)
+      case Failure(failMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. FAILURE: " + failMsg)
+      case Error(errMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. ERROR: " + errMsg)
     }
   }
 
