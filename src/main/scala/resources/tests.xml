@@ -191,5 +191,34 @@
         <test>-f C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json -t y -t n -s $ -s @ -k key</test>
         <result>Map('InputFile -> C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json, 'TestLauncher -> n, 'Separator -> @, 'Key -> key)</result>
     </unit>
+    <!-- DOUBLE CONVERSION TESTS -->
+    <unit name="Element" tag="doubleConversion" type="POSITIVE">
+        <test>""""403827666""""</test>
+        <result></result>
+    </unit>
+    <unit name="List of Elements" tag="doubleConversion" type="POSITIVE">
+        <test>"""List("403827666", "403827667")"""</test>
+        <result></result>
+    </unit>
+    <unit name="Map key -> list" tag="doubleConversion" type="POSITIVE">
+        <test>"""Map("name" -> List("Speri Pietro","pietro 2"))"""</test>
+        <result></result>
+    </unit>
+    <unit name="Map multiple elements" tag="doubleConversion" type="POSITIVE">
+        <test>"""Map("glossary" -> "example glossary", "GlossDiv" -> "title")"""</test>
+        <result></result>
+    </unit>
+    <unit name="Map key -> Map" tag="doubleConversion" type="POSITIVE">
+        <test>"""Map("name" -> Map("testing recursion" -> "Speri Pietro", "a" -> "b"))"""</test>
+        <result></result>
+    </unit>
+    <unit name="Map key -> (Map(key -> List))" tag="doubleConversion" type="POSITIVE">
+        <test>"""Map("name" -> Map("testing recursion" -> List("Speri Pietro","pietro 2"), "a" -> "b"))"""</test>
+        <result></result>
+    </unit>
+    <unit name="Map of multiple Map" tag="doubleConversion" type="POSITIVE">
+        <test>"""Map("glossary" -> Map("title" -> "example glossary", "GlossDiv" -> Map("title" -> List("Speri Pietro","pietro 2"))))"""</test>
+        <result></result>
+    </unit>
 </tests>
 
