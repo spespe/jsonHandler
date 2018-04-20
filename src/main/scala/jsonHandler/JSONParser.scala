@@ -9,7 +9,7 @@ import scala.util.parsing.input.Reader
   * Created by Pietro.Speri on 09/03/2018.
   */
 
-trait JSONParser extends JavaTokenParsers with Util{
+trait JSONParser extends JavaTokenParsers {
 
   protected def multiple: Parser[List[Map[Any,Any]]] = rep(value).asInstanceOf[Parser[List[Map[Any,Any]]]]
   protected def value: Parser[Any] = obj | arr | stringLiteral | floatingPointNumber ^^ (_.toDouble) |

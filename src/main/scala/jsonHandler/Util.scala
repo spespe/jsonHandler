@@ -1,6 +1,6 @@
 package jsonHandler
 
-import java.io.{File, PrintWriter}
+import java.io.{BufferedWriter, File, FileWriter, PrintWriter}
 import java.util.Calendar
 
 import com.typesafe.scalalogging.LazyLogging
@@ -71,11 +71,12 @@ trait Util extends FunSuite with ArgumentsParser with JSONParser with LazyLoggin
     }
   }
 
-  protected def writeFile(f:File,el:Array[Char]): Unit ={
-    val pw = new PrintWriter(f)
-    pw.write(el)
-    pw.flush
-    pw.close
+  protected def writeFile(f:String,el:Array[Char]): Unit ={
+    val fw = new FileWriter(f)
+    val bw = new BufferedWriter(fw)
+    bw.write(el)
+    bw.flush
+    bw.close
   }
 
   private def launchTest(nd:NodeSeq,s:String)= {
