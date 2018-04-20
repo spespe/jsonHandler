@@ -1,6 +1,6 @@
 package jsonHandler
 
-import java.io.{File, FileInputStream, InputStreamReader}
+import java.io.{FileInputStream, InputStreamReader}
 import scala.util.parsing.input.{Reader, StreamReader}
 
 /**
@@ -44,10 +44,21 @@ object JSONHandler extends Util with App {
       case "value" => ObjParser = value
       case "member" => ObjParser = member
     }
-    parserLaunch(ObjParser, reader).get.foreach(x=>writeFile(getArgument(argsList, 'OutputFile),x))
+    if (argsList.contains('OutputFile)){
+      logger.info("{WRITING TO FILE " + getArgument(argsList, 'OutputFile) + " THE PARSED RESULT}")
+      parserLaunch(ObjParser, reader).get.foreach(x=>writeFile(getArgument(argsList, 'OutputFile),x))
+    } else {
+      println(parserLaunch(ObjParser, reader))
+      }
+
   } else {
     logger.info("{LAUNCHING JSON PARSER ON " + getArgument(argsList, 'InputFile) + " USING NORMAL FILE PARSING }")
-    parserLaunch(multiple, reader).get.foreach(x=>writeFile(getArgument(argsList, 'OutputFile),x))
+    if (argsList.contains('OutputFile)){
+      logger.info("{WRITING TO FILE " + getArgument(argsList, 'OutputFile) + " THE PARSED RESULT}")
+      parserLaunch(multiple, reader).get.foreach(x=>writeFile(getArgument(argsList, 'OutputFile),x))
+    } else {
+      println(parserLaunch(multiple, reader))
+    }
   }
 
 }

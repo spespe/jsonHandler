@@ -12,7 +12,7 @@ trait ArgumentsParser {
 
   protected def usage = println("\nOne or more arguments passed are incorrect. Please refer to the following usage example.\n" +
     "USAGE EXAMPLE: jsonHandler -f /path/to/your/file/file.json[FILE][REQUIRED] -k key [KEY][OPTIONAL] \n" +
-    "-s '<*>'[SEPARATOR][OPTIONAL] -t y [TESTLAUNCHER][OPTIONAL] ")
+    "-s '<*>'[SEPARATOR][OPTIONAL] -t y [TESTLAUNCHER][OPTIONAL] -o /path/to/output/file.txt")
 
   @tailrec
   protected final def argsParser(map: ParserMap, l: List[String]): ParserMap = {
