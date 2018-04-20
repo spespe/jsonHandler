@@ -44,10 +44,10 @@ object JSONHandler extends Util with App {
       case "value" => ObjParser = value
       case "member" => ObjParser = member
     }
-    writeFile(getArgument(argsList, 'OutputFile),parserLaunch(ObjParser, reader).asInstanceOf[Array[Char]])
+    parserLaunch(ObjParser, reader).get.foreach(x=>writeFile(getArgument(argsList, 'OutputFile),x))
   } else {
     logger.info("{LAUNCHING JSON PARSER ON " + getArgument(argsList, 'InputFile) + " USING NORMAL FILE PARSING }")
-    writeFile(getArgument(argsList, 'OutputFile),parserLaunch(multiple, reader).asInstanceOf[Array[Char]])
+    parserLaunch(multiple, reader).get.foreach(x=>writeFile(getArgument(argsList, 'OutputFile),x))
   }
 
 }

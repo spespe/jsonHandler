@@ -25,12 +25,12 @@ trait JSONParser extends JavaTokenParsers {
   protected def list: Parser[Any] = "List(" ~> repsep(element,",") <~ ")"
   protected def element:Parser[Any] = "\""~" "|stringLiteral|floatingPointNumber~"\"" ~ (",").?
 
-  protected def parserLaunch(parser: Parser[Any], reader: Reader[Char]) = {
+  protected def parserLaunch(parser: Parser[Any], reader: Reader[Char]):Option[List[String]] = {
     parseAll(parser, reader) match {
-      case Success(matched, _) => matched //matched.asInstanceOf[List[Any]].map(x=>println(findKeys(x, "title")))
-      case NoSuccess(noSuccMsg, _) => System.err.println("NO SUCCESS MESSAGE: " + noSuccMsg)
-      case Failure(failMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. FAILURE: " + failMsg)
-      case Error(errMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. ERROR: " + errMsg)
+      case Success(matched, _) => Some(matched.asInstanceOf[List[Any]].map(x=>x.toString)) //matched.asInstanceOf[List[Any]].map(x=>println(findKeys(x, "title")))
+      case NoSuccess(noSuccMsg, _) => System.err.println("NO SUCCESS MESSAGE: " + noSuccMsg);None
+      case Failure(failMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. FAILURE: " + failMsg);None
+      case Error(errMsg, _) => System.err.println("PLEASE CHECK THE INPUT JSON FILE. ERROR: " + errMsg);None
     }
   }
 

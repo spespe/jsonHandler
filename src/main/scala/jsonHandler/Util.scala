@@ -71,10 +71,10 @@ trait Util extends FunSuite with ArgumentsParser with JSONParser with LazyLoggin
     }
   }
 
-  protected def writeFile(f:String,el:Array[Char]): Unit ={
-    val fw = new FileWriter(f)
+  protected def writeFile(f:String,el:String): Unit ={
+    val fw = new FileWriter(f,true)
     val bw = new BufferedWriter(fw)
-    bw.write(el)
+    bw.write("\n"+el)
     bw.flush
     bw.close
   }
