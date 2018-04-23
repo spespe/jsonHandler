@@ -17,6 +17,8 @@ usage(){
 	echo -e "\e[33m OPTION -k : allows to specify the key to use for the parser. It returns the value(s) associated with that key - [OPTIONAL] \e[0m"
 	echo -e "\e[33m OPTION -s : allows to customize the separator character (if required) to use for the output file ('|' by default) - [OPTIONAL] \e[0m"
 	echo -e "\e[33m OPTION -d : allows to launch the program on a directory containing json files - [OPTIONAL] \e[0m"
+	echo -e "\e[33m OPTION -t : allows to launch the tests before running the script - [OPTIONAL] \e[0m"
+	echo -e "\e[33m OPTION -o : allows to specify the output file to create, if necessary - [OPTIONAL] \e[0m"
 	echo -e "\e[32m EXAMPLE: ./launcher.sh -m /path/to/your/file/bestFile.json [REQUIRED] -s '|' [OPTIONAL PARAMETER] \e[0m"
 	exit 1
 }
@@ -62,6 +64,18 @@ while test $# -gt 0
 		DIR="-d $1"
 		ARGS+=($DIR)
 		echo -e "\e[0;33m DIRECTORY: $1 \e[0m"
+		;;
+		-t|--tests)
+		shift
+		TESTS="-t $1"
+		ARGS+=($TESTS)
+		echo -e "\e[0;33m TESTS: $1 \e[0m"
+		;;
+		-o|--outputfile)
+		shift
+		OUTPUT_FILE="-o $1"
+		ARGS+=($OUTPUT_FILE)
+		echo -e "\e[0;33m OUTPUT FILE: $1 \e[0m"
 		;;
 		*)
 		echo -e "\e[0;31m `whoami` - `date +%D' '%T` - ERROR. Invalid argument: $1 \e[0m"
