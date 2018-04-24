@@ -1,6 +1,6 @@
 package jsonHandler
 
-import java.io.{FileInputStream, InputStreamReader}
+import java.io.{FileInputStream, InputStreamReader, File}
 import scala.util.parsing.input.{Reader, StreamReader}
 
 /**
@@ -18,10 +18,9 @@ object JSONHandler extends Util with App {
   private var sep = "|"
   private var ObjParser:Parser[Any] = null
   logger.info("{CREATING STREAMREADER FROM INPUT FILE: "+getArgument(argsList, 'InputFile)+" }")
-  private val reader:Reader[Char] = StreamReader(new InputStreamReader(new FileInputStream(getArgument(argsList, 'InputFile))))
-
   //Elems in inputTestValidator
   val ns = (elem \\ "unit")
+
 
   if (argsList.contains('Separator)) {
     sep = getArgument(argsList, 'Separator)
@@ -30,35 +29,45 @@ object JSONHandler extends Util with App {
 
   testParamCheck(ns, argsList)
 
-  if (!argsList.contains('InputFile)) {
+  if (!argsList.contains('InputFile) && !argsList.contains('Directory)) {
     usage
-    System.err.println("INPUT JSON FILE REQUIRED!")
+    System.err.println("INPUT JSON FILE OR FOLDER ARE REQUIRED!")
     System.exit(1)
   }
 
-  if (argsList.contains('ObjectParser)){
-    logger.info("{LAUNCHING JSON PARSER ON " + getArgument(argsList, 'InputFile) + "USING " + getArgument(argsList, 'ObjectParser) + "}")
-    getArgument(argsList, 'ObjectParser) match {
-      case "arr" => ObjParser = arr
-      case "obj" => ObjParser = obj
-      case "value" => ObjParser = value
-      case "member" => ObjParser = member
-    }
-    if (argsList.contains('OutputFile)){
-      logger.info("{WRITING TO FILE " + getArgument(argsList, 'OutputFile) + " THE PARSED RESULT}")
-      parserLaunch(ObjParser, reader).get.foreach(x=>writeFile(getArgument(argsList, 'OutputFile),x))
-    } else {
-      println(parserLaunch(ObjParser, reader))
+  def launcher(inputFile:String) = {
+    val reader:Reader[Char] = StreamReader(new InputStreamReader(new FileInputStream(inputFile)))
+    if (argsList.contains('ObjectParser)) {
+      logger.info("{LAUNCHING JSON PARSER ON " + inputFile + "USING " + getArgument(argsList, 'ObjectParser) + "}")
+      getArgument(argsList, 'ObjectParser) match {
+        case "arr" => ObjParser = arr
+        case "obj" => ObjParser = obj
+        case "value" => ObjParser = value
+        case "member" => ObjParser = member
+      }
+      if (argsList.contains('OutputFile)) {
+        logger.info("{WRITING TO FILE " + getArgument(argsList, 'OutputFile) + " THE PARSED RESULT}")
+        parserLaunch(ObjParser, reader).get.foreach(x => writeFile(getArgument(argsList, 'OutputFile), x))
+      } else {
+        println(parserLaunch(ObjParser, reader))
       }
 
-  } else {
-    logger.info("{LAUNCHING JSON PARSER ON " + getArgument(argsList, 'InputFile) + " USING NORMAL FILE PARSING }")
-    if (argsList.contains('OutputFile)){
-      logger.info("{WRITING TO FILE " + getArgument(argsList, 'OutputFile) + " THE PARSED RESULT}")
-      parserLaunch(multiple, reader).get.foreach(x=>writeFile(getArgument(argsList, 'OutputFile),x))
     } else {
-      println(parserLaunch(multiple, reader))
+      logger.info("{LAUNCHING JSON PARSER ON " + inputFile + " USING NORMAL FILE PARSING }")
+      if (argsList.contains('OutputFile)) {
+        logger.info("{WRITING TO FILE " + getArgument(argsList, 'OutputFile) + " THE PARSED RESULT}")
+        parserLaunch(multiple, reader).get.foreach(x => writeFile(getArgument(argsList, 'OutputFile), x))
+      } else {
+        println(parserLaunch(multiple, reader))
+      }
     }
+  }
+
+  if (!argsList.contains('Directory)) {
+    val list = new java.io.File(getArgument(argsList, 'OutputFile)).listFiles
+    list.foreach(x=>launcher(x.toString))
+  } else {
+    launcher(getArgument(argsList, 'InputFile))
   }
 
 }
