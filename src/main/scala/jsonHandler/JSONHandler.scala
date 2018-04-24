@@ -17,6 +17,7 @@ object JSONHandler extends Util with App {
 
   private var sep = "|"
   private var ObjParser:Parser[Any] = null
+  private val jsonExtension = ".json"
   logger.info("{CREATING STREAMREADER FROM INPUT FILE: "+getArgument(argsList, 'InputFile)+" }")
   //Elems in inputTestValidator
   val ns = (elem \\ "unit")
@@ -29,9 +30,9 @@ object JSONHandler extends Util with App {
 
   testParamCheck(ns, argsList)
 
-  if (!argsList.contains('InputFile) && !argsList.contains('Directory)) {
+  if (!argsList.contains('InputFile) && !argsList.contains('Directory) || !getArgument(argsList, 'InputFile).endsWith(jsonExtension)) {
     usage
-    System.err.println("INPUT JSON FILE OR FOLDER ARE REQUIRED!")
+    System.err.println("WRONG INPUT!")
     System.exit(1)
   }
 
@@ -70,8 +71,7 @@ object JSONHandler extends Util with App {
   }
 
   if (!argsList.contains('Directory)) {
-    val extension = ".json"
-    val list = new java.io.File(getArgument(argsList, 'Directory)).listFiles.filter(x=>x.toString.endsWith(extension))
+    val list = new java.io.File(getArgument(argsList, 'Directory).mkString).listFiles.filter(x=>x.toString.endsWith(jsonExtension))
     list.foreach(x=>launcher(x.toString))
   } else {
     launcher(getArgument(argsList, 'InputFile))
