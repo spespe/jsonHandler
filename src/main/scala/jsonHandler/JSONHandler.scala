@@ -35,6 +35,12 @@ object JSONHandler extends Util with App {
     System.exit(1)
   }
 
+  if (argsList.contains('InputFile) && argsList.contains('Directory)) {
+    usage
+    System.err.println("USER CANNOT SPECIFY BOTH INPUT FILE AND INPUT FOLDER IN THE COMMAND!")
+    System.exit(1)
+  }
+
   def launcher(inputFile:String) = {
     val reader:Reader[Char] = StreamReader(new InputStreamReader(new FileInputStream(inputFile)))
     if (argsList.contains('ObjectParser)) {
@@ -64,7 +70,8 @@ object JSONHandler extends Util with App {
   }
 
   if (!argsList.contains('Directory)) {
-    val list = new java.io.File(getArgument(argsList, 'OutputFile)).listFiles
+    val extension = ".json"
+    val list = new java.io.File(getArgument(argsList, 'Directory)).listFiles.filter(x=>x.toString.endsWith(extension))
     list.foreach(x=>launcher(x.toString))
   } else {
     launcher(getArgument(argsList, 'InputFile))
