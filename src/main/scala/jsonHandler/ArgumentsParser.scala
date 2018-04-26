@@ -31,7 +31,7 @@ trait ArgumentsParser {
     }
   }
 
-  protected def getArgument(p:ParserMap,s:Symbol):String=p.get(s).get
+  protected def getArgument(p:ParserMap,s:Symbol):Option[String]=p.get(s)
 
 }
 

@@ -24,13 +24,13 @@ object JSONHandler extends Util with App {
 
 
   if (argsList.contains('Separator)) {
-    sep = getArgument(argsList, 'Separator)
+    sep = getArgument(argsList, 'Separator).get
   }
   logger.info("{LAUNCHING JSON PARSER USING " + sep + " AS SEPARATOR}")
 
   testParamCheck(ns, argsList)
 
-  if (!argsList.contains('InputFile) && !argsList.contains('Directory) || !getArgument(argsList, 'InputFile).endsWith(jsonExtension)) {
+  if (!argsList.contains('InputFile) && !argsList.contains('Directory)) {
     usage
     System.err.println("WRONG INPUT!")
     System.exit(1)
@@ -45,8 +45,8 @@ object JSONHandler extends Util with App {
   def launcher(inputFile:String) = {
     val reader:Reader[Char] = StreamReader(new InputStreamReader(new FileInputStream(inputFile)))
     if (argsList.contains('ObjectParser)) {
-      logger.info("{LAUNCHING JSON PARSER ON " + inputFile + "USING " + getArgument(argsList, 'ObjectParser) + "}")
-      getArgument(argsList, 'ObjectParser) match {
+      logger.info("{LAUNCHING JSON PARSER ON " + inputFile + "USING " + getArgument(argsList, 'ObjectParser).get + "}")
+      getArgument(argsList, 'ObjectParser).get match {
         case "arr" => ObjParser = arr
         case "obj" => ObjParser = obj
         case "value" => ObjParser = value
@@ -54,7 +54,7 @@ object JSONHandler extends Util with App {
       }
       if (argsList.contains('OutputFile)) {
         logger.info("{WRITING TO FILE " + getArgument(argsList, 'OutputFile) + " THE PARSED RESULT}")
-        parserLaunch(ObjParser, reader).get.foreach(x => writeFile(getArgument(argsList, 'OutputFile), x))
+        parserLaunch(ObjParser, reader).get.foreach(x => writeFile(getArgument(argsList, 'OutputFile).get, x))
       } else {
         println(parserLaunch(ObjParser, reader))
       }
@@ -63,18 +63,18 @@ object JSONHandler extends Util with App {
       logger.info("{LAUNCHING JSON PARSER ON " + inputFile + " USING NORMAL FILE PARSING }")
       if (argsList.contains('OutputFile)) {
         logger.info("{WRITING TO FILE " + getArgument(argsList, 'OutputFile) + " THE PARSED RESULT}")
-        parserLaunch(multiple, reader).get.foreach(x => writeFile(getArgument(argsList, 'OutputFile), x))
+        parserLaunch(multiple, reader).get.foreach(x => writeFile(getArgument(argsList, 'OutputFile).get, x))
       } else {
         println(parserLaunch(multiple, reader))
       }
     }
   }
 
-  if (!argsList.contains('Directory)) {
-    val list = new java.io.File(getArgument(argsList, 'Directory).mkString).listFiles.filter(x=>x.toString.endsWith(jsonExtension))
+  if (argsList.contains('Directory)) {
+    val list = new java.io.File(getArgument(argsList, 'Directory).get.mkString).listFiles.filter(x=>x.toString.endsWith(jsonExtension))
     list.foreach(x=>launcher(x.toString))
   } else {
-    launcher(getArgument(argsList, 'InputFile))
+    launcher(getArgument(argsList, 'InputFile).get)
   }
 
 }
