@@ -172,28 +172,24 @@
     </unit>
     <!-- ARGPARSER TESTS -->
     <unit name="Testing tests" tag="argParser" type="POSITIVE">
-        <test>-f C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json -t y -s $</test>
-        <result>Map('InputFile -> C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json, 'TestLauncher -> y, 'Separator -> $)</result>
+        <test>-f C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json -t y</test>
+        <result>Map('InputFile -> C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json, 'TestLauncher -> y)</result>
     </unit>
     <unit name="Double obj Param test" tag="argParser" type="POSITIVE">
-        <test>-f C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json -t y -s $ -k key -k key</test>
-        <result>Map('InputFile -> C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json, 'TestLauncher -> y, 'Separator -> $, 'Key -> key)</result>
+        <test>-f C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json -t y -k key -k key</test>
+        <result>Map('InputFile -> C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json, 'TestLauncher -> y, 'Key -> key)</result>
     </unit>
     <unit name="Double test Param test" tag="argParser" type="POSITIVE">
-        <test>-f C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json -t y -t n -s $ -k key</test>
-        <result>Map('InputFile -> C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json, 'TestLauncher -> n, 'Separator -> $, 'Key -> key)</result>
+        <test>-f C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json -t y -t n -k key</test>
+        <result>Map('InputFile -> C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json, 'TestLauncher -> n, 'Key -> key)</result>
     </unit>
     <unit name="Double input file Param test" tag="argParser" type="POSITIVE">
-        <test>-f C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json -f file2.json -t y -t n -s $ -k key</test>
-        <result>Map('InputFile -> file2.json, 'TestLauncher -> n, 'Separator -> $, 'Key -> key)</result>
-    </unit>
-    <unit name="Double sep Param test" tag="argParser" type="POSITIVE">
-        <test>-f C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json -t y -t n -s $ -s @ -k key</test>
-        <result>Map('InputFile -> C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json, 'TestLauncher -> n, 'Separator -> @, 'Key -> key)</result>
+        <test>-f C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json -f file2.json -t y -t n -k key</test>
+        <result>Map('InputFile -> file2.json, 'TestLauncher -> n, 'Key -> key)</result>
     </unit>
     <unit name="Directory test" tag="argParser" type="POSITIVE">
-        <test>-d C:\Users\pietro.speri\Desktop\jsons -t y -t n -s $ -s @ -k key</test>
-        <result>Map('Directory -> C:\Users\pietro.speri\Desktop\jsons, 'TestLauncher -> n, 'Separator -> @, 'Key -> key)</result>
+        <test>-d C:\Users\pietro.speri\Desktop\jsons -t y -t n -k key</test>
+        <result>Map('Directory -> C:\Users\pietro.speri\Desktop\jsons, 'TestLauncher -> n, 'Key -> key)</result>
     </unit>
     <!-- DOUBLE CONVERSION TESTS -->
     <unit name="Element" tag="doubleConversion" type="POSITIVE">
