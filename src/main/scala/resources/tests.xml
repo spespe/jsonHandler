@@ -191,6 +191,10 @@
         <test>-f C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json -t y -t n -s $ -s @ -k key</test>
         <result>Map('InputFile -> C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json, 'TestLauncher -> n, 'Separator -> @, 'Key -> key)</result>
     </unit>
+    <unit name="Directory test" tag="argParser" type="POSITIVE">
+        <test>-d C:\Users\pietro.speri\Desktop\jsons -t y -t n -s $ -s @ -k key</test>
+        <result>Map('Directory -> C:\Users\pietro.speri\Desktop\jsons, 'TestLauncher -> n, 'Separator -> @, 'Key -> key)</result>
+    </unit>
     <!-- DOUBLE CONVERSION TESTS -->
     <unit name="Element" tag="doubleConversion" type="POSITIVE">
         <test>""""403827666""""</test>
