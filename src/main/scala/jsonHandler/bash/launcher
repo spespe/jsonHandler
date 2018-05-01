@@ -14,8 +14,6 @@ fi
 usage(){
 	echo -e "\e[33m USAGE: ./launcher.sh -f [JSON FILE][REQUIRED] [-][OPTIONAL PARAMETERS] \e[0m"
 	echo -e "\e[33m OPTION -f : allows to specify the file name to pass as input(JSON format file) - [REQUIRED] \e[0m"
-	echo -e "\e[33m OPTION -k : allows to specify the key to use for the parser. It returns the value(s) associated with that key - [OPTIONAL] \e[0m"
-	echo -e "\e[33m OPTION -s : allows to customize the separator character (if required) to use for the output file ('|' by default) - [OPTIONAL] \e[0m"
 	echo -e "\e[33m OPTION -d : allows to launch the program on a directory containing json files - [OPTIONAL] \e[0m"
 	echo -e "\e[33m OPTION -t : allows to launch the tests before running the script - [OPTIONAL] \e[0m"
 	echo -e "\e[33m OPTION -o : allows to specify the output file to create, if necessary - [OPTIONAL] \e[0m"
@@ -46,18 +44,6 @@ while test $# -gt 0
 		JSON_FILE="-f $1"
 		ARGS+=($JSON_FILE)
 		echo -e "\e[0;33m JSON FILE: $1 \e[0m"
-		;;
-		-k|--key)
-		shift
-		KEY="-k $1"
-		ARGS+=($KEY)
-		echo -e "\e[0;33m KEY: $1 \e[0m"
-		;;
-		-s|--separator)
-		shift
-		SEPARATOR="-s $1"
-		ARGS+=($SEPARATOR)
-		echo -e "\e[0;33m SEPARATOR: $1 \e[0m"
 		;;
 		-d|--directory)
 		shift

@@ -19,8 +19,6 @@ trait ArgumentsParser {
     l match {
       case Nil => map
       case "-f" :: value :: t => argsParser(map ++ Map('InputFile -> value), t)
-      case "-k" :: value :: t => argsParser(map ++ Map('Key -> value), t)
-      //case "-s" :: value :: t => argsParser(map ++ Map('Separator -> value), t)
       case "-t" :: value :: t => argsParser(map ++ Map('TestLauncher -> value), t)
       case "-d" :: value :: t => argsParser(map ++ Map('Directory -> value), t)
       case "-o" :: value :: t => argsParser(map ++ Map('OutputFile -> value), t)
