@@ -15,7 +15,7 @@ trait JSONParser extends JavaTokenParsers {
   protected def value: Parser[Object] = obj | arr | stringLiteral | floatingPointNumber | "null" | "true" | "false"
   protected def obj: Parser[Map[String, Any]] = ("{" ~> repsep(member, ",") <~ "}") ^^ (Map() ++ _)
   protected def arr: Parser[List[Any]] = "[" ~> repsep(value, ",") <~ "]"
-  protected def member: Parser[(String, Object)] = (stringLiteral ~ ":" ~ value) ^^ {case name ~ ":" ~ value => (name, value)}
+  protected def member: Parser[(String, Object)] = stringLiteral ~ ":" ~ value ^^ {case name ~ ":" ~ value => (name, value)}
 
   //Double conversion
   protected def mapp:Parser[Any] = (element ~ "->").? ~ "Map(" ~ rep(list|mappList|mappEl|mapp|element) ~")" ~ (",").?
@@ -62,6 +62,4 @@ trait JSONParser extends JavaTokenParsers {
     findKeysImp(c, key, List.empty[Any])
   }
 }
-
-
 

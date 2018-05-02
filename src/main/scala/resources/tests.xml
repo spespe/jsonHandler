@@ -176,20 +176,20 @@
         <result>Map('InputFile -> C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json, 'TestLauncher -> y)</result>
     </unit>
     <unit name="Double obj Param test" tag="argParser" type="POSITIVE">
-        <test>-f C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json -t y -k key -k key</test>
-        <result>Map('InputFile -> C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json, 'TestLauncher -> y, 'Key -> key)</result>
+        <test>-f C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json -t y -t y</test>
+        <result>Map('InputFile -> C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json, 'TestLauncher -> y)</result>
     </unit>
     <unit name="Double test Param test" tag="argParser" type="POSITIVE">
-        <test>-f C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json -t y -t n -k key</test>
-        <result>Map('InputFile -> C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json, 'TestLauncher -> n, 'Key -> key)</result>
+        <test>-f C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json -t y -t n </test>
+        <result>Map('InputFile -> C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json, 'TestLauncher -> n)</result>
     </unit>
     <unit name="Double input file Param test" tag="argParser" type="POSITIVE">
-        <test>-f C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json -f file2.json -t y -t n -k key</test>
-        <result>Map('InputFile -> file2.json, 'TestLauncher -> n, 'Key -> key)</result>
+        <test>-f C:\Users\pietro.speri\IdeaProjects\jsonHandler\src\main\scala\resources\jsonExample.json -f file2.json -t y </test>
+        <result>Map('InputFile -> file2.json, 'TestLauncher -> y)</result>
     </unit>
     <unit name="Directory test" tag="argParser" type="POSITIVE">
-        <test>-d C:\Users\pietro.speri\Desktop\jsons -t y -t n -k key</test>
-        <result>Map('Directory -> C:\Users\pietro.speri\Desktop\jsons, 'TestLauncher -> n, 'Key -> key)</result>
+        <test>-d C:\Users\pietro.speri\Desktop\jsons -t y </test>
+        <result>Map('Directory -> C:\Users\pietro.speri\Desktop\jsons, 'TestLauncher -> y)</result>
     </unit>
     <!-- DOUBLE CONVERSION TESTS -->
     <unit name="Element" tag="doubleConversion" type="POSITIVE">
